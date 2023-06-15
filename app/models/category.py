@@ -7,12 +7,12 @@ thread_categories = db.Table(
     db.Column(
         "thread_id",
         db.Integer,
-        db.ForeignKey(add_prefix_for_prod('threads.id'), ondelete='CASCADE'),
+        db.ForeignKey(add_prefix_for_prod('threads.id')),
     ),
     db.Column(
         "category_id",
         db.Integer,
-        db.ForeignKey(add_prefix_for_prod('categories.id'), ondelete='CASCADE'),
+        db.ForeignKey(add_prefix_for_prod('categories.id')),
     )
 )
 
@@ -25,7 +25,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-    threads = db.relationship('Thread', secondary=thread_categories, back_populates='category', passive_deletes=True)
+    threads = db.relationship('Thread', secondary=thread_categories, back_populates='categories', passive_deletes=True)
 
 
     def to_dict(self):

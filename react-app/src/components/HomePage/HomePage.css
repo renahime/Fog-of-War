@@ -1,0 +1,19 @@
+.header-login{
+  display:flex;
+  flex-direction: row;
+}
+
+.login-register{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.date{
+  float:right
+}
+
+.column-names{
+  display:flex;
+  flex-direction: row;
+}

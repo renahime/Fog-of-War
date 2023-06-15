@@ -13,9 +13,12 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    about = db.Column(db.String(500))
     signature = db.Column(db.Text)
-    about = db.Column(db.Text)
+    profile_image = db.Column(db.String(255))
 
+    threads = db.relationship('Thread', back_populates='user', cascade="delete-orphan,all")  #added cascade delete
+    posts = db.relationship('Post', back_populates='user', cascade="delete-orphan,all")  #added cascade delete
     @property
     def password(self):
         return self.hashed_password

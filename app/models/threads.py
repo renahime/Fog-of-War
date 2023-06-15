@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime, timedelta
+from .category import thread_categories
 
 
 class Thread(db.Model):
@@ -12,9 +13,9 @@ class Thread(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    category = db.relationship('Category', back_populates='threads', passive_deletes=True)
+    categories = db.relationship('Category', secondary= thread_categories, back_populates='threads',cascade="all, delete", passive_deletes=True)
     user = db.relationship('User', back_populates='threads')
-    posts = db.relationship('Post', back_populates='thread', ondelete='CASCADE')
+    posts = db.relationship('Post', back_populates='thread')
 
     def to_dict_with_txt(self):
         return{
