@@ -17,7 +17,7 @@ def seed_category():
     history = Category(
         name='History')
     religion_philosophy = Category(
-        name='Religion/Philosophy')
+        name='Religion and Philosophy')
     food = Category(
         name='Food')
     pet = Category(

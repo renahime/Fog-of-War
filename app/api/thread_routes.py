@@ -15,8 +15,11 @@ def get_thread_by_category(category_name):
     all_threads = {}
 
     for thread in threads:
-        for category in thread.category:
+        print(thread)
+        for category in thread.categories:
+            print(category)
             if category.name == category_name:
+                print(thread)
                 all_threads[thread.id] = thread.to_dict()
 
     return all_threads

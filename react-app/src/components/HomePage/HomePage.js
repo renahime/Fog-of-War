@@ -21,10 +21,8 @@ function HomePage() {
 		categoryArr = Object.values(categories)
 	}
 
-	console.log(categoryArr)
 
-
-	return (categoryArr.length < 1 ? <h1>Loading...</h1> :
+	return (!loading && categoryArr.length < 1 ? <h1>Loading...</h1> :
 		<div className='main-body'>
 			<div className='main-topics-div'>
 				<div className='header-topic'>
@@ -37,7 +35,10 @@ function HomePage() {
 					<h6>Last Post</h6>
 				</div>
 				{categoryArr.map((category) => (
-					<NavLink path to={`/threads/${category.name.split(' ').join('_')}/`}>
+					<NavLink to={{
+						pathname: `/threads/${category.name.split(' ').join('_')}/`,
+						state: { name: category.name }
+					}}>
 						<div className='category-name'>
 							{category.name}
 						</div>

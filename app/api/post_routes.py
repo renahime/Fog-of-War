@@ -7,7 +7,7 @@ from app.forms import ThreadForm
 
 post_routes = Blueprint('post', __name__)
 
-@post_routes.route('/thread/', methods=['GET','POST'])
+@post_routes.route('/thread/<int:thread_id>', methods=['GET','POST'])
 @login_required
 def create_post(thread_id):
     user = User.query.get(current_user.id)

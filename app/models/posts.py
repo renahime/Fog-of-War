@@ -25,4 +25,6 @@ class Post(db.Model):
             'subject': self.subject,
             'text': self.text,
             'user': self.user.to_dict(),
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
         }

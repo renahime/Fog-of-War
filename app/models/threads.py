@@ -19,6 +19,16 @@ class Thread(db.Model):
     user = db.relationship('User', back_populates='threads')
     posts = db.relationship('Post', back_populates='thread')
 
+    def find_youngest_post(self):
+        sorted_posts = sorted(self.posts, key=lambda x: x.created_at, reverse=True)
+
+        return {
+            'username': sorted_posts[0].user.username,
+            'created_at':sorted_posts[0].created_at,
+        }
+
+
+
     def to_dict_with_txt(self):
         return{
             'id': self.id,
@@ -26,8 +36,10 @@ class Thread(db.Model):
             'views': self.views,
             'text': self.text,
             'user': self.user.to_dict(),
-            'category': self.category.to_dict(),
-            'posts': self.posts.to_dict()
+            'category': [category.name for category in self.categories],
+            'posts': [post.to_dict() for post in self.posts],
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
         }
 
 
@@ -37,6 +49,9 @@ class Thread(db.Model):
             'subject': self.subject,
             'views': self.views,
             'user': self.user.to_dict(),
-            'category': self.category.to_dict(),
-            'post_count': len(self.posts.to_dict())
+            'category': [category.name for category in self.categories],
+            "post_count":len([post.id for post in self.posts]),
+            "latest_post": self.find_youngest_post(),
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
         }
