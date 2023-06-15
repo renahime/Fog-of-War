@@ -1,12 +1,18 @@
 """empty message
 
 Revision ID: 2541ff1e7e7f
-Revises: 
+Revises:
 Create Date: 2023-06-15 07:38:54.510510
 
 """
 from alembic import op
 import sqlalchemy as sa
+
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
+
+
 
 
 # revision identifiers, used by Alembic.
@@ -23,6 +29,8 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE categories SET SCHEMA {SCHEMA};")
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
@@ -35,6 +43,9 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('threads',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=255), nullable=False),
@@ -46,6 +57,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE threads SET SCHEMA {SCHEMA};")
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=255), nullable=False),
@@ -58,12 +71,17 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
+
     op.create_table('thread_categories',
     sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], )
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE thread_categories SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
