@@ -14,9 +14,6 @@ def seed_category():
         name='Video Games')
     tv_shows = Category(
         name='TV Shows')
-
-    off_topic_media = Category(
-        name='Off Topic Media')
     history = Category(
         name='History')
     religion_philosophy = Category(
@@ -31,7 +28,6 @@ def seed_category():
     db.session.add(anime_manga)
     db.session.add(videogames)
     db.session.add(tv_shows)
-    db.session.add(off_topic_media)
     db.session.add(history)
     db.session.add(religion_philosophy)
     db.session.add(food)

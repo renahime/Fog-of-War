@@ -75,10 +75,10 @@ def edit_thread(id):
 
 
 @thread_routes('/<int:id>', methods=['DELETE'])
-def get_thread_by_id(id):
+def delete_thread(id):
     thread = Thread.query.get(id)
     if not thread:
         return {'errors': "could not find thread"}
 
-    db.session.delete(id)
+    db.session.delete(thread)
     db.session.commit()
