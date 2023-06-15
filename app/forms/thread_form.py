@@ -6,6 +6,5 @@ from app.models import Thread, User
 
 
 class ThreadForm(FlaskForm):
-    name = StringField('Board Name', validators=[Length(max=50, message="Name must be less than 255 chars!"), DataRequired()])
-    private = BooleanField('Private Board')
-    description = StringField('Board Name', validators=[Length(max=255, message="Name must be less than 255 chars!")])
+    subject = StringField('Subject', validators=[Length(max=255, message="Subject name is too long!"), DataRequired()])
+    text = TextAreaField('Text Box', validators=[DataRequired()])
