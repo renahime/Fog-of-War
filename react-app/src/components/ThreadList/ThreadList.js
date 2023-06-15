@@ -27,6 +27,14 @@ function ThreadList() {
   console.log(threadArr)
   return (!loading && threadArr.length < 1 ? <h1>Loading...</h1> :
     <div>
+      <NavLink to={{
+        pathname: `/threads/${categoryQuery.split(' ').join('_')}/new`,
+        state: {
+          category: categoryQuery
+        }
+      }}>
+        <button style={{ float: 'right' }}>Post Thread</button>
+      </NavLink>
       <h5>{categoryQuery}</h5>
       <div className='title-columns'>
         <h6>Thread/Author</h6>
