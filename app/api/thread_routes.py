@@ -8,7 +8,7 @@ from app.forms import ThreadForm
 thread_routes = Blueprint('thread', __name__)
 
 #Route to get all categories
-@thread_routes.route('/:category_name', methods = ["GET"])
+@thread_routes.route('/<category_name>', methods = ["GET"])
 def get_thread_by_category(category_name):
     #query database
     threads = Thread.query.all()
@@ -21,7 +21,7 @@ def get_thread_by_category(category_name):
 
     return all_threads
 
-@thread_routes('/<int:id>', methods=['GET'])
+@thread_routes.route('/<int:id>', methods = ["GET"])
 def get_thread_by_id(id):
     thread = Thread.query.get(id)
     if not thread:
@@ -29,7 +29,7 @@ def get_thread_by_id(id):
     else:
         return thread.to_dict_with_txt()
 
-@thread_routes('/category/', methods=['GET','POST'])
+@thread_routes.route('/<category_name>/new', methods=['GET','POST'])
 @login_required
 def create_thread(category):
     user = User.query.get(current_user.id)
@@ -52,7 +52,7 @@ def create_thread(category):
         db.session.commit()
         return new_thread.to_dict()
 
-@thread_routes('/<int:id>', methods=['GET','PUT'])
+@thread_routes.route('/<int:id>', methods=['GET','PUT'])
 @login_required
 def edit_thread(id):
     thread_to_edit = Thread.query.get(id)
@@ -74,7 +74,7 @@ def edit_thread(id):
         return thread_to_edit.to_dict()
 
 
-@thread_routes('/<int:id>', methods=['DELETE'])
+@thread_routes.route('/<int:id>', methods=['DELETE'])
 def delete_thread(id):
     thread = Thread.query.get(id)
     if not thread:

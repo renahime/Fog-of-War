@@ -7,7 +7,7 @@ from app.forms import ThreadForm
 
 post_routes = Blueprint('post', __name__)
 
-@post_routes('/thread/', methods=['GET','POST'])
+@post_routes.route('/thread/', methods=['GET','POST'])
 @login_required
 def create_post(thread_id):
     user = User.query.get(current_user.id)
@@ -27,7 +27,7 @@ def create_post(thread_id):
         db.session.commit()
         return new_post.to_dict()
 
-@post_routes('/<int:id>', methods=['GET','PUT'])
+@post_routes.route('/<int:id>', methods=['GET','PUT'])
 @login_required
 def edit_post(id):
     post_to_edit = Post.query.get(id)
@@ -44,7 +44,7 @@ def edit_post(id):
         db.session.commit()
         return post_to_edit.to_dict()
 
-@post_routes('/<int:id>', methods=['DELETE'])
+@post_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_post(id):
     post = Post.query.get(id)
