@@ -29,6 +29,10 @@ function App() {
           <Route path="/">
             <HomePage></HomePage>
           </Route>
+          <Route path='/threads/:category'>
+          </Route>
+          <Route path='/threads/:category/:threadName'>
+          </Route>
         </Switch>
       )}
     </>

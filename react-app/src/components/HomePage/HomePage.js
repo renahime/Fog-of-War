@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllCategoriesThunk } from '../../store/category';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./HomePage.css";
 
 function HomePage() {
@@ -37,9 +37,11 @@ function HomePage() {
 					<h6>Last Post</h6>
 				</div>
 				{categoryArr.map((category) => (
-					<div className='category-name'>
-						{category.name}
-					</div>
+					<NavLink path to={`/threads/${category.name.split(' ').join('_')}/`}>
+						<div className='category-name'>
+							{category.name}
+						</div>
+					</NavLink>
 				))}
 			</div>
 		</div>

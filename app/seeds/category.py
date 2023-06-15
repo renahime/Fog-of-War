@@ -9,7 +9,7 @@ def seed_category():
     literature = Category(
         name='Literature')
     anime_manga = Category(
-        name='Anime, Manga, Visual Novels')
+        name='Anime Manga and Visual Novels')
     videogames = Category(
         name='Video Games')
     tv_shows = Category(
@@ -46,5 +46,10 @@ def undo_category():
         db.session.execute(f"TRUNCATE table {SCHEMA}.categories RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM categories"))
+
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.thread_categories RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM thread_categories"))
 
     db.session.commit()

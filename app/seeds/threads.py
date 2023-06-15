@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_threads():
     user = User.query.get(1)
-    category = Category.query.filter_by(name='Anime, Manga, Visual Novels').first()
+    category = Category.query.filter_by(name='Anime Manga and Visual Novels').first()
     thread1= Thread(
         user=user,
         categories=[category],
