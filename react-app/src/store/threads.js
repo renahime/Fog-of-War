@@ -2,6 +2,10 @@ const GET_CATEGORY_THREAD = "threads/category"
 const GET_SINGLE_THREAD = "threads/thread"
 const CREATE_THREAD = "threads/create"
 const UPDATE_THREAD = "threads/update"
+const CREATE_POST = "threads/post/new"
+const UPDATE_POST = "threads/post/edit"
+const REMOVE_THREAD = "threads/delete"
+const REMOVE_POST = "threads/post/delete"
 
 const getThreadsList = (threads) => ({
   type: GET_CATEGORY_THREAD,
@@ -21,6 +25,28 @@ const receiveThread = (thread) => ({
 const updateThread = (thread) => ({
   type: UPDATE_THREAD,
   thread
+})
+
+const receivePost = (post, threadId) => ({
+  type: CREATE_POST,
+  post,
+  threadId
+})
+
+const updatePost = (post, threadId) => ({
+  type: UPDATE_POST,
+  post,
+  threadId
+})
+
+export const removeThread = (threadId) => ({
+  type: REMOVE_THREAD,
+  threadId,
+})
+
+export const removePost = (postId) => ({
+  type: REMOVE_POST,
+  postId,
 })
 
 
@@ -53,6 +79,44 @@ export const createThreadThunk = (thread, category) => async (dispatch) => {
   }
 }
 
+export const createPostThunk = (threadId, post) => async (dispatch) => {
+  const response = await fetch(`/api/post/thread/${threadId}`, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(post),
+  })
+
+  if (response.ok) {
+    const newPost = await response.json();
+    dispatch(receivePost(newPost));
+    return newPost;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+}
+
+export const editPostThunk = (post) => async (dispatch) => {
+  const response = await fetch(`/api/post/${post.id}`, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(post),
+  })
+
+  if (response.ok) {
+    const newPost = await response.json();
+    dispatch(updatePost(newPost));
+    return newPost;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+}
+
+
+
 export const editThreadThunk = (thread) => async (dispatch) => {
   const response = await fetch(`/api/thread/${thread.id}`, {
     method: 'PUT',
@@ -80,6 +144,34 @@ export const getThreadThunk = (id) => async (dispatch) => {
   } else {
     let errors = res.json()
     return errors
+  }
+}
+
+export const deleteThreadThunk = (threadId) => async (dispatch) => {
+  const response = await fetch(`/api/thread/${threadId}`, {
+    credentials: 'same-origin',
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    dispatch(removeThread(threadId));
+    return threadId;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+}
+
+export const deletePostThunk = (postId) => async (dispatch) => {
+  const response = await fetch(`/api/thread/${postId}`, {
+    credentials: 'same-origin',
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    dispatch(removePost(postId));
+    return postId;
+  } else {
+    const errors = await response.json();
+    return errors;
   }
 }
 

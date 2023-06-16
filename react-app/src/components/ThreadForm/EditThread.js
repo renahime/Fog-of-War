@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getThreadThunk } from "../../store/threads";
 import ThreadForm from "./ThreadForm";
+import { useState } from "react";
 
 const EditThreadForm = () => {
   const { threadId } = useParams();
@@ -11,7 +12,7 @@ const EditThreadForm = () => {
   let [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    dispatch(getThreadThunk(idQuery)).then(() => setLoading(true))
+    dispatch(getThreadThunk(threadId)).then(() => setLoading(true))
   }, [dispatch, threadId])
 
 
