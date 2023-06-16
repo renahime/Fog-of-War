@@ -20,8 +20,10 @@ class Thread(db.Model):
     posts = db.relationship('Post', back_populates='thread')
 
     def find_youngest_post(self):
-        sorted_posts = sorted(self.posts, key=lambda x: x.created_at, reverse=True)
+        if len(self.posts) == 0:
+            return []
 
+        sorted_posts = sorted(self.posts, key=lambda x: x.created_at, reverse=True)
         return {
             'username': sorted_posts[0].user.username,
             'created_at':sorted_posts[0].created_at,

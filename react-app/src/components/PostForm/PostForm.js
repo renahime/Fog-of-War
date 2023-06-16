@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
-function PostForm() {
+function PostForm({ post, formType }) {
   const sessionUser = useSelector(state => state.session.user);
   const location = useLocation();
   const idQuery = location.state.id;
+  const [text, setText] = useState()
   const [subject, setSubject] = useState('RE: ' + location.state.subject)
 
   return (

@@ -2,10 +2,22 @@ from flask import Blueprint, redirect,request
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import db, Thread,User, Category
 from app.forms import ThreadForm
+from .auth_routes import validation_errors_to_error_messages
 
 
 
 thread_routes = Blueprint('thread', __name__)
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{field} : {error}')
+    return errorMessages
+
 
 #Route to get all categories
 @thread_routes.route('/<category_name>', methods = ["GET"])
@@ -34,26 +46,29 @@ def get_thread_by_id(id):
 
 @thread_routes.route('/<category_name>/new', methods=['GET','POST'])
 @login_required
-def create_thread(category):
+def create_thread(category_name):
     user = User.query.get(current_user.id)
 
-    form = ThreadForm
+    form = ThreadForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("hi")
 
     if form.validate_on_submit():
-        category = Category.query.filter_by(name=category)
+        print("hi")
+        category = Category.query.filter_by(name=category_name).one()
         new_thread=Thread(
             subject=form.data["subject"],
             text=form.data["text"],
             views=0,
             user=user,
-            categories=category,
-            posts=[]
+            categories=[category]
         )
-
+        print("hi")
         db.session.add(new_thread)
         db.session.commit()
         return new_thread.to_dict()
+    elif form.errors:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @thread_routes.route('/<int:id>', methods=['GET','PUT'])
 @login_required

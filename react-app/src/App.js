@@ -8,8 +8,8 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import SignUpPage from "./components/SignUpPage/SignUpPage";
 import ThreadList from "./components/ThreadList/ThreadList";
 import SingleThread from "./components/SingleThread/SingleThread";
-import ThreadForm from "./components/ThreadForm/ThreadForm";
-import PostForm from "./components/PostForm/PostForm";
+import CreateThreadForm from "./components/ThreadForm/CreateThread";
+import CreatePostForm from "./components/PostForm/CreatePost";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,13 +35,17 @@ function App() {
             <ThreadList></ThreadList>
           </Route>
           <Route exact path='/threads/:category/new'>
-            <ThreadForm></ThreadForm>
+            <CreateThreadForm></CreateThreadForm>
+          </Route>
+          <Route exact path='/threads/:category/edit'>
           </Route>
           <Route exact path='/threads/:category/:threadName'>
             <SingleThread></SingleThread>
           </Route>
           <Route exact path='/threads/:category/:threadId/new'>
-            <PostForm></PostForm>
+            <CreatePostForm></CreatePostForm>
+          </Route>
+          <Route exact path='/threads/:category/:threadId/edit'>
           </Route>
         </Switch>
       )}

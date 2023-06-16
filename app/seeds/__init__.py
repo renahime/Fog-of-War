@@ -3,6 +3,8 @@ from .users import seed_users, undo_users
 from .category import seed_category, undo_category
 from .threads import seed_threads, undo_thread
 from .posts import seed_posts, undo_posts
+from .lit_posts import seed_lit_posts, undo_lit_posts
+from .lit_threads import seed_lit_threads, undo_lit_thread
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -20,12 +22,17 @@ def seed():
         # Make sure to add all your other model's undo functions below
         undo_users()
         undo_posts()
+        undo_lit_posts()
+        undo_lit_thread()
         undo_thread()
         undo_category()
+
     seed_users()
     seed_category()
     seed_threads()
     seed_posts()
+    seed_lit_threads()
+    seed_lit_posts()
     # Add other seed functions here
 
 
@@ -34,6 +41,8 @@ def seed():
 def undo():
     undo_users()
     undo_posts()
+    undo_lit_posts()
     undo_thread()
+    undo_lit_thread()
     undo_category()
     # Add other undo functions here
