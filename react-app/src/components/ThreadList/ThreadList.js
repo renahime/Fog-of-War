@@ -52,7 +52,7 @@ function ThreadList() {
             }
           }}>
             <div className='thread-details' key={thread.id}>
-              <h6>{thread.subject}</h6>
+              <h6>{thread.subject}</h6> <h6>{thread.user.username}</h6>
               <h6>{thread.name}</h6>
               <h6>{thread.views}</h6>
               <h6>{thread.post_count}</h6>

@@ -1,6 +1,7 @@
 const GET_CATEGORY_THREAD = "threads/category"
 const GET_SINGLE_THREAD = "threads/thread"
 const CREATE_THREAD = "threads/create"
+const UPDATE_THREAD = "threads/update"
 
 const getThreadsList = (threads) => ({
   type: GET_CATEGORY_THREAD,
@@ -16,6 +17,12 @@ const receiveThread = (thread) => ({
   type: CREATE_THREAD,
   thread
 })
+
+const updateThread = (thread) => ({
+  type: UPDATE_THREAD,
+  thread
+})
+
 
 export const getThreadsListThunk = (category) => async (dispatch) => {
   let res = await fetch(`/api/thread/${category}`)
@@ -46,6 +53,25 @@ export const createThreadThunk = (thread, category) => async (dispatch) => {
   }
 }
 
+export const editThreadThunk = (thread) => async (dispatch) => {
+  const response = await fetch(`/api/thread/${thread.id}`, {
+    method: 'PUT',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(thread),
+  })
+
+  if (response.ok) {
+    const newThread = await response.json();
+    dispatch(updateThread(newThread));
+    return newThread;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+}
+
+
 export const getThreadThunk = (id) => async (dispatch) => {
   let res = await fetch(`/api/thread/${id}`)
   if (res.ok) {
@@ -67,10 +93,16 @@ export default function thread(state = initialState, action) {
     case GET_SINGLE_THREAD:
       return { ...state, singleThread: { ...action.thread } }
     case CREATE_THREAD:
-      let createThreadState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleGroup } };
+      let createThreadState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleThread } };
       createThreadState.singleThread = action.thread;
-      createThreadState.threadList = { ...action.thread, ...state.threadList }
+      createThreadState.threadList[action.thread.id] = action.thread;
       return createThreadState
+    case UPDATE_THREAD: {
+      let updatedThreadState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleThread } };
+      updatedThreadState.singleThread = action.thread;
+      updatedThreadState.threadList[action.thread.id] = action.thread;
+      return updatedThreadState
+    }
     default:
       return state;
   }

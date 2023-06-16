@@ -20,14 +20,11 @@ function ThreadForm({ thread, formType, category }) {
     thread = { ...thread, subject, text };
     if (formType == "Create Thread") {
       const newThread = dispatch(createThreadThunk(thread, category))
-        .then(newThread => { history.push(`/thread/${category}/${newThread.subject.split(' ').join('_')}`) })
+        .then(newThread => { history.push({ pathname: `/threads/${category}/${newThread.subject.split(' ').join('_')}`, state: { id: newThread.id, category: category } }) })
     }
     // else if (formType == 'Update Thread') {
-    //   const editedGroup = dispatch(updateGroup(group)).then(editedGroup => { history.push(`/groups/${editedGroup.id}`) }).catch(async (res) => {
-    //     const data = await res.json();
-    //     setErrors(data.errors);
-    //   });
-    //   group = editedGroup
+    //   const editedThread = dispatch(updatedThread(group)).then(editedThread => { history.push(`/threads/${category}/${editedThread.subject.split(' ').join('_')}`) })
+    //   thread = editedThread
     // }
   }
 
