@@ -1,5 +1,6 @@
 from app.models import db, User, environment, SCHEMA, Post, Thread
 from sqlalchemy.sql import text
+from chancepy import Chance
 
 
 # Adds a demo user, you can add other users here if you want
@@ -29,6 +30,8 @@ def seed_posts():
 
               """,
         user=user2,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         thread=thread1
     )
     db.session.add(post1)
@@ -45,6 +48,8 @@ def seed_posts():
         subject="RE: Umineko - Just Finished Episode 2 This Morning, Here Are My Thoughts So Far",
         text="""Great to hear that you're enjoying the vn. I had similar problems when I first started reading it, I thought the beginning was kinda slow so I ended up stopping like an hour or 2 in cause I just lost interest. Then a couple months later, I just decided to finish the 1st episode on a whim and it was the best decision I've made. Umineko is my fav visual novel now after reading it and I hope you enjoy your time with it too.""",
         user=user2,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         thread=thread2
     )
 
@@ -56,6 +61,8 @@ def seed_posts():
               i read your comments about who you think the culprit(s) might be, but i want to ask what you think about the mysteries you've seen so far. do you think the murders were possible without magic? have you had a go at solving the epitaph?
               """,
         user=user3,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         thread=thread2
     )
 
@@ -68,6 +75,8 @@ def seed_posts():
 
         I think you'll very much enjoy Ep7 opening, all in all.""",
         user=user2,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         thread=thread3
     )
 
@@ -79,7 +88,9 @@ def seed_posts():
             Episode 6 gives away quite a lot of the mystery, so I'd advice you to do your attempts at answering the other questions sooner rather than later.
             """,
         user=user2,
-        thread=thread4
+        thread=thread4,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
     )
 
     db.session.add(post6)
@@ -90,6 +101,8 @@ def seed_posts():
                 In Episode 3, how do you explain Nanjo's death? Shannon, Kanon, Nanjo, Krauss, Natsuhi, and Maria are all exempted via red truth.
         """,
         user=user3,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         thread=thread5
     )
 

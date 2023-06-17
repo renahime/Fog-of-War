@@ -17,15 +17,20 @@ class Thread(db.Model):
 
     categories = db.relationship('Category', secondary= thread_categories, back_populates='threads',cascade="all, delete", passive_deletes=True)
     user = db.relationship('User', back_populates='threads')
-    posts = db.relationship('Post', back_populates='thread')
+    posts = db.relationship('Post', back_populates='thread', cascade='all, delete-orphan')
 
     def find_youngest_post(self):
         if len(self.posts) == 0:
-            return []
+            return {
+                'username': self.user.username,
+                'subject': self.subject,
+                'created_at': self.created_at
+            }
 
         sorted_posts = sorted(self.posts, key=lambda x: x.created_at, reverse=True)
         return {
             'username': sorted_posts[0].user.username,
+            'subject': self.subject,
             'created_at':sorted_posts[0].created_at,
         }
 

@@ -1,0 +1,28 @@
+.thread-edit-button{
+  background-color: transparent;
+}
+
+
+.hidden {
+  display: none
+}
+
+.profile-dropdown-create-label {
+  font-size: 12px;
+  padding-left: 5px;
+}
+
+.profile-dropdown-create {
+  font-size: 16px;
+  padding: 8px 5px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.profile-dropdown-create:hover {
+  background-color: #E9E9E9;
+  /* border: 3px solid #7FC1FF; */
+  border-radius: 10px;
+}

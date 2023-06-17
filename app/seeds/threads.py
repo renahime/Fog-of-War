@@ -1,5 +1,7 @@
 from app.models import db, Category, environment, SCHEMA, Thread, Post, User
 from sqlalchemy.sql import text
+from chancepy import Chance
+
 
 # Adds a demo user, you can add other users here if you want
 def seed_threads():
@@ -9,6 +11,8 @@ def seed_threads():
         user=user,
         categories=[category],
         views=0,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         subject="Umineko - My theory about Jessica's true origins + detailed analysis",
         text="""Spoilers! Please don't read if you haven't read at least Episode 5.
 
@@ -41,6 +45,8 @@ def seed_threads():
         user=user,
         categories=[category],
         views=0,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         subject='Umineko - Just Finished Episode 2 This Morning, Here Are My Thoughts So Far',
         text="""As the title says, I've just finished reading Episode 2, and wanted somewhere to spew out my thoughts about what's happened so far. I'm really starting to love the game and excited to see what Episode 3 has to offer.
 
@@ -70,6 +76,8 @@ def seed_threads():
         user=user,
         categories=[category],
         views=0,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         subject='Umineko - I figured it out. (first time)',
         text="""I am about halfway (I think) through Episode 6 (post first twilight) and I believe I have the gist of everything. Feel free to laugh at me in the comments if this is stupid.
 
@@ -101,6 +109,8 @@ def seed_threads():
         user=user,
         categories=[category],
         views=0,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         subject="Umineko - Episode 5 completed! Here are my theories and attempts at solving the mystery!",
         text="""General theories I have
 
@@ -168,6 +178,8 @@ def seed_threads():
         user=user,
         categories=[category],
         views=0,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022),
         subject='Umineko master theory based on Question arcs (Spoilers for parts 1-4)',
         text="""First of all: DON'T SPOIL ANYTHING AFTER CHAPTER 4. I haven't started the answer arcs, so don't tell me if I'm correct or incorrect, just point out any major flaws in my theory.
 

@@ -27,11 +27,8 @@ def get_thread_by_category(category_name):
     all_threads = {}
 
     for thread in threads:
-        print(thread)
         for category in thread.categories:
-            print(category)
             if category.name == category_name:
-                print(thread)
                 all_threads[thread.id] = thread.to_dict()
 
     return all_threads
@@ -54,7 +51,6 @@ def create_thread(category_name):
     print("hi")
 
     if form.validate_on_submit():
-        print("hi")
         category = Category.query.filter_by(name=category_name).one()
         new_thread=Thread(
             subject=form.data["subject"],
@@ -75,7 +71,7 @@ def create_thread(category_name):
 def edit_thread(id):
     thread_to_edit = Thread.query.get(id)
 
-    if current_user.id != thread_to_edit.owner_id:
+    if current_user.id != thread_to_edit.user_id:
       return {"errors":"you do not own this board"}
 
     form = ThreadForm()
@@ -100,3 +96,5 @@ def delete_thread(id):
 
     db.session.delete(thread)
     db.session.commit()
+
+    return {"success": "thread was deleted"}

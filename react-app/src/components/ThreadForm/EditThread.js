@@ -4,28 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { getThreadThunk } from "../../store/threads";
 import ThreadForm from "./ThreadForm";
 import { useState } from "react";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 const EditThreadForm = () => {
-  const { threadId } = useParams();
-  const thread = useSelector((state) => state.thread.singleThread ? state.thread.singleThread : null);
-  const dispatch = useDispatch();
-  let [loading, setLoading] = useState(false)
+  const location = useLocation()
 
-  useEffect(() => {
-    dispatch(getThreadThunk(threadId)).then(() => setLoading(true))
-  }, [dispatch, threadId])
-
-
-  if (!thread) return (<></>)
-
-  return (Object.keys(thread).length > 1 && (
+  return (
     <>
       <ThreadForm
-        thread={thread}
+        thread={location.state.thread}
+        category={location.state.category}
         formType="Update Thread"
       ></ThreadForm>
     </>
-  ))
+  )
 }
 
 export default EditThreadForm

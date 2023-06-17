@@ -31,7 +31,6 @@ class Category(db.Model):
 
     threads = db.relationship('Thread', secondary=thread_categories, back_populates='categories', passive_deletes=True)
 
-
     def to_dict(self):
         return{
             'id': self.id,

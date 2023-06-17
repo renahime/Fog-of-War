@@ -1,5 +1,6 @@
 from app.models import db, User, environment, SCHEMA, Post, Thread
 from sqlalchemy.sql import text
+from chancepy import Chance
 
 
 # Adds a demo user, you can add other users here if you want
@@ -31,7 +32,9 @@ def seed_lit_posts():
                 And that's why it's so scary.
               """,
         user=user2,
-        thread=thread1
+        thread=thread1,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022)
     )
     db.session.add(post1)
 
@@ -43,7 +46,9 @@ def seed_lit_posts():
 
               Of course, that’s just my interpretation. Anything anyone gets out of the book is also valid. :)""",
         user=user3,
-        thread=thread1
+        thread=thread1,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022)
     )
     db.session.add(post2)
 
@@ -51,7 +56,9 @@ def seed_lit_posts():
         subject="RE: House of Leaves - I believe I've found the profound message at the heart of this book. I might also be insane. Who knows.",
         text="""I wholeheartedly agree. House of Leaves is predominantly about grief, and the desire to understand or find logic or reason in things that often reject understanding. You can try to understand or break down why someone passed away, just like you can go on countless expeditions to hopefully find the center of a maze, but in the end it will lead you right back to where you started. So much of this book is about letting go, as well as rejecting the notion that closure is a promise.""",
         user=user2,
-        thread=thread2
+        thread=thread2,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post3)
@@ -61,7 +68,9 @@ def seed_lit_posts():
         text="""I agree! It's not about literally ignoring Johnny or any part of the book. It's realizing that none of our unreliable guides can lead us through the labyrinth, because they are themselves lost within it. But by the time you realize the book is playing with these concepts, you are lost in it yourself, seeking answers blindly, just like the characters are. I think that bewildering experience is kinda the point.
               """,
         user=user3,
-        thread=thread2
+        thread=thread2,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post4)
@@ -74,7 +83,9 @@ def seed_lit_posts():
 
                 As good as the theory is when you only consider HoL, it basically gets impossible when you consider the screenplays which where released around 2 years ago. In these, TNR is revealed to be a real film. On the other hand, I‘m not sure what to make out of this, as it could just be a move from MZD to make things even more impossible to interpret coherently by intention.""",
         user=user2,
-        thread=thread3
+        thread=thread3,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post5)
@@ -84,7 +95,9 @@ def seed_lit_posts():
         text="""Interesting take. I went the completely other way and thought that maybe Johnny didn’t exist... and the whole thing was written by Pelafina. But it’s been a couple years since I’ve read it so I’m trying to remember exactly why I came to that conclusion. I think it was because there’s a line in there somewhere about Pelafina and Zampano knowing each other, which obviously shouldn’t be possible if the book is taken at face value. So I thought she created all of Johnny’s world in the throes of her mental illness and grief of the loss of her child. But I also think that is possible to come to a completely different conclusion every time a person reads it.
             """,
         user=user2,
-        thread=thread5
+        thread=thread5,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post6)
@@ -95,7 +108,9 @@ def seed_lit_posts():
         I think there might be points in the text to support this. I just finished reading HoL for the 4th time, but the first time in over a decade, and the first time since I got my English Degree. I’m going to go back through my annotated copy with this in mind. Thanks for the new inspiration. This book is so wildly dense, and I love this sub for posts like this.
         """,
         user=user3,
-        thread=thread5
+        thread=thread5,
+        created_at=Chance.date(year=2022),
+        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post7)

@@ -37,7 +37,7 @@ function HomePage() {
 				{categoryArr.map((category) => (
 					<NavLink to={{
 						pathname: `/threads/${category.name.split(' ').join('_')}/`,
-						state: { name: category.name }
+						state: { category: category.name }
 					}}>
 						<div className='category-name'>
 							{category.name}

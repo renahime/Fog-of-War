@@ -39,15 +39,15 @@ function App() {
             <CreateThreadForm></CreateThreadForm>
           </Route>
           <Route exact path='/threads/:category/edit'>
+            <EditThreadForm></EditThreadForm>
           </Route>
-          <Route exact path='/threads/:category/:threadName'>
+          <Route exact path='/threads/:category/:threadId'>
             <SingleThread></SingleThread>
           </Route>
           <Route exact path='/threads/:category/:threadId/new'>
             <CreatePostForm></CreatePostForm>
           </Route>
           <Route exact path='/threads/:category/:threadId/edit'>
-            <EditThreadForm></EditThreadForm>
           </Route>
         </Switch>
       )}

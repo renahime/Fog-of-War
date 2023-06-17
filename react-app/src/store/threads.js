@@ -195,6 +195,12 @@ export default function thread(state = initialState, action) {
       updatedThreadState.threadList[action.thread.id] = action.thread;
       return updatedThreadState
     }
+    case REMOVE_THREAD: {
+      let deleteThreadState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleThread } }
+      delete deleteThreadState.threadList[action.threadId]
+      delete deleteThreadState.singleThread[action.threadId]
+      return deleteThreadState
+    }
     default:
       return state;
   }

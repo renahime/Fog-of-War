@@ -12,19 +12,20 @@ function ThreadList() {
   let threadArr = [];
   let location = useLocation()
   let [loading, setLoading] = useState(false)
-  let categoryQuery = location.state.name;
+  let categoryQuery = location.state.category;
   let dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getThreadsListThunk(categoryQuery)).then(() => setLoading(true))
   }, [dispatch])
 
+  console.log(categoryQuery)
   if (threads && (Object.values(threads).length > 1)) {
     threadArr = Object.values(threads)
+    threadArr = threadArr.sort((a, b) => {
+      return new Date(b.latest_post.created_at) - new Date(a.latest_post.created_at)
+    })
   }
-
-  console.log(threads);
-  console.log(threadArr)
   return (!loading && threadArr.length < 1 ? <h1>Loading...</h1> :
     <div>
       <NavLink to={{
@@ -45,7 +46,7 @@ function ThreadList() {
       <div>
         {threadArr.map((thread) => (
           <NavLink to={{
-            pathname: `/threads/${categoryQuery.split(' ').join('_')}/${thread.subject.split(' ').join('_')}`,
+            pathname: `/threads/${categoryQuery.split(' ').join('_')}/${thread.id}`,
             state: {
               id: thread.id,
               category: categoryQuery

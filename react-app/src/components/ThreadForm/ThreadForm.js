@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { createThreadThunk } from '../../store/threads';
+import { editThreadThunk } from '../../store/threads';
 
 function ThreadForm({ thread, formType, category }) {
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   const history = useHistory()
-  const [subject, setSubject] = useState();
-  const [text, setText] = useState();
+  const [subject, setSubject] = useState(thread?.subject);
+  const [text, setText] = useState(thread?.text);
   const [errors, setErrors] = useState();
-  console.log(category)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +20,11 @@ function ThreadForm({ thread, formType, category }) {
     thread = { ...thread, subject, text };
     if (formType == "Create Thread") {
       const newThread = dispatch(createThreadThunk(thread, category))
-        .then(newThread => { history.push({ pathname: `/threads/${category}/${newThread.subject.split(' ').join('_')}`, state: { id: newThread.id, category: category } }) })
+        .then(newThread => { history.push({ pathname: `/threads/${category}/${newThread.id}`, state: { id: newThread.id, category: category } }) })
     }
-    // else if (formType == 'Update Thread') {
-    //   const editedThread = dispatch(updatedThread(group)).then(editedThread => { history.push(`/threads/${category}/${editedThread.subject.split(' ').join('_')}`) })
-    //   thread = editedThread
-    // }
+    else if (formType == 'Update Thread') {
+      const editedThread = dispatch(editThreadThunk(thread)).then(editedThread => { history.push({ pathname: `/threads/${category}/${editedThread.id}`, state: { id: editedThread.id, category: category } }) })
+    }
   }
 
 
