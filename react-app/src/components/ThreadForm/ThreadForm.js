@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { createThreadThunk } from '../../store/threads';
 import { editThreadThunk } from '../../store/threads';
+import CkEditor from '../ckEditor';
 
 function ThreadForm({ thread, formType, category }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -38,7 +39,8 @@ function ThreadForm({ thread, formType, category }) {
           <h6>Username:</h6>
           <h6>Thread Subject:</h6> <input value={subject} onChange={(e) => setSubject(e.target.value)} type='text'></input>
           <h6>Your Message:</h6>
-          <textarea value={text} onChange={(e) => setText(e.target.value)} ></textarea>
+          <CkEditor setText={setText} text={text}></CkEditor>
+          {/* <textarea value={text} onChange={(e) => setText(e.target.value)} ></textarea> */}
           {(formType == 'Create Thread') ? (<div className='buttonContainer'>
             <button className='submitButton' type="submit" >Post Thread</button>
             <button className='submitButton' type="submit" >Preview Text</button> </div>) : (<div className='buttonContainer'>

@@ -7,6 +7,7 @@ import { createPostThunk } from '../../store/threads';
 import { editPostThunk } from '../../store/threads';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import CkEditor from '../ckEditor';
 
 function PostForm({ post, formType, threadId, threadSubject, category }) {
   const user = useSelector(state => state.session.user);
@@ -42,7 +43,8 @@ function PostForm({ post, formType, threadId, threadSubject, category }) {
           <h6>Username:</h6> <h6>{user.username}</h6>
           <h6>Thread Subject:</h6> <input value={subject} onChange={(e) => setSubject(e.target.value)} type='text'></input>
           <h6>Your Message:</h6>
-          <textarea value={text} onChange={(e) => setText(e.target.value)} ></textarea>
+          <CkEditor setText={setText} text={text}></CkEditor>
+          {/* <textarea value={text} onChange={(e) => setText(e.target.value)} ></textarea> */}
           {(formType == 'Create Post') ? (<div className='buttonContainer'>
             <button className='submitButton' type="submit" >Post Reply</button>
             <button className='submitButton' type="submit" >Preview Text</button> </div>) : (<div className='buttonContainer'>
