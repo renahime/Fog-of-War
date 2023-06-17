@@ -44,9 +44,10 @@ export const removeThread = (threadId) => ({
   threadId,
 })
 
-export const removePost = (postId) => ({
+export const removePost = (postId, threadId) => ({
   type: REMOVE_POST,
   postId,
+  threadId
 })
 
 
@@ -79,7 +80,7 @@ export const createThreadThunk = (thread, category) => async (dispatch) => {
   }
 }
 
-export const createPostThunk = (threadId, post) => async (dispatch) => {
+export const createPostThunk = (post, threadId) => async (dispatch) => {
   const response = await fetch(`/api/post/thread/${threadId}`, {
     method: 'POST',
     credentials: 'same-origin',
@@ -97,7 +98,7 @@ export const createPostThunk = (threadId, post) => async (dispatch) => {
   }
 }
 
-export const editPostThunk = (post) => async (dispatch) => {
+export const editPostThunk = (post, threadId) => async (dispatch) => {
   const response = await fetch(`/api/post/${post.id}`, {
     method: 'POST',
     credentials: 'same-origin',
@@ -107,7 +108,7 @@ export const editPostThunk = (post) => async (dispatch) => {
 
   if (response.ok) {
     const newPost = await response.json();
-    dispatch(updatePost(newPost));
+    dispatch(updatePost(newPost, threadId));
     return newPost;
   } else {
     const errors = await response.json();
@@ -161,13 +162,13 @@ export const deleteThreadThunk = (threadId) => async (dispatch) => {
   }
 }
 
-export const deletePostThunk = (postId) => async (dispatch) => {
+export const deletePostThunk = (postId, threadId) => async (dispatch) => {
   const response = await fetch(`/api/thread/${postId}`, {
     credentials: 'same-origin',
     method: 'DELETE',
   });
   if (response.ok) {
-    dispatch(removePost(postId));
+    dispatch(removePost(postId, threadId));
     return postId;
   } else {
     const errors = await response.json();
@@ -200,6 +201,36 @@ export default function thread(state = initialState, action) {
       delete deleteThreadState.threadList[action.threadId]
       delete deleteThreadState.singleThread[action.threadId]
       return deleteThreadState
+    }
+    case CREATE_POST: {
+      let createPostState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleThread } }
+      if (createPostState.singleThread.id == action.threadId) {
+        createPostState.singleThread.posts.push(action.post)
+      }
+      createPostState.threadList[action.threadId].posts.push(action.post)
+    }
+    case UPDATE_POST: {
+      let updatePostState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleThread } }
+      if (updatePostState.singleThread.id == action.threadId) {
+        for (let post of updatePostState.singleThread.posts) {
+          if (post.id == action.post.id) {
+            post = action.post
+          }
+        }
+      }
+      for (let post of updatePostState.threadList[action.threadId].posts) {
+        if (post.id == action.post.id) {
+          post = action.post
+        }
+      }
+    }
+    case REMOVE_POST: {
+      let deletePostState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleThread } }
+      if (deletePostState.singleThread.id == action.threadId) {
+        deletePostState.singleThread[action.threadId].posts = deletePostState.singleThread[action.threadId].posts.filter((post) => post.id !== action.postId);
+      }
+      deletePostState.threadList[action.threadId].posts = deletePostState.threadList[action.threadId].posts.filter((post) => post.id !== action.postId);
+      return deletePostState
     }
     default:
       return state;

@@ -11,6 +11,7 @@ import SingleThread from "./components/SingleThread/SingleThread";
 import CreateThreadForm from "./components/ThreadForm/CreateThread";
 import CreatePostForm from "./components/PostForm/CreatePost";
 import EditThreadForm from "./components/ThreadForm/EditThread"
+import EditPostForm from "./components/PostForm/EditPost";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
             <CreatePostForm></CreatePostForm>
           </Route>
           <Route exact path='/threads/:category/:threadId/edit'>
+            <EditPostForm></EditPostForm>
           </Route>
         </Switch>
       )}

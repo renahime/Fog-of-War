@@ -9,7 +9,7 @@ const CreatePostForm = () => {
   }
 
   return (
-    <PostForm post={post} formType="Create Post" threadId={location.state.id} threadSubject={location.state.subject}>
+    <PostForm post={post} formType="Create Post" threadId={location.state.id} threadSubject={location.state.subject} category={location.state.category}>
     </PostForm>
   )
 }

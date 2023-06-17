@@ -3,26 +3,32 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { createPostThunk } from '../../store/threads';
+import { editPostThunk } from '../../store/threads';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-function PostForm({ post, formType, id, threadSubject }) {
-  const sessionUser = useSelector(state => state.session.user);
+function PostForm({ post, formType, threadId, threadSubject, category }) {
+  const user = useSelector(state => state.session.user);
   const location = useLocation();
-  const idQuery = id;
-  const [text, setText] = useState()
-  const [subject, setSubject] = useState('RE: ' + threadSubject)
+  const history = useHistory();
+  const dispatch = useDispatch()
+  const [text, setText] = useState(post?.text)
+  const [subject, setSubject] = useState(post?.subject || 'RE: ' + threadSubject)
+  const [errors, setErrors] = useState({})
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // setErrors({});
-    // thread = { ...thread, subject, text };
-    // if (formType == "Create Thread") {
-    //   const newThread = dispatch(createThreadThunk(thread, category))
-    //     .then(newThread => { history.push({ pathname: `/threads/${category}/${newThread.subject.split(' ').join('_')}`, state: { id: newThread.id, category: category } }) })
-    // }
-    // else if (formType == 'Update Thread') {
-    //   const editedThread = dispatch(updatedThread(group)).then(editedThread => { history.push(`/threads/${category}/${editedThread.subject.split(' ').join('_')}`) })
-    //   thread = editedThread
-    // }
+    e.preventDefault();
+    setErrors({});
+    post = { ...post, subject, text };
+    if (formType == "Create Post") {
+      const newPost = dispatch(createPostThunk(post, location.state.id))
+        .then(newPost => { history.push({ pathname: `/threads/${category}/${threadId}`, state: { id: threadId, category: category } }) })
+    }
+    else if (formType == 'Update Post') {
+      const editedPost = dispatch(editPostThunk(post, location.state.id)).then(editedPost => { history.push({ pathname: `/threads/${category}/${threadId}`, state: { id: threadId, category: category } }) })
+      post = editedPost
+    }
   }
 
 
@@ -33,14 +39,14 @@ function PostForm({ post, formType, id, threadSubject }) {
       </div>
       <div className='form-container'>
         <form onSubmit={handleSubmit}>
-          <h6>Username:</h6>
+          <h6>Username:</h6> <h6>{user.username}</h6>
           <h6>Thread Subject:</h6> <input value={subject} onChange={(e) => setSubject(e.target.value)} type='text'></input>
           <h6>Your Message:</h6>
           <textarea value={text} onChange={(e) => setText(e.target.value)} ></textarea>
           {(formType == 'Create Post') ? (<div className='buttonContainer'>
-            <button className='submitButton' type="submit" >Post Thread</button>
+            <button className='submitButton' type="submit" >Post Reply</button>
             <button className='submitButton' type="submit" >Preview Text</button> </div>) : (<div className='buttonContainer'>
-              <button className='submitButton' type="submit" >Update Thread</button>
+              <button className='submitButton' type="submit" >Update Reply</button>
               <button className='submitButton' type="submit" >Preview Text</button> </div>)}
         </form>
       </div>

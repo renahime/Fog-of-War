@@ -10,6 +10,8 @@ const EditPostForm = () => {
       <PostForm
         post={location.state.post}
         category={location.state.category}
+        threadSubject={location.state.subject}
+        threadId={location.state.id}
         formType="Update Post"
       ></PostForm>
     </>

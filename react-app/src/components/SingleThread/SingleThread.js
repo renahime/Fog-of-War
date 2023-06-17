@@ -79,14 +79,15 @@ function SingleThread() {
                 state: {
                   post: post,
                   category: categoryQuery,
-                  threadId: thread.id
+                  id: thread.id,
+                  subject: thread.subject
                 }
               }}> <div className="profile-dropdown-create">Edit</div> </NavLink>
               <div className="profile-dropdown-create" onClick={showMenu}>
                 <div>
                   <OpenModalButton
                     buttonText="Delete"
-                    modalComponent={<DeletePostModal category={categoryQuery} threadId={thread.id} />} >
+                    modalComponent={<DeletePostModal category={categoryQuery} postId={post.id} threadId={thread.id} />} >
                   </OpenModalButton>
                 </div>
               </div>
