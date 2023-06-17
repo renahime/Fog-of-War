@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { NavLink, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { getThreadThunk } from '../../store/threads';
@@ -8,18 +8,22 @@ import './SingleThread.css';
 import OpenModalButton from "../OpenModalButton"
 import DeleteThreadModal from './DeleteThreadModal';
 import DeletePostModal from './DeletePostModal';
-
+import { createPostThunk } from '../../store/threads';
 
 function SingleThread() {
   const user = useSelector(state => state.session.user);
   let thread = useSelector(state => state.thread.singleThread);
   let location = useLocation()
   let [loading, setLoading] = useState(false)
+  const [subject, setSubject] = useState('RE: ')
+  const [text, setText] = useState('')
   let idQuery = location.state.id;
   let categoryQuery = location.state.category
   let dispatch = useDispatch()
   const [openThreadMenu, setopenThreadMenu] = useState(false)
   const [openPostMenu, setOpenPostMenu] = useState(false)
+  const [errors, setErrors] = useState({})
+  const history = useHistory()
 
   let showMenu = () => {
     setopenThreadMenu(!openThreadMenu)
@@ -28,13 +32,24 @@ function SingleThread() {
   let showPostMenu = () => {
     setOpenPostMenu(!openPostMenu)
   }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors({});
+    const post = { subject, text };
+    console.log(post);
+    const newPost = dispatch(createPostThunk(post, idQuery))
+      .then(newPost => { history.push({ pathname: `/threads/${categoryQuery}/${idQuery}`, state: { id: idQuery, category: categoryQuery } }) })
+  }
+
 
   useEffect(() => {
     dispatch(getThreadThunk(idQuery)).then(() => setLoading(true))
+    if (thread && Object.values(thread).length) {
+      setSubject('RE: ' + thread.subject);
+    }
   }, [dispatch])
 
   let menuClassName = openThreadMenu || openPostMenu ? "profile-menu" : "hidden profile-menu"
-  console.log(categoryQuery)
 
   return (!loading || !thread || !Object.values(thread).length ? <h1>Loading...</h1> :
     <div className='single-thread-main-body'>
@@ -112,16 +127,16 @@ function SingleThread() {
         </NavLink>
       </div>
       <div className='single-thread-reply'>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className='quick-reply-title'></div>
           <h6 >Quick Reply</h6>
           <div className='quick-reply-text-container'>
             <h6>Message</h6>
             <h6>Type Your Reply Message Here</h6>
-            <textarea placeholder='Speak your mind....'></textarea>
+            <textarea onChange={(e) => setText(e.target.value)} placeholder='Speak your mind....'></textarea>
           </div>
           <div className='buttons'>
-            <button>Post Reply</button>
+            <button type='submit'>Post Reply</button>
             <button>Preview Post</button>
           </div>
         </form>

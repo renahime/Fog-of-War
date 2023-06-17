@@ -19,7 +19,6 @@ function ThreadList() {
     dispatch(getThreadsListThunk(categoryQuery)).then(() => setLoading(true))
   }, [dispatch])
 
-  console.log(categoryQuery)
   if (threads && (Object.values(threads).length > 1)) {
     threadArr = Object.values(threads)
     threadArr = threadArr.sort((a, b) => {

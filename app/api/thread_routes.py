@@ -48,7 +48,6 @@ def create_thread(category_name):
 
     form = ThreadForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("hi")
 
     if form.validate_on_submit():
         category = Category.query.filter_by(name=category_name).one()
@@ -59,7 +58,6 @@ def create_thread(category_name):
             user=user,
             categories=[category]
         )
-        print("hi")
         db.session.add(new_thread)
         db.session.commit()
         return new_thread.to_dict()
@@ -82,10 +80,12 @@ def edit_thread(id):
         if form.data["subject"]:
             thread_to_edit.subject = form.data["subject"]
         if form.data["text"]:
-            thread_to_edit.subject = form.data["text"]
+            thread_to_edit.text = form.data["text"]
 
         db.session.commit()
         return thread_to_edit.to_dict()
+    elif form.errors:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @thread_routes.route('/<int:id>', methods=['DELETE'])

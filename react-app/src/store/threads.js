@@ -81,6 +81,7 @@ export const createThreadThunk = (thread, category) => async (dispatch) => {
 }
 
 export const createPostThunk = (post, threadId) => async (dispatch) => {
+  console.log(post);
   const response = await fetch(`/api/post/thread/${threadId}`, {
     method: 'POST',
     credentials: 'same-origin',
@@ -90,7 +91,7 @@ export const createPostThunk = (post, threadId) => async (dispatch) => {
 
   if (response.ok) {
     const newPost = await response.json();
-    dispatch(receivePost(newPost));
+    dispatch(receivePost(newPost, threadId));
     return newPost;
   } else {
     const errors = await response.json();
@@ -100,7 +101,7 @@ export const createPostThunk = (post, threadId) => async (dispatch) => {
 
 export const editPostThunk = (post, threadId) => async (dispatch) => {
   const response = await fetch(`/api/post/${post.id}`, {
-    method: 'POST',
+    method: 'PUT',
     credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(post),
@@ -163,7 +164,7 @@ export const deleteThreadThunk = (threadId) => async (dispatch) => {
 }
 
 export const deletePostThunk = (postId, threadId) => async (dispatch) => {
-  const response = await fetch(`/api/thread/${postId}`, {
+  const response = await fetch(`/api/post/${postId}`, {
     credentials: 'same-origin',
     method: 'DELETE',
   });
@@ -207,7 +208,7 @@ export default function thread(state = initialState, action) {
       if (createPostState.singleThread.id == action.threadId) {
         createPostState.singleThread.posts.push(action.post)
       }
-      createPostState.threadList[action.threadId].posts.push(action.post)
+      return createPostState
     }
     case UPDATE_POST: {
       let updatePostState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleThread } }
@@ -218,18 +219,14 @@ export default function thread(state = initialState, action) {
           }
         }
       }
-      for (let post of updatePostState.threadList[action.threadId].posts) {
-        if (post.id == action.post.id) {
-          post = action.post
-        }
-      }
+      return updatePostState
     }
     case REMOVE_POST: {
       let deletePostState = { ...state, threadList: { ...state.threadList }, singleThread: { ...state.singleThread } }
+      console.log(deletePostState)
       if (deletePostState.singleThread.id == action.threadId) {
-        deletePostState.singleThread[action.threadId].posts = deletePostState.singleThread[action.threadId].posts.filter((post) => post.id !== action.postId);
+        deletePostState.singleThread.posts = deletePostState.singleThread.posts.filter((post) => post.id !== action.postId);
       }
-      deletePostState.threadList[action.threadId].posts = deletePostState.threadList[action.threadId].posts.filter((post) => post.id !== action.postId);
       return deletePostState
     }
     default:
