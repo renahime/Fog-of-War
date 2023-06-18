@@ -2,13 +2,15 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useLocation } from 'react-router-dom'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createElement } from 'react';
 import { getThreadThunk } from '../../store/threads';
 import './SingleThread.css';
 import OpenModalButton from "../OpenModalButton"
 import DeleteThreadModal from './DeleteThreadModal';
 import DeletePostModal from './DeletePostModal';
 import { createPostThunk } from '../../store/threads';
+import sanitizeHtml from 'sanitize-html';
+
 
 function SingleThread() {
   const user = useSelector(state => state.session.user);
@@ -32,6 +34,16 @@ function SingleThread() {
   let showPostMenu = () => {
     setOpenPostMenu(!openPostMenu)
   }
+
+  const renderHtml = (dirtyHtmlContent) => {
+    const clean = sanitizeHtml(dirtyHtmlContent, {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+    });
+    return createElement('div', {
+      dangerouslySetInnerHTML: { __html: clean },
+    });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -80,7 +92,7 @@ function SingleThread() {
       </div>
       <div className='single-thread-op-body-contents'>
         {thread.created_at}
-        {thread.text}
+        {renderHtml(thread.text)}
       </div>
       <div className='single-thread-posts-container'>
         {thread.posts.map((post) => {
@@ -108,7 +120,7 @@ function SingleThread() {
               </div>
             </div> : null}
             <h6>{post.created_at}</h6>
-            <h6>{post.text}</h6>
+            <h6>{renderHtml(post.text)}</h6>
             <i class="fa-solid fa-quotes"></i>
             <i class="fa-sharp fa-solid fa-message"></i>
           </div>
