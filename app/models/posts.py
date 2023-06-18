@@ -1,6 +1,26 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime, timedelta
 
+reply = db.Table(
+    "reply",
+    db.Column(
+        "replyer",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod("posts.id")),
+        primary_key=True
+    ),
+    db.Column(
+        "replied",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod("posts.id")),
+        primary_key=True
+    )
+)
+
+if environment == "production":
+    reply.schema = SCHEMA
+
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -18,6 +38,16 @@ class Post(db.Model):
 
     user = db.relationship('User', back_populates='posts')
     thread = db.relationship('Thread', back_populates='posts')
+    image = db.relationship('Image', back_populates='post', cascade='all, delete-orphan')
+    replies = db.relationship(
+        "Post",
+        secondary="reply",
+        primaryjoin=reply.c.replied == id,
+        secondaryjoin=reply.c.replyer == id,
+        backref='replyer',
+        lazy='dynamic'
+    )
+
 
     def to_dict(self):
         return{

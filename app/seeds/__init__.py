@@ -1,8 +1,8 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .category import seed_category, undo_category
-from .threads import seed_threads, undo_thread
-from .posts import seed_posts, undo_posts
+from .anime_threads import seed_threads, undo_thread
+from .anime_posts import seed_posts, undo_posts
 from .lit_posts import seed_lit_posts, undo_lit_posts
 from .lit_threads import seed_lit_threads, undo_lit_thread
 from app.models.db import db, environment, SCHEMA

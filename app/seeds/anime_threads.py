@@ -1,4 +1,4 @@
-from app.models import db, Category, environment, SCHEMA, Thread, Post, User
+from app.models import db, Category, environment, SCHEMA, Thread, Post, User, SubCategory
 from sqlalchemy.sql import text
 from chancepy import Chance
 
@@ -7,9 +7,11 @@ from chancepy import Chance
 def seed_threads():
     user = User.query.get(1)
     category = Category.query.filter_by(name='Anime Manga and Visual Novels').first()
+    subcategory=SubCategory.query.filter_by(name='When the Seagulls Cry').first()
     thread1= Thread(
         user=user,
         categories=[category],
+        subcategories=[subcategory],
         views=0,
         created_at=Chance.date(year=2022),
         updated_at=Chance.date(year=2022),
@@ -44,6 +46,7 @@ def seed_threads():
     thread2=Thread(
         user=user,
         categories=[category],
+        subcategories=[subcategory],
         views=0,
         created_at=Chance.date(year=2022),
         updated_at=Chance.date(year=2022),
@@ -75,6 +78,7 @@ def seed_threads():
     thread3=Thread(
         user=user,
         categories=[category],
+        subcategories=[subcategory],
         views=0,
         created_at=Chance.date(year=2022),
         updated_at=Chance.date(year=2022),
@@ -108,6 +112,7 @@ def seed_threads():
     thread4=Thread(
         user=user,
         categories=[category],
+        subcategories=[subcategory],
         views=0,
         created_at=Chance.date(year=2022),
         updated_at=Chance.date(year=2022),
@@ -177,6 +182,7 @@ def seed_threads():
     thread5=Thread(
         user=user,
         categories=[category],
+        subcategories=[subcategory],
         views=0,
         created_at=Chance.date(year=2022),
         updated_at=Chance.date(year=2022),
