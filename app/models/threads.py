@@ -18,7 +18,7 @@ class Thread(db.Model):
     categories = db.relationship('Category', secondary= thread_categories, back_populates='threads',cascade="all, delete", passive_deletes=True)
     user = db.relationship('User', back_populates='threads')
     posts = db.relationship('Post', back_populates='thread', cascade='all, delete-orphan')
-    subcategories = db.relationship('SubCategory', secondary=thread_sub_categories, back_populates='threads', cascade="all, delete", passive_deletes=True)
+    subcategories = db.relationship('SubCategory', secondary=thread_sub_categories, back_populates='thread', cascade="all, delete", passive_deletes=True)
     image = db.relationship('ThreadImage', back_populates='thread', cascade='all, delete-orphan')
 
 

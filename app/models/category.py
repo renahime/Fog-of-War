@@ -74,7 +74,7 @@ class SubCategory(db.Model):
     categoryId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')), nullable=False)
     name = db.Column(db.String)
 
-    threads = db.relationship('Thread', secondary=thread_sub_categories, back_populates='subcategories', passive_deletes=True)
+    thread = db.relationship('Thread', secondary=thread_sub_categories, back_populates='subcategories', passive_deletes=True)
     categories = db.relationship('Category', back_populates='subcategories',cascade="all, delete", passive_deletes=True)
 
     def normalize_threads(self):
