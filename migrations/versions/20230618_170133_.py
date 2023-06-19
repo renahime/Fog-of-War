@@ -1,13 +1,16 @@
 """empty message
 
 Revision ID: f9252c44c39b
-Revises: 
+Revises:
 Create Date: 2023-06-18 17:01:33.359300
 
 """
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = 'f9252c44c39b'
@@ -23,6 +26,9 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE categories SET SCHEMA {SCHEMA};")
+
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
@@ -35,6 +41,9 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('subcategories',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('categoryId', sa.Integer(), nullable=False),
@@ -42,6 +51,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['categoryId'], ['categories.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE subcategories SET SCHEMA {SCHEMA};")
+
     op.create_table('threads',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=255), nullable=False),
@@ -53,6 +66,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE threads SET SCHEMA {SCHEMA};")
+
+
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=255), nullable=False),
@@ -65,12 +82,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
     op.create_table('thread_categories',
     sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], )
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE thread_categories SET SCHEMA {SCHEMA};")
     op.create_table('thread_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('threadId', sa.Integer(), nullable=True),
@@ -78,12 +99,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['threadId'], ['threads.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE thread_images SET SCHEMA {SCHEMA};")
     op.create_table('thread_sub_categories',
     sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.Column('sub_category_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['sub_category_id'], ['subcategories.id'], ),
     sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], )
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE thread_sub_categories SET SCHEMA {SCHEMA};")
     op.create_table('post_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('postId', sa.Integer(), nullable=True),
@@ -91,6 +116,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE post_images SET SCHEMA {SCHEMA};")
     op.create_table('reply',
     sa.Column('replyer', sa.Integer(), nullable=False),
     sa.Column('replied', sa.Integer(), nullable=False),
@@ -98,6 +125,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['replyer'], ['posts.id'], ),
     sa.PrimaryKeyConstraint('replyer', 'replied')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE reply SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
