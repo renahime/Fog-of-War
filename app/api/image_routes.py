@@ -1,7 +1,7 @@
 
 from flask import Blueprint, redirect,request
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import db, Thread,User, Category, Post, Image
+from app.models import db, Thread,User, Category, Post, PostImage, ThreadImage
 from app.forms import ImageForm
 from .auth_routes import validation_errors_to_error_messages
 from .AWS_helpers import get_unique_filename, upload_file_to_s3
@@ -29,7 +29,7 @@ def create_post_image(id):
         if "url" not in s3_upload:
             return {"errors": validation_errors_to_error_messages(s3_upload)}
 
-        new_image = Image(
+        new_image = PostImage(
             image = s3_upload["url"],
             post=find_post,
         )
@@ -61,7 +61,7 @@ def create_thread_image(id):
         if "url" not in s3_upload:
             return {"errors": validation_errors_to_error_messages(s3_upload)}
 
-        new_image = Image(
+        new_image = ThreadImage(
             image = s3_upload["url"],
             thread=find_thread,
         )

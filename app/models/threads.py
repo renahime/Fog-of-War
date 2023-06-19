@@ -19,7 +19,9 @@ class Thread(db.Model):
     user = db.relationship('User', back_populates='threads')
     posts = db.relationship('Post', back_populates='thread', cascade='all, delete-orphan')
     subcategories = db.relationship('SubCategory', secondary=thread_sub_categories, back_populates='threads', cascade="all, delete", passive_deletes=True)
-    image = db.relationship('Image', back_populates='thread', cascade='all, delete-orphan')
+    image = db.relationship('ThreadImage', back_populates='thread', cascade='all, delete-orphan')
+
+
 
     def find_youngest_post(self):
         if len(self.posts) == 0:
@@ -36,6 +38,12 @@ class Thread(db.Model):
             'created_at':sorted_posts[0].created_at,
         }
 
+    def normalize_posts(self):
+        all_posts = {}
+        for post in self.posts:
+                    all_posts[post.id] = post.to_dict()
+        return all_posts
+
 
 
     def to_dict_with_txt(self):
@@ -45,7 +53,7 @@ class Thread(db.Model):
             'views': self.views,
             'user': self.user.to_dict(),
             "post_count":len([post.id for post in self.posts]),
-            'posts': [post.to_dict() for post in self.posts],
+            'posts': self.normalize_posts(),
             "latest_post": self.find_youngest_post(),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
@@ -57,9 +65,10 @@ class Thread(db.Model):
             'id': self.id,
             'subject': self.subject,
             'views': self.views,
+            'text': self.text,
             'user': self.user.to_dict(),
             "post_count":len([post.id for post in self.posts]),
-            'posts': [post.to_dict() for post in self.posts],
+            'posts': self.normalize_posts(),
             "latest_post": self.find_youngest_post(),
             'created_at': self.created_at,
             'updated_at': self.updated_at,

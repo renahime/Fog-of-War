@@ -8,24 +8,32 @@ import './SingleThread.css';
 import OpenModalButton from "../OpenModalButton"
 import DeleteThreadModal from './DeleteThreadModal';
 import DeletePostModal from './DeletePostModal';
-import { createPostThunk } from '../../store/threads';
+import { createPostThunk } from '../../store/category';
 import sanitizeHtml from 'sanitize-html';
-
+import { addThreadViewThunk } from '../../store/category'
 
 function SingleThread() {
   const user = useSelector(state => state.session.user);
-  let thread = useSelector(state => state.thread.singleThread);
   let location = useLocation()
-  let [loading, setLoading] = useState(false)
-  const [subject, setSubject] = useState('RE: ')
-  const [text, setText] = useState('')
-  let idQuery = location.state.id;
-  let categoryQuery = location.state.category
+  const history = useHistory()
   let dispatch = useDispatch()
+  const thread = useSelector(state => state.category.categories[location.state.categoryId].subcategories[location.state.subcategoryId].threads[location.state.threadId])
   const [openThreadMenu, setopenThreadMenu] = useState(false)
   const [openPostMenu, setOpenPostMenu] = useState(false)
   const [errors, setErrors] = useState({})
-  const history = useHistory()
+  let postsArr = [];
+  let id = location.state.threadId;
+  let category = location.state.category
+  let subcategory = location.state.subcategory
+  let categoryId = location.state.categoryId
+  let subcategoryId = location.state.subcategoryId
+  const [subject, setSubject] = useState('RE: ' + thread?.subject)
+  const [text, setText] = useState('')
+  console.log(thread);
+
+  if (thread)
+    postsArr = Object.values(thread.posts);
+
 
   let showMenu = () => {
     setopenThreadMenu(!openThreadMenu)
@@ -49,21 +57,20 @@ function SingleThread() {
     setErrors({});
     const post = { subject, text };
     console.log(post);
-    const newPost = dispatch(createPostThunk(post, idQuery))
-      .then(newPost => { history.push({ pathname: `/threads/${categoryQuery}/${idQuery}`, state: { id: idQuery, category: categoryQuery } }) })
+    const newPost = dispatch(createPostThunk(post, id, categoryId, subcategoryId))
+      .then(newPost => { history.push({ pathname: `/${category}/${subcategory}/threads/${id}`, state: { threadId: id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
   }
 
-
   useEffect(() => {
-    dispatch(getThreadThunk(idQuery)).then(() => setLoading(true))
-    if (thread && Object.values(thread).length) {
-      setSubject('RE: ' + thread.subject);
-    }
-  }, [dispatch])
+    let addView
+    if (thread)
+      addView = dispatch(addThreadViewThunk(thread.id, categoryId, subcategoryId));
+  }, [thread])
+
 
   let menuClassName = openThreadMenu || openPostMenu ? "profile-menu" : "hidden profile-menu"
 
-  return (!loading || !thread || !Object.values(thread).length ? <h1>Loading...</h1> :
+  return (!thread || !Object.values(thread) ? <h1> loading </h1> :
     <div className='single-thread-main-body'>
       <div className='single-thread-title'>
         <h6>{thread.subject}</h6>
@@ -71,17 +78,20 @@ function SingleThread() {
           <i onClick={showMenu} class="fas fa-cog"></i> : null}
         {openThreadMenu && <div className={menuClassName}>
           <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'left', color: 'black' }} to={{
-            pathname: `/threads/${categoryQuery}/edit`,
+            pathname: `/${category}/${subcategory}/threads/edit`,
             state: {
               thread: thread,
-              category: categoryQuery
+              category: category,
+              subcategory: subcategory,
+              categoryId: location.state.categoryId,
+              subcategoryId: location.state.subcategoryId,
             }
           }}> <div className="profile-dropdown-create">Edit</div> </NavLink>
           <div className="profile-dropdown-create" onClick={showMenu}>
             <div>
               <OpenModalButton
                 buttonText="Delete"
-                modalComponent={<DeleteThreadModal category={categoryQuery} threadId={thread.id} />} >
+                modalComponent={<DeleteThreadModal category={category} threadId={thread.id} subcategory={subcategory} categoryId={location.state.categoryId} subcategoryId={location.state.subcategoryId} />} >
               </OpenModalButton>
             </div>
           </div>
@@ -95,32 +105,35 @@ function SingleThread() {
         {renderHtml(thread.text)}
       </div>
       <div className='single-thread-posts-container'>
-        {thread.posts.map((post) => {
+        {postsArr.map((post) => {
           return <div className='single-thread-post-div'>
             <h6>{post.user.username}</h6>
             {user && post.user.id == user.id ?
               <i onClick={showPostMenu} class="fas fa-cog"> </i> : null}
             {openPostMenu && post.user.id === user.id ? <div className={menuClassName}>
               <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'left', color: 'black' }} to={{
-                pathname: `/threads/${categoryQuery}/${thread.id}/edit`,
+                pathname: `/${category}/${subcategory}/threads/${thread.id}/edit`,
                 state: {
                   post: post,
-                  category: categoryQuery,
-                  id: thread.id,
-                  subject: thread.subject
+                  category: category,
+                  threadId: thread.id,
+                  subject: thread.subject,
+                  subcategory: subcategory,
+                  categoryId: location.state.categoryId,
+                  subcategoryId: location.state.subcategoryId
                 }
               }}> <div className="profile-dropdown-create">Edit</div> </NavLink>
               <div className="profile-dropdown-create" onClick={showMenu}>
                 <div>
                   <OpenModalButton
                     buttonText="Delete"
-                    modalComponent={<DeletePostModal category={categoryQuery} postId={post.id} threadId={thread.id} />} >
+                    modalComponent={<DeletePostModal category={category} postId={post.id} threadId={thread.id} subcategory={subcategory} categoryId={location.state.categoryId} subcategoryId={location.state.subcategoryId} />} >
                   </OpenModalButton>
                 </div>
               </div>
             </div> : null}
             <h6>{post.created_at}</h6>
-            <h6>{renderHtml(post.text)}</h6>
+            {renderHtml(post.text)}
             <i class="fa-solid fa-quotes"></i>
             <i class="fa-sharp fa-solid fa-message"></i>
           </div>
@@ -128,11 +141,14 @@ function SingleThread() {
       </div>
       <div>
         <NavLink to={{
-          pathname: `/threads/${categoryQuery}/${thread.id}/new`,
+          pathname: `/${category}/${subcategory}/threads/${thread.id}/new`,
           state: {
-            id: thread.id,
+            threadId: thread.id,
             subject: thread.subject,
-            category: categoryQuery
+            category: category,
+            subcategory: subcategory,
+            categoryId: location.state.categoryId,
+            subcategoryId: location.state.subcategoryId
           }
         }}>
           <button style={{ float: 'right' }}>New Reply</button>

@@ -38,7 +38,7 @@ class Post(db.Model):
 
     user = db.relationship('User', back_populates='posts')
     thread = db.relationship('Thread', back_populates='posts')
-    image = db.relationship('Image', back_populates='post', cascade='all, delete-orphan')
+    image = db.relationship('PostImage', back_populates='post', cascade='all, delete-orphan')
     replies = db.relationship(
         "Post",
         secondary="reply",

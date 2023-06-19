@@ -7,7 +7,7 @@ import "./HomePage.css";
 function HomePage() {
 	let date = new Date()
 	const dispatch = useDispatch()
-	let categories = useSelector(state => state.category.category)
+	let categories = useSelector(state => state.category.categories)
 	let sessionUser = useSelector(state => state.session.user)
 	let [loading, setLoading] = useState(false)
 	let categoryArr = []
@@ -36,8 +36,12 @@ function HomePage() {
 				</div>
 				{categoryArr.map((category) => (
 					<NavLink to={{
-						pathname: `/threads/${category.name.split(' ').join('_')}/`,
-						state: { category: category.name }
+						pathname: `/${category.name}`,
+						state: {
+							category: category.name,
+							categoryId: category.id,
+							subcategories: category.subcategories
+						}
 					}}>
 						<div className='category-name'>
 							{category.name}

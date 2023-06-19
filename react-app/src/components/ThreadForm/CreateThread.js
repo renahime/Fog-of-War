@@ -8,7 +8,13 @@ const CreateThreadForm = () => {
   }
   const location = useLocation()
   return (
-    <ThreadForm thread={thread} category={location.state.category} formType="Create Thread">
+    <ThreadForm
+      thread={thread}
+      category={location.state.category}
+      subcategory={location.state.subcategory}
+      categoryId={location.state.categoryId}
+      subcategoryId={location.state.subcategoryId}
+      formType="Create Thread">
     </ThreadForm>
   )
 }

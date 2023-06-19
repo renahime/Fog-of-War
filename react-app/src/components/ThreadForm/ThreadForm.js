@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { createThreadThunk } from '../../store/threads';
-import { editThreadThunk } from '../../store/threads';
+import { createThreadThunk } from '../../store/category';
+import { editThreadThunk } from '../../store/category';
 import CkEditor from '../ckEditor';
 
-function ThreadForm({ thread, formType, category }) {
+function ThreadForm({ thread, formType, category, subcategory, subcategoryId, categoryId }) {
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   const history = useHistory()
@@ -20,11 +20,11 @@ function ThreadForm({ thread, formType, category }) {
     setErrors({});
     thread = { ...thread, subject, text };
     if (formType == "Create Thread") {
-      const newThread = dispatch(createThreadThunk(thread, category))
-        .then(newThread => { history.push({ pathname: `/threads/${category}/${newThread.id}`, state: { id: newThread.id, category: category } }) })
+      const newThread = dispatch(createThreadThunk(thread, category, categoryId, subcategoryId))
+        .then(newThread => { history.push({ pathname: `/${category}/${subcategory}/threads/${newThread.id}`, state: { threadId: newThread.id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId, subcategoryId } }) })
     }
     else if (formType == 'Update Thread') {
-      const editedThread = dispatch(editThreadThunk(thread)).then(editedThread => { history.push({ pathname: `/threads/${category}/${editedThread.id}`, state: { id: editedThread.id, category: category } }) })
+      const editedThread = dispatch(editThreadThunk(thread, categoryId, subcategoryId)).then(editedThread => { history.push({ pathname: `/${category}/${subcategory}/threads/${editedThread.id}`, state: { threadId: editedThread.id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId, subcategoryId } }) })
     }
   }
 

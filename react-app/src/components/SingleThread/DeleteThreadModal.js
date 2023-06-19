@@ -4,20 +4,18 @@ import { useEffect } from "react"
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
 import OpenModalButton from '../OpenModalButton';
-import { deleteThreadThunk } from "../../store/threads";
+import { deleteThreadThunk } from "../../store/category";
 
-function DeleteThreadModal({ threadId, category }) {
+function DeleteThreadModal({ threadId, category, subcategory, categoryId, subcategoryId }) {
   const { closeModal } = useModal();
+  const user = useSelector
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log(threadId)
-  console.log(category)
   const handleDelete = async (e) => {
     e.preventDefault();
-    const deleteThread = await dispatch(deleteThreadThunk(threadId)).then(closeModal())
-    if (deleteThread) {
-      history.push({ pathname: `/threads/${category}/`, state: { category: category } })
-    }
+    const deleteThread = await dispatch(deleteThreadThunk(threadId, categoryId, subcategoryId)).then(closeModal())
+    if (deleteThread)
+      history.push(`/${category}/${subcategory}/threads`, { category: category, subcategory: subcategory, subcategoryId: subcategoryId, categoryId: categoryId })
   }
   return (
     <div className="delete-thread-container">

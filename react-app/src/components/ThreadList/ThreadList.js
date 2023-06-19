@@ -7,35 +7,43 @@ import { getThreadsListThunk } from '../../store/threads';
 import './ThreadList.css';
 
 function ThreadList() {
-  const sessionUser = useSelector(state => state.session.user);
-  let threads = useSelector(state => state.thread.threadList);
-  let threadArr = [];
+  const user = useSelector(state => state.session.user);
   let location = useLocation()
-  let [loading, setLoading] = useState(false)
-  let categoryQuery = location.state.category;
-  let dispatch = useDispatch()
+  const dispatch = useDispatch()
+  let category = location.state.category;
+  let subcategory = location.state.subcategory;
+  let categoryId = location.state.categoryId;
+  let subcategoryId = location.state.subcategoryId
+  let threads = useSelector(state => state.category.categories[categoryId].subcategories[subcategoryId].threads)
+  let threadsArr;
+  if (threads)
+    threadsArr = Object.values(threads)
+  console.log(location)
 
   useEffect(() => {
-    dispatch(getThreadsListThunk(categoryQuery)).then(() => setLoading(true))
-  }, [dispatch])
+    if (threadsArr.length) {
+      threadsArr = threadsArr.sort((a, b) => {
+        return new Date(b.latest_post.created_at) - new Date(a.latest_post.created_at)
+      })
+    }
+  }, [threadsArr])
 
-  if (threads && (Object.values(threads).length > 1)) {
-    threadArr = Object.values(threads)
-    threadArr = threadArr.sort((a, b) => {
-      return new Date(b.latest_post.created_at) - new Date(a.latest_post.created_at)
-    })
-  }
-  return (!loading && threadArr.length < 1 ? <h1>Loading...</h1> :
+
+
+  return (
     <div>
       <NavLink to={{
-        pathname: `/threads/${categoryQuery.split(' ').join('_')}/new`,
+        pathname: `/${category}/${subcategory}/threads/new`,
         state: {
-          category: categoryQuery
+          category: category,
+          subcategory: subcategory,
+          categoryId: location.state.categoryId,
+          subcategoryId: location.state.subcategoryId
         }
       }}>
         <button style={{ float: 'right' }}>Post Thread</button>
       </NavLink>
-      <h5>{categoryQuery}</h5>
+      <h5>{subcategory}</h5>
       <div className='title-columns'>
         <h6>Thread/Author</h6>
         <h6>Replies</h6>
@@ -43,12 +51,17 @@ function ThreadList() {
         <h6>Last Post</h6>
       </div>
       <div>
-        {threadArr.map((thread) => (
+        {threadsArr.map((thread) => (
           <NavLink to={{
-            pathname: `/threads/${categoryQuery.split(' ').join('_')}/${thread.id}`,
+            pathname: `/${category}/${subcategory}/threads/${thread.id}`,
             state: {
-              id: thread.id,
-              category: categoryQuery
+              thread: thread,
+              threadId: thread.id,
+              category: category,
+              subcategory: subcategory,
+              threadId: thread.id,
+              categoryId: location.state.categoryId,
+              subcategoryId: location.state.subcategoryId,
             }
           }}>
             <div className='thread-details' key={thread.id}>

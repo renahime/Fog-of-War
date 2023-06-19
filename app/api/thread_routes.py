@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect,request
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import db, Thread,User, Category
-from app.forms import ThreadForm
+from app.models import db, Thread,User, Category, SubCategory
+from app.forms import ThreadForm, EditThreadForm
 from .auth_routes import validation_errors_to_error_messages
 
 
@@ -41,9 +41,20 @@ def get_thread_by_id(id):
     else:
         return thread.to_dict_with_txt()
 
-@thread_routes.route('/<category_name>/new', methods=['GET','POST'])
+@thread_routes.route('/<int:id>/view', methods = ["PUT"])
+def add_view(id):
+    thread = Thread.query.get(id)
+    if not thread:
+        return {'errors': "could not find thread"}
+    else:
+        thread.views = thread.views + 1
+        db.session.commit()
+        return {'views': thread.views}
+
+
+@thread_routes.route('/<category_name>/<int:subcategory_id>/new', methods=['GET','POST'])
 @login_required
-def create_thread(category_name):
+def create_thread(category_name,subcategory_id):
     user = User.query.get(current_user.id)
 
     form = ThreadForm()
@@ -51,12 +62,14 @@ def create_thread(category_name):
 
     if form.validate_on_submit():
         category = Category.query.filter_by(name=category_name).one()
+        subcategory = SubCategory.query.get(subcategory_id)
         new_thread=Thread(
             subject=form.data["subject"],
             text=form.data["text"],
             views=0,
             user=user,
-            categories=[category]
+            categories=[category],
+            subcategories=[subcategory]
         )
         db.session.add(new_thread)
         db.session.commit()
@@ -72,7 +85,7 @@ def edit_thread(id):
     if current_user.id != thread_to_edit.user_id:
       return {"errors":"you do not own this board"}
 
-    form = ThreadForm()
+    form = EditThreadForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
 

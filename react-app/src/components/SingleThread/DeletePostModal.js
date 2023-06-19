@@ -4,17 +4,17 @@ import { useEffect } from "react"
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
 import OpenModalButton from '../OpenModalButton';
-import { deletePostThunk } from "../../store/threads";
+import { deletePostThunk } from "../../store/category";
 
-function DeletePostModal({ postId, category, threadId }) {
+function DeletePostModal({ postId, category, threadId, subcategory, subcategoryId, categoryId }) {
   const { closeModal } = useModal();
   const history = useHistory();
   const dispatch = useDispatch();
   const handleDelete = async (e) => {
     e.preventDefault();
-    const deleteThread = await dispatch(deletePostThunk(postId, threadId)).then(closeModal())
-    if (deleteThread) {
-      history.push({ pathname: `/threads/${category}/${threadId}`, state: { category: category, id: threadId } })
+    const deletePost = await dispatch(deletePostThunk(postId, threadId, categoryId, subcategoryId)).then(closeModal())
+    if (deletePost) {
+      history.push({ pathname: `/${category}/${subcategory}/threads/${threadId}`, state: { category: category, threadId: threadId, subcategory: subcategory, subcategoryId: subcategoryId, categoryId: categoryId } })
     }
   }
   return (

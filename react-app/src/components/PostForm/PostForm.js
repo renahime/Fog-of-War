@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import { createPostThunk } from '../../store/threads';
-import { editPostThunk } from '../../store/threads';
+import { createPostThunk } from '../../store/category';
+import { editPostThunk } from '../../store/category';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import CkEditor from '../ckEditor';
 
-function PostForm({ post, formType, threadId, threadSubject, category }) {
+function PostForm({ post, formType, threadId, threadSubject, category, subcategory, subcategoryId, categoryId, thread }) {
   const user = useSelector(state => state.session.user);
   const location = useLocation();
   const history = useHistory();
@@ -17,17 +17,19 @@ function PostForm({ post, formType, threadId, threadSubject, category }) {
   const [text, setText] = useState(post?.text)
   const [subject, setSubject] = useState(post?.subject || 'RE: ' + threadSubject)
   const [errors, setErrors] = useState({})
+  console.log(post, formType, threadSubject, category, subcategory, subcategoryId, categoryId, threadId)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
     post = { ...post, subject, text };
     if (formType == "Create Post") {
-      const newPost = dispatch(createPostThunk(post, location.state.id))
-        .then(newPost => { history.push({ pathname: `/threads/${category}/${threadId}`, state: { id: threadId, category: category } }) })
+      const newPost = dispatch(createPostThunk(post, threadId, categoryId, subcategoryId))
+        .then(newPost => { history.push({ pathname: `/${category}/${subcategory}/threads/${threadId}`, state: { threadId: threadId, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
     }
     else if (formType == 'Update Post') {
-      const editedPost = dispatch(editPostThunk(post, location.state.id)).then(editedPost => { history.push({ pathname: `/threads/${category}/${threadId}`, state: { id: threadId, category: category } }) })
+      const editedPost = dispatch(editPostThunk(post, threadId, categoryId, subcategoryId))
+        .then(editedPost => { history.push({ pathname: `/${category}/${subcategory}/threads/${threadId}`, state: { threadId: threadId, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
       post = editedPost
     }
   }

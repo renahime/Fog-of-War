@@ -12,6 +12,7 @@ import CreateThreadForm from "./components/ThreadForm/CreateThread";
 import CreatePostForm from "./components/PostForm/CreatePost";
 import EditThreadForm from "./components/ThreadForm/EditThread"
 import EditPostForm from "./components/PostForm/EditPost";
+import SubcategoryList from "./components/SubcategoryList/SubcategoryList";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,22 +34,25 @@ function App() {
           <Route exact path="/">
             <HomePage></HomePage>
           </Route>
-          <Route exact path='/threads/:category'>
+          <Route exact path='/:category'>
+            <SubcategoryList></SubcategoryList>
+          </Route>
+          <Route exact path='/:category/:subcategory/threads'>
             <ThreadList></ThreadList>
           </Route>
-          <Route exact path='/threads/:category/new'>
+          <Route exact path='/:category/:subcategory/threads/new'>
             <CreateThreadForm></CreateThreadForm>
           </Route>
-          <Route exact path='/threads/:category/edit'>
+          <Route exact path='/:category/:subcategory/threads/edit'>
             <EditThreadForm></EditThreadForm>
           </Route>
-          <Route exact path='/threads/:category/:threadId'>
+          <Route exact path='/:category/:subcategory/threads/:threadId'>
             <SingleThread></SingleThread>
           </Route>
-          <Route exact path='/threads/:category/:threadId/new'>
+          <Route exact path='/:category/:subcategory/threads/:threadId/new'>
             <CreatePostForm></CreatePostForm>
           </Route>
-          <Route exact path='/threads/:category/:threadId/edit'>
+          <Route exact path='/:category/:subcategory/threads/:threadId/edit'>
             <EditPostForm></EditPostForm>
           </Route>
         </Switch>

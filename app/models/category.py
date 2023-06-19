@@ -50,11 +50,18 @@ class Category(db.Model):
     threads = db.relationship('Thread', secondary=thread_categories, back_populates='categories', passive_deletes=True)
     subcategories = db.relationship('SubCategory', back_populates='categories', passive_deletes=True)
 
+    def normalize_subcategory(self):
+        all_subcategories = {}
+        for subcategory in self.subcategories:
+                    all_subcategories[subcategory.id] = subcategory.to_dict()
+        return all_subcategories
+
+
     def to_dict(self):
         return{
             'id': self.id,
             'name':self.name,
-            'subcategories': [subcategory.to_dict() for subcategory in self.subcategories]
+            'subcategories': self.normalize_subcategory()
         }
 
 class SubCategory(db.Model):
@@ -70,9 +77,16 @@ class SubCategory(db.Model):
     threads = db.relationship('Thread', secondary=thread_sub_categories, back_populates='subcategories', passive_deletes=True)
     categories = db.relationship('Category', back_populates='subcategories',cascade="all, delete", passive_deletes=True)
 
+    def normalize_threads(self):
+        all_threads = {}
+        for thread in self.threads:
+                    all_threads[thread.id] = thread.to_dict()
+        return all_threads
+
+
     def to_dict(self):
         return{
             'id': self.id,
             'name':self.name,
-            'threads':  [thread.to_dict() for thread in self.threads],
+            'threads': self.normalize_threads()
         }

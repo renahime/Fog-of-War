@@ -9,6 +9,9 @@ const EditThreadForm = () => {
       <ThreadForm
         thread={location.state.thread}
         category={location.state.category}
+        subcategory={location.state.subcategory}
+        categoryId={location.state.categoryId}
+        subcategoryId={location.state.subcategoryId}
         formType="Update Thread"
       ></ThreadForm>
     </>
