@@ -6,18 +6,6 @@ import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 
 
 const CkEditor = ({ setText, text }) => {
-  const editorConfig = {
-    simpleUpload: {
-      // The URL that the images are uploaded to.
-      uploadUrl: environment.postSaveRteImage,
-
-      // Headers sent along with the XMLHttpRequest to the upload server.
-      headers: {
-        'X-CSRF-TOKEN': 'CSFR-Token',
-        Authorization: 'Bearer <JSON Web Token>'
-      }
-    }
-  }
   return (
     <div className="App">
       <CKEditor
