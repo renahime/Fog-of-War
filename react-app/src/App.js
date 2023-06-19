@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, NavLink } from "react-router-dom";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage/HomePage";
@@ -13,6 +13,7 @@ import CreatePostForm from "./components/PostForm/CreatePost";
 import EditThreadForm from "./components/ThreadForm/EditThread"
 import EditPostForm from "./components/PostForm/EditPost";
 import SubcategoryList from "./components/SubcategoryList/SubcategoryList";
+import PagePath from "./components/PagePath/PagePath";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <> <Navigation></Navigation>
+      <PagePath></PagePath>
       {isLoaded && (
         <Switch>
           <Route exact path="/login" >

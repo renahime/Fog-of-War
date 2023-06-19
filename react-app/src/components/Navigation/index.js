@@ -37,17 +37,16 @@ function Navigation({ isLoaded }) {
 						<div className='user-date-container'>
 							<h5 className='user-date'>{date.toString()}</h5>
 						</div>
-					</div> : <div className='login-register'>
+					</div> :
+					<div className='login-register'>
 						<div className='login-container'>
-							<i class="fa-solid fa-key"></i>
-							<Link to='/login'><h5>Login</h5></Link>
+							<Link className='login-link' to='/login'><i class="fa-solid fa-key"></i><h5 className='login-text'>Login</h5></Link>
 						</div>
 						<div className='signup-container'>
-							<i class="fa-solid fa-right-to-bracket"></i>
-							<Link to='/signup'><h5>Register</h5></Link>
+							<Link className='signup-link' to='/signup'><i class="fa-solid fa-right-to-bracket"></i><h5 className='register-text'>Register</h5></Link>
 						</div>
 						<div className='non-user-date-container'>
-							<h6 className='non-user-date'>{date.toString()}</h6>
+							<h5 className='non-user-date'>{date.toString()}</h5>
 						</div>
 					</div>}
 			</div>
@@ -60,11 +59,6 @@ function Navigation({ isLoaded }) {
 				</div>
 				:
 				null}
-			<div className='thread-path'>
-				<NavLink to="/">
-					<i class="fa-solid fa-house"></i>
-				</NavLink>
-			</div>
 		</div>
 	);
 }
