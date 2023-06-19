@@ -2,25 +2,64 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
-import ProfileButton from './ProfileButton';
+import { logout } from "../../store/session";
 import './Navigation.css';
+import logo from '../../imgs/banner.jpg'
+import { useDispatch } from 'react-redux';
+
 
 function Navigation({ isLoaded }) {
-	const sessionUser = useSelector(state => state.session.user);
+	const user = useSelector(state => state.session.user);
 	let date = new Date()
+	const dispatch = useDispatch()
+
+	const handleLogout = (e) => {
+		e.preventDefault();
+		dispatch(logout());
+	};
 
 	return (
-		<div>
+		<div className='main-nav-body'>
+			<div className='banner'>
+				<img src={logo}></img>
+			</div>
+			<div className='banner-separator'></div>
+
 			<div className='header-login'>
-				<div className='login-register'>
-					<Link to='/login'>Login</Link>
-					<Link to='/signup'>Register</Link>
+				{user ?
+					<div className='logged-in-user-container'>
+						<div className='user-info-container'>
+							<h5>Welcome back, {user.username}. You last visited: (insert date here) </h5>
+						</div>
+						<div className='user-logout-container'>
+							<i onClick={handleLogout} class="fa-solid fa-right-from-bracket"></i>
+						</div>
+						<div className='user-date-container'>
+							<h5 className='user-date'>{date.toString()}</h5>
+						</div>
+					</div> : <div className='login-register'>
+						<div className='login-container'>
+							<i class="fa-solid fa-key"></i>
+							<Link to='/login'><h5>Login</h5></Link>
+						</div>
+						<div className='signup-container'>
+							<i class="fa-solid fa-right-to-bracket"></i>
+							<Link to='/signup'><h5>Register</h5></Link>
+						</div>
+						<div className='non-user-date-container'>
+							<h6 className='non-user-date'>{date.toString()}</h6>
+						</div>
+					</div>}
+			</div>
+			{user ?
+				<div className='dropdown-container'>
+					<div className='buttons'>
+						<i class="fa-solid fa-bars"></i>
+						<i class="fa-solid fa-heart"></i>
+					</div>
 				</div>
-				<h6 className='date'>{date.toString()}</h6>
-			</div>
-			<div className='buttons'>
-				<i class="fa-solid fa-bars"></i>
-			</div>
+				:
+				null}
 			<div className='thread-path'>
 				<NavLink to="/">
 					<i class="fa-solid fa-house"></i>
