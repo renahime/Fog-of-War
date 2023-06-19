@@ -1,6 +1,5 @@
 from app.models import db, User, environment, SCHEMA, Post, Thread
 from sqlalchemy.sql import text
-from chancepy import Chance
 
 
 # Adds a demo user, you can add other users here if you want
@@ -33,8 +32,6 @@ def seed_lit_posts():
               """,
         user=user2,
         thread=thread1,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022)
     )
     db.session.add(post1)
 
@@ -47,8 +44,6 @@ def seed_lit_posts():
               Of course, that’s just my interpretation. Anything anyone gets out of the book is also valid. :)""",
         user=user3,
         thread=thread1,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022)
     )
     db.session.add(post2)
 
@@ -57,8 +52,6 @@ def seed_lit_posts():
         text="""I wholeheartedly agree. House of Leaves is predominantly about grief, and the desire to understand or find logic or reason in things that often reject understanding. You can try to understand or break down why someone passed away, just like you can go on countless expeditions to hopefully find the center of a maze, but in the end it will lead you right back to where you started. So much of this book is about letting go, as well as rejecting the notion that closure is a promise.""",
         user=user2,
         thread=thread2,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post3)
@@ -69,8 +62,6 @@ def seed_lit_posts():
               """,
         user=user3,
         thread=thread2,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post4)
@@ -84,8 +75,6 @@ def seed_lit_posts():
                 As good as the theory is when you only consider HoL, it basically gets impossible when you consider the screenplays which where released around 2 years ago. In these, TNR is revealed to be a real film. On the other hand, I‘m not sure what to make out of this, as it could just be a move from MZD to make things even more impossible to interpret coherently by intention.""",
         user=user2,
         thread=thread3,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post5)
@@ -96,8 +85,6 @@ def seed_lit_posts():
             """,
         user=user2,
         thread=thread5,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post6)
@@ -109,8 +96,6 @@ def seed_lit_posts():
         """,
         user=user3,
         thread=thread5,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022)
     )
 
     db.session.add(post7)

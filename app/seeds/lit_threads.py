@@ -1,6 +1,5 @@
 from app.models import db, Category, environment, SCHEMA, Thread, Post, User, SubCategory
 from sqlalchemy.sql import text
-from chancepy import Chance
 
 
 # Adds a demo user, you can add other users here if you want
@@ -14,8 +13,6 @@ def seed_lit_threads():
         categories=[category],
         subcategories=[subcategory],
         views=0,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022),
         subject="A first time reader's thoughts on the metaphysics of House of Leaves",
         text="""First time reader. I spent a lot of time this past week puzzling over the missing pieces left to fill in this void that this book's ending left when I finished it. I read a lot of theories, both here and on the old forums, and while some of them gave some clarity and some of them pointed out things I hadn't noticed, mostly it just gave me more questions. That led to something of a realization, about the very deliberate architecture of the story and how it subtly, and rather brilliantly, gets readers engage with it. Maybe I'm retreading old ground and this has all been discussed to death. I really have no idea, but I needed to get it out so here it is:
 
@@ -67,8 +64,6 @@ def seed_lit_threads():
         categories=[category],
         subcategories=[subcategory],
         views=0,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022),
         subject="House of Leaves - I believe I've found the profound message at the heart of this book. I might also be insane. Who knows.",
         text="""I just turned the last page and I need to get my thoughts to "paper" before they settle. Here is my understanding:
 
@@ -126,8 +121,6 @@ def seed_lit_threads():
         categories=[category],
         subcategories=[subcategory],
         views=0,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022),
         subject='House of Leaves - The Author - A Unifying Theory',
         text="""Introduction
 
@@ -273,8 +266,6 @@ def seed_lit_threads():
         categories=[category],
         subcategories=[subcategory],
         views=0,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022),
         subject="House of Leaves - Zampano's scratched floor",
         text="""Going through the reflection process after my first read through, as I'm sure anyone on this sub has experienced.
                 Reading theories and analyses and so on. I'm sure most people here have read a bit about what the minotaur represents.
@@ -295,8 +286,6 @@ def seed_lit_threads():
         categories=[category],
         subcategories=[subcategory],
         views=0,
-        created_at=Chance.date(year=2022),
-        updated_at=Chance.date(year=2022),
         subject="Creepy personal connections in House of Leaves",
         text=   """I finished House of Leaves this weekend and LOVED it. It was creepy as is, but then I found out something even creepier. My mom is a Bancroft. I texted her after I finished the book to find out if our family was related to Hubert Howe Bancroft (mentioned 3 times throughout the book, one as an image at the end). She confirmed, I'm a descendent of HH Bancroft. There's another image at the end of the book that contains a note about a party of people in the 1800s near Fort Vancouver who got lost after finding a a stairway, which was later destroyed in a St. Helens eruption. I live VERY close to the Fort & the mountain and have summited St. Helens three times. It just really creeped me out how this book started hitting close to home. Had to share with folks who'd understand.
 
