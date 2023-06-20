@@ -43,17 +43,16 @@ function PagePath() {
       setCategory(pathArray[1]);
       setThreadId("")
       setSubcategory("")
+      setSubject("")
     }
 
     if (pathArray.length == 4) {
       setCategory(pathArray[1]);
       setSubcategory(pathArray[2]);
       setThreadId("")
+      setSubject("")
     }
   }, [location.pathname, pathArray])
-
-  console.log(pathArray)
-  console.log(category)
   return (
     <div>
       <div className='separate'></div>
@@ -67,16 +66,26 @@ function PagePath() {
             </div>
             {category ?
               <div >
-                <NavLink to={{
+                {/* <NavLink to={{
                   pathname: `/${category}`,
                   state: {
                     category: category
                   }
-                }}>
-                  <i class="fa-solid fa-chevron-right"></i>
-                  <h5 style={{ color: 'white' }} className='category-name-path'>{category}</h5>
-                </NavLink>
+                }}> */}
+                <i class="fa-solid category-arrow fa-chevron-right"></i>
+                <h5 style={{ color: 'white' }} className='category-name-path'>{category}</h5>
+                {/* </NavLink> */}
               </div> : null}
+            {subcategory ?
+              <div>
+                <i class="fa-solid subcategory-arrow fa-chevron-right"></i>
+                <h5 style={{ color: 'white' }} className='sub-category-name-path'>{subcategory}</h5>
+              </div> : null
+            }
+            {/* {threadSubject ? <div>
+              <h5 style={{ color: 'white' }} className='thread-subject-path'>{threadSubject}</h5>
+            </div> : null
+            } */}
           </div>
         </div>
         <div className='separate-image'>

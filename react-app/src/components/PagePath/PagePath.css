@@ -39,7 +39,7 @@
   height:15px
 }
 
-.fa-chevron-right{
+.category-arrow{
 	color:white;
 	position:relative;
 	bottom:19px;
@@ -50,4 +50,18 @@
 	position:relative;
 	bottom:56.25px;
 	left:60px;
+}
+
+.subcategory-arrow{
+	color:white;
+	position:relative;
+	bottom:94px;
+	left:150px
+}
+
+.sub-category-name-path{
+	color:white;
+	position:relative;
+	left:190px;
+	bottom:132px
 }
