@@ -69,9 +69,100 @@ function SingleThread() {
 
 
   let menuClassName = openThreadMenu || openPostMenu ? "profile-menu" : "hidden profile-menu"
+  console.log(thread);
 
   return (!thread || !Object.values(thread) ? <h1> loading </h1> :
     <div className='single-thread-main-body'>
+      <article>
+        <table className='single-thread'>
+          <tbody>
+            <tr className='single-thread-subject-title'>
+              <td className='single-thread-subject-title-text'>
+                <div className='single-thread-owner-cog'>
+                  {thread.user.id && user && thread.user.id == user.id ?
+                    <i onClick={showMenu} class="fas fa-cog"></i> : null}
+                  {openThreadMenu && <div className={menuClassName}>
+                    <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'left', color: 'black' }} to={{
+                      pathname: `/${category}/${subcategory}/threads/edit`,
+                      state: {
+                        thread: thread,
+                        category: category,
+                        subcategory: subcategory,
+                        categoryId: location.state.categoryId,
+                        subcategoryId: location.state.subcategoryId,
+                      }
+                    }}> <div className="profile-dropdown-create">Edit</div> </NavLink>
+                    <div className="profile-dropdown-create" onClick={showMenu}>
+                      <div>
+                        <OpenModalButton
+                          buttonText="Delete"
+                          modalComponent={<DeleteThreadModal category={category} threadId={thread.id} subcategory={subcategory} categoryId={location.state.categoryId} subcategoryId={location.state.subcategoryId} />} >
+                        </OpenModalButton>
+                      </div>
+                    </div>
+                  </div>}
+                </div>
+              </td>
+              <td className='text-thread-subject-single'>
+                {thread.subject}
+              </td>
+            </tr>
+            <tr className='op-post-and-replies'>
+              <td className='op-post-and-replies-cotainer'>
+                <div className='op-post-and-replies'>
+                  <div className='op-post-and-info'>
+                    <div className='single-thread-op-info-container'>
+                      <div className='single-thread-op'>
+                        <div className='profile-picture'>
+                          <img className='profile-picture' src={thread.user.profile_image ? thread.user.profile_image : 'https://cdn.pixabay.com/photo/2013/07/13/10/04/detective-156465_1280.png'}>
+                          </img>
+                        </div>
+                        <div className='thread-owner-username'>
+                          <strong>{thread.user.username}</strong>
+                        </div>
+                        <div className='op-statistics'>
+                          <div className='op-statistic-wrapper'>
+                            <div className='op-statistic-row'>
+                              <div className='op-posts-text'>
+                                Posts
+                              </div>
+                              <div className='op-posts-number'>
+                                {thread.user.post_count}
+                              </div>
+                            </div>
+                            <div className='op-statistic-row'>
+                              <div className='op-thread-text'>
+                                Threads
+                              </div>
+                              <div className='op-thread-number'>
+                                {thread.user.thread_count}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='single-thread-op-post-content'>
+                      <div className='op-post-head-date'>
+                        {thread.created_at}
+                      </div>
+                      <div className='op-post-thread-body'>
+                        {renderHtml(thread.text)}
+                      </div>
+                    </div>
+                    <div className='single-thread-op-options-container'>
+                      <div className='thread-owner-only-controls'>
+                      </div>
+                      <div className='thread-reply-controls'>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
       <div className='single-thread-title'>
         <h6>{thread.subject}</h6>
         {thread.user.id && user && thread.user.id == user.id ?

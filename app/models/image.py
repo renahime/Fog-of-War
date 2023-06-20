@@ -7,7 +7,7 @@ class ThreadImage(db.Model):
     __tablename__ = 'thread_images'
 
     if environment == "production":
-        __table__args__ = {'schema': SCHEMA}
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     threadId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')))
@@ -26,7 +26,7 @@ class PostImage(db.Model):
     __tablename__ = 'post_images'
 
     if environment == "production":
-        __table__args__ = {'schema': SCHEMA}
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     postId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')))

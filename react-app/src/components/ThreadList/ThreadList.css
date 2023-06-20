@@ -10,3 +10,161 @@
   justify-content: space-evenly;
   text-align: left;
 }
+
+.thread-table{
+  width:92%;
+}
+
+.thread-subcategory-title{
+  background: #647b6a;
+  color: #fff;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  font-size: 14px;
+  padding: 13px;
+}
+
+.thread-title-user-container{
+  display:flex;
+  flex-direction: column;
+  gap:5px
+}
+
+.subject-and-link{
+  display:flex;
+  gap:10px;
+  text-align: center;
+}
+
+.thread-title-and-user{
+  background: #647b6a;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  padding: 10px;
+}
+
+.thread-author-title{
+  color: #fff;
+  border: none;
+  background: #91a596;
+  color: #fff;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  ;
+  padding:15px;
+}
+
+.replies-title{
+  color: #fff;
+  border: none;
+  background: #91a596;
+  color: #fff;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  ;
+  padding:15px;
+}
+
+.views-title{
+    color: #fff;
+  border: none;
+  background: #91a596;
+  color: #fff;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  padding:15px;
+}
+
+.last-post-title-thread{
+  color: #fff;
+  border: none;
+  background: #91a596;
+  color: #fff;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  padding:15px;
+}
+
+.last-post-thread-container{
+  display:flex;
+  flex-direction: column;
+}
+
+.font-awesome-thread{
+  background: #647b6a;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  padding: 10px;
+}
+
+.thread-replies{
+  background: #647b6a;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  padding: 10px;
+  text-align: center;
+}
+
+.thread-views{
+  background: #647b6a;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  padding: 10px;
+  text-align: center;
+}
+
+.thread-last-post{
+  background: #647b6a;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  padding: 10px;
+  text-align: right;
+
+}
+
+
+.fa-file-lines{
+  position:relative;
+  left:7px
+}
+
+.fa-arrow-up-right-from-square{
+  position:relative;
+  top:9px;
+}
+
+.pag-thread-container{
+  display:flex;
+  flex-direction: column;
+}
+
+.inside-button-container{
+  display:flex;
+  flex-direction: row;
+}
+
+.post-thread-button{
+  background: #3f3f3f;
+  color: #efefef;
+  position:relative;
+  left:815px;
+  width:120px;
+  height:30px;
+}
+
+.fa-pen-to-square{
+  position:relative;
+  top:8px;
+  left:5px;
+}
+
+.button-text-post-thread{
+  position:relative;
+  left:10px;
+  top:2px;
+}
+
+.profile-picture{
+  width:120px;
+  height:120px;
+}

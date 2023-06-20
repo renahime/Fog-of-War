@@ -61,7 +61,8 @@ class Category(db.Model):
         return{
             'id': self.id,
             'name':self.name,
-            'subcategories': self.normalize_subcategory()
+            'subcategories': self.normalize_subcategory(),
+            'thread_count': len([{thread.id} for thread in self.threads]),
         }
 
 class SubCategory(db.Model):
@@ -88,5 +89,6 @@ class SubCategory(db.Model):
         return{
             'id': self.id,
             'name':self.name,
-            'threads': self.normalize_threads()
+            'threads': self.normalize_threads(),
+            'thread_count': len([{thread.id} for thread in self.threads]),
         }
