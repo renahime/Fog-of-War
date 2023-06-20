@@ -47,8 +47,8 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-    threads = db.relationship('Thread', secondary=thread_categories, back_populates='categories', passive_deletes=True)
-    subcategories = db.relationship('SubCategory', back_populates='categories', passive_deletes=True)
+    threads = db.relationship('Thread', secondary=thread_categories, back_populates='categories', cascade="all, delete", passive_deletes=True,)
+    subcategories = db.relationship('SubCategory', back_populates='categories', cascade="all, delete", passive_deletes=True)
 
     def normalize_subcategory(self):
         all_subcategories = {}

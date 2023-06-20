@@ -17,6 +17,7 @@ function PagePath() {
   const [threadSubject, setSubject] = useState("")
   const location = useLocation();
   let pathArray;
+  console.log(location);
   console.log(state);
   useEffect(() => {
     pathArray = location.pathname.split('/')
