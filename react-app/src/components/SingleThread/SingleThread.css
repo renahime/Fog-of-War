@@ -8,12 +8,10 @@
 }
 
 .profile-dropdown-create-label {
-  font-size: 12px;
   padding-left: 5px;
 }
 
 .profile-dropdown-create {
-  font-size: 16px;
   padding: 8px 5px;
   height: 100%;
   width: 100%;
@@ -25,4 +23,258 @@
   background-color: #E9E9E9;
   /* border: 3px solid #7FC1FF; */
   border-radius: 10px;
+}
+
+.single-thread-subject-title-text{
+  background: #647b6a;
+  color: #fff;
+  border-bottom: 1px solid #252525;
+  padding: 13px;
+}
+
+.single-thread{
+  width:92%
+}
+
+.single-thread-op-info-container{
+  float: left;
+  width: 220px;
+  margin: 0 1% 15px 0;
+  border: 0;
+  border-right: 1px solid transparent;
+  padding: 5px 1%;
+  position: relative;
+  position: sticky;
+  top: 20%;
+  height:100%;
+}
+
+.op-statistic-wrapper{
+  text-align: center;
+    margin: 0 auto;
+    background: #647b6a;
+    padding: 5px;
+    color: white;
+    border: 1px  #555;
+}
+
+.post-owner-statistic-wrapper{
+  text-align: center;
+  max-width: 145px;
+  margin: 0 auto;
+  min-width: 100px;
+  background: #647b6a;
+  padding: 5px;
+  color: white;
+  border: 1px  #555;
+}
+
+.op-statistic-thread-row{
+  display:flex;
+  flex-direction: row;
+  width:100%;
+  justify-content: space-between;
+}
+
+
+.op-statistic-posts-row{
+  display:flex;
+  flex-direction: row;
+  width:100%;
+  justify-content: space-between;
+}
+
+.post-owner-statistic-row{
+  display:flex;
+  flex-direction: row;
+  width:100%;
+  justify-content: space-between;
+}
+
+.op-posts-text{
+  text-align: left;
+}
+
+.op-posts-number{
+  text-align: right;
+}
+
+.op-thread-text{
+  text-align:left;
+}
+
+.op-thread-number{
+  text-align:right;
+}
+
+.op-post-head-date{
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+.op-post-thread-body{
+    padding: 20px 0;
+}
+
+.post-wrapper{
+  display:flex;
+  flex-direction: row;
+}
+.op-post-and-info{
+  display:flex;
+  flex-direction: row;
+}
+
+
+.thread-owner-username{
+  text-align: center;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.single-thread-op-options-container{
+  clear: both;
+  background: #647b6a;
+  padding: 5px;
+  height:19px
+}
+
+.post-owner-info{
+  float: left;
+  width: 220px;
+  margin: 0 1% 15px 0;
+  border: 0;
+  border-right: 1px solid transparent;
+  padding: 5px 1%;
+  position: relative;
+  position: sticky;
+  top: 20%;
+  height:100%;
+}
+
+.post-owner-username{
+  text-align: center;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.post-owner-buttons{
+  clear: both;
+  background: #647b6a;
+  padding: 5px;
+  height: 19px;
+}
+
+
+.thread-moving{
+  border-top: 1px solid white;
+  padding: 6px;
+  background: #647b6a;
+  color: #f7f7f7;
+  display:flex;
+  gap:30px;
+}
+
+.post-reply-button{
+  position:relative;
+  background: #3f3f3f;
+  color: #efefef;
+  right:-1690px;
+  width:120px;
+  height:30px;
+}
+
+.post-body-header{
+  padding-top:20px;
+}
+
+.op-post-head-date{
+  padding-top:20px;
+}
+
+.space-between-width{
+  width:20px;
+}
+
+.post-ownerfa-cog{
+  position:relative;
+  right:20px
+}
+
+
+.quick-reply-title{
+  background: #647b6a;
+  color: #fff;
+  border-bottom: 1px solid white;
+  font-size: 14px;
+  padding: 13px;
+}
+
+.quick-reply-table{
+  width:92%
+}
+
+.quick-reply-text-container{
+  display:flex;
+  flex-direction: column;
+  height:100%;
+}
+
+.message-title-text{
+  background: #869b8b;
+  padding: 10px;
+  width:20%;
+}
+
+.area-text-t-d{
+  background: #869b8b;
+  padding: 10px;
+}
+
+.text-box-container{
+  width:95%;
+}
+
+.quick-reply-textarea-input{
+  width:100%;
+  height:200px;
+  resize:none;
+  background: white;
+  color: black;
+  padding: 2px;
+  line-height: 1.4;
+  font-size: 20px;
+}
+
+.quick-reply-text-container{
+  vertical-align: text-top;
+}
+
+
+.quick-reply-buttons-container{
+  display:flex;
+  gap:20px;
+  justify-content: center;
+}
+
+
+.quick-reply-submit-button{
+  width:120px;
+  height:30px;
+  background: #3f3f3f;
+  color: #efefef;
+}
+
+.quick-reply-preview-button{
+  width:120px;
+  height:30px;
+  background: #3f3f3f;
+  color: #efefef;
+}
+
+.quick-reply-buttons{
+  border-top: 1px solid #1f1f1f;
+    padding: 6px;
+    background: #647b6a;
+    color: #f7f7f7;
 }

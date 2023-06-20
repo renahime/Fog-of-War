@@ -80,8 +80,10 @@ function SingleThread() {
               <tr className='single-thread-subject-title'>
                 <td className='single-thread-subject-title-text'>
                   <div className='single-thread-owner-cog'>
+                    <strong>{thread.subject}
+                    </strong>
                     {thread.user.id && user && thread.user.id == user.id ?
-                      <i onClick={showMenu} class="fas fa-cog"></i> : null}
+                      <i onClick={showMenu} style={{ float: 'right' }} class="fas fa-cog"></i> : null}
                     {openThreadMenu && <div className={menuClassName}>
                       <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'left', color: 'black' }} to={{
                         pathname: `/${category}/${subcategory}/threads/edit`,
@@ -104,9 +106,6 @@ function SingleThread() {
                     </div>}
                   </div>
                 </td>
-                <td className='text-thread-subject-single'>
-                  {thread.subject}
-                </td>
               </tr>
               <tr className='op-post-and-replies'>
                 <td className='op-post-and-replies-cotainer'>
@@ -123,20 +122,25 @@ function SingleThread() {
                           </div>
                           <div className='op-statistics'>
                             <div className='op-statistic-wrapper'>
-                              <div className='op-statistic-row'>
+                              <div className='op-statistic-posts-row'>
                                 <div className='op-posts-text'>
-                                  Posts
+                                  <strong>
+                                    Posts
+                                  </strong>
                                 </div>
                                 <div className='op-posts-number'>
-                                  {thread.user.post_count}
+                                  <strong> {thread.user.post_count}</strong>
                                 </div>
                               </div>
-                              <div className='op-statistic-row'>
+                              <div className='op-statistic-thread-row'>
                                 <div className='op-thread-text'>
-                                  Threads
+                                  <strong>
+                                    Threads</strong>
                                 </div>
                                 <div className='op-thread-number'>
-                                  {thread.user.thread_count}
+                                  <strong>
+                                    {thread.user.thread_count}
+                                  </strong>
                                 </div>
                               </div>
                             </div>
@@ -151,61 +155,75 @@ function SingleThread() {
                           {renderHtml(thread.text)}
                         </div>
                       </div>
-                      <div className='single-thread-op-options-container'>
-                        <div className='thread-owner-only-controls'>
-                        </div>
-                        <div style={{ float: 'right' }} className='thread-reply-controls'>
-                          <i class="fa-sharp fa-solid fa-message"></i>
-                        </div>
+                    </div>
+                    <div className='single-thread-op-options-container'>
+                      <div className='thread-owner-only-controls'>
+                      </div>
+                      <div style={{ float: 'right' }} className='thread-reply-controls'>
+                        <i class="fa-sharp fa-solid fa-message"></i>
                       </div>
                     </div>
                     {postsArr.map((post) => (
                       <div className='post-user-info'>
                         <div className='post-wrapper'>
                           <div className='post-owner-info'>
-                            <div className='post-owner-profile-picture'>
-                              <img className='profile-picture' src={thread.user.profile_image ? thread.user.profile_image : 'https://cdn.pixabay.com/photo/2013/07/13/10/04/detective-156465_1280.png'}>
-                              </img>
+                            <div className='post-owner-info-container'>
+                              <div className='post-owner-profile-picture'>
+                                <img className='profile-picture' src={thread.user.profile_image ? thread.user.profile_image : 'https://cdn.pixabay.com/photo/2013/07/13/10/04/detective-156465_1280.png'}>
+                                </img>
+                              </div>
                             </div>
-                            <div className='post-owner-info'>
+                            <div className='post-owner-username'>
                               <strong>{post.user.username}</strong>
                             </div>
                             <div className='post-owner-statistics'>
                               <div className='post-owner-statistic-wrapper'>
                                 <div className='post-owner-statistic-row'>
                                   <div className='post-owner-posts-text'>
-                                    Posts
+                                    <strong>
+                                      Posts
+                                    </strong>
                                   </div>
                                   <div className='post-owner-posts-number'>
-                                    {post.user.post_count}
+                                    <strong>
+                                      {post.user.post_count}
+                                    </strong>
                                   </div>
                                 </div>
                                 <div className='post-owner-statistic-row'>
                                   <div className='post-owner-thread-text'>
-                                    Threads
+                                    <strong>
+                                      Threads
+                                    </strong>
                                   </div>
                                   <div className='post-owner-thread-number'>
-                                    {post.user.thread_count}
+                                    <strong>
+                                      {post.user.thread_count}
+                                    </strong>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div className='post-body-content'>
-                              <div className='post-body-header'>
-                                {post.created_at}
-                              </div>
-                              <div className='post-body-text'>
-                                {renderHtml(post.text)}
-                              </div>
+                          </div>
+                          <div className='post-body-content'>
+                            <div className='post-body-header'>
+                              {post.created_at}
+                            </div>
+                            <div className='post-body-text'>
+                              {renderHtml(post.text)}
                             </div>
                           </div>
                         </div>
                         <div className='post-control-buttons'>
+                          <div className='single-thread-post-reply-settings-container'></div>
                           <div className='post-owner-buttons'>
+                            <div style={{ float: 'right' }} className='post-reply-buttons'>
+                              <i class="fa-sharp fa-solid fa-message"></i>
+                            </div>
                             {user && post.user.id == user.id ?
-                              <i onClick={showPostMenu} class="fas fa-cog"> </i> : null}
+                              <i onClick={showPostMenu} style={{ float: 'right' }} class="post-ownerfa-cog fas fa-cog"> </i> : null}
                             {openPostMenu && post.user.id === user.id ? <div className={menuClassName}>
-                              <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'left', color: 'black' }} to={{
+                              <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'right', color: 'black' }} to={{
                                 pathname: `/${category}/${subcategory}/threads/${thread.id}/edit`,
                                 state: {
                                   post: post,
@@ -218,17 +236,14 @@ function SingleThread() {
                                 }
                               }}> <div className="profile-dropdown-create">Edit</div> </NavLink>
                               <div className="profile-dropdown-create" onClick={showMenu}>
-                                <div>
-                                  <OpenModalButton
+                                <div className='delete-modal' style={{ float: 'right' }}>
+                                  <OpenModalButton style={{ width: "100%", textAlign: 'right', color: 'white' }}
                                     buttonText="Delete"
                                     modalComponent={<DeletePostModal category={category} postId={post.id} threadId={thread.id} subcategory={subcategory} categoryId={location.state.categoryId} subcategoryId={location.state.subcategoryId} />} >
                                   </OpenModalButton>
                                 </div>
                               </div>
                             </div> : null}
-                          </div>
-                          <div style={{ float: 'right' }} className='post-reply-buttons'>
-                            <i class="fa-sharp fa-solid fa-message"></i>
                           </div>
                           <div>
                           </div>
@@ -265,7 +280,12 @@ function SingleThread() {
             subcategoryId: location.state.subcategoryId
           }
         }}>
-          <button style={{ float: 'right' }}>New Reply</button>
+          <button className='post-reply-button'>
+            <div className='inside-button-container'>
+              <i class="fa-solid fa-pen-to-square fa-lg"></i>
+              <strong className='button-text-post-thread'>New Reply</strong>
+            </div>
+          </button>
         </NavLink>
       </div>
       <div className='space-between'></div>
@@ -287,15 +307,19 @@ function SingleThread() {
                     <h5>Type your reply to this message here.</h5>
                   </div>
                 </td>
-                <td>
+                <td className='area-text-t-d'>
                   <div className='text-box-container'>
                     <textarea className='quick-reply-textarea-input' onChange={(e) => setText(e.target.value)} placeholder='Speak your mind....'></textarea>                  </div>
                 </td>
               </tr>
               <tr>
                 <td colSpan={2} className='quick-reply-buttons'>
-                  <button type='submit'>Post Reply</button>
-                  <button>Preview Post</button>
+                  <center>
+                    <div className='quick-reply-buttons-container'>
+                      <button className='quick-reply-submit-button' type='submit'>Post Reply</button>
+                      <button className='quick-reply-preview-button'>Preview Post</button>
+                    </div>
+                  </center>
                 </td>
               </tr>
             </tbody>

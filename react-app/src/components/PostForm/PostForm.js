@@ -37,23 +37,57 @@ function PostForm({ post, formType, threadId, threadSubject, category, subcatego
 
   return (
     <div className='main-container'>
-      <div className='thread-form-title'>
-        <h6>Post a New Thread</h6>
-      </div>
-      <div className='form-container'>
+      <center>
         <form onSubmit={handleSubmit}>
-          <h6>Username:</h6> <h6>{user.username}</h6>
-          <h6>Thread Subject:</h6> <input value={subject} onChange={(e) => setSubject(e.target.value)} type='text'></input>
-          <h6>Your Message:</h6>
-          <CkEditor setText={setText} text={text}></CkEditor>
-          {/* <textarea value={text} onChange={(e) => setText(e.target.value)} ></textarea> */}
-          {(formType == 'Create Post') ? (<div className='buttonContainer'>
-            <button className='submitButton' type="submit" >Post Reply</button>
-            <button className='submitButton' type="submit" >Preview Text</button> </div>) : (<div className='buttonContainer'>
-              <button className='submitButton' type="submit" >Update Reply</button>
-              <button className='submitButton' type="submit" >Preview Text</button> </div>)}
+          <table className='thread-form-table'>
+            <tbody>
+              <tr>
+                <td colSpan={2} className='thread-form-title'>
+                  <strong>Reply to a Thread</strong>
+                </td>
+              </tr>
+              <tr>
+                <td className='thread-form-username' style={{ width: '20%' }}>
+                  <strong>Username: </strong>
+                </td>
+                <td style={{ width: '80%' }} className='thread-form-username-text'>
+                  <strong>{user.username}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td className='thread-subject-text'>
+                  <strong>Subject: </strong>
+                  <strong style={{ float: 'right' }} className='error-check'>{subject && subject.length < 225 ? 225 - subject.length : null}</strong>
+                  {subject && subject.length > 225 ? <strong className='form-errors' style={{ float: 'right' }}> Oops! Your subject is too long!</strong> : null}
+                  {errors && errors.subject ? <strong className='form-errors'>{errors.subject}</strong> : null}
+                </td>
+                <td className='thread-subject-input-container'>
+                  <input className='thread-input' value={subject} onChange={(e) => setSubject(e.target.value)} type='text'></input>
+                </td>
+              </tr>
+              <tr className='editor-input-container'>
+                <td className='thread-text-title'>
+                  <strong>Your Message:</strong>
+                  <strong style={{ float: 'right' }} className='error-check'>{text && text.length < 10000 ? 10000 - text.length : null}</strong>
+                  {text && text.length > 10000 ? <strong className='form-errors' style={{ float: 'right' }}> Oops! Your post is too long!</strong> : null}
+                  {errors && errors.text ? <strong className='form-errors'>{errors.text}</strong> : null}
+                </td>
+                <td className='ck-editor-container'>
+                  <CkEditor className='ck-editor-thread-form' setText={setText} text={text}></CkEditor>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className='space-between'></div>
+          <div className='thread-form-button-container'>
+            {(formType == 'Create Post') ? (<div className='buttonContainer'>
+              <button className='submitButton' type="submit" >Post Reply</button>
+              <button className='submitButton' type="submit" >Preview Text</button> </div>) : (<div className='buttonContainer'>
+                <button className='submitButton' type="submit" >Update Reply</button>
+                <button className='submitButton' type="submit" >Preview Text</button> </div>)}
+          </div>
         </form>
-      </div>
+      </center>
     </div>
   );
 }

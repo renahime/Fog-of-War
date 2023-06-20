@@ -1,0 +1,101 @@
+.thread-form-title{
+  background: #647b6a;
+    color: #fff;
+    border-bottom: 1px solid #252525;
+    padding: 13px;
+}
+.thread-form-table{
+  width:92%
+}
+.thread-subject-input-container{
+  min-width: 220px;
+  background: #91a596;
+  padding: 8px;
+  border: 1px solid white;
+  color: #eeeeee;
+  padding-left: 5px;
+  padding: 10px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.editor-input-container{
+  background: #91a596;
+  padding: 8px;
+  border: 1px solid white;
+  color: #eeeeee;
+  padding-left: 5px;
+  padding: 10px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.thread-input{
+  min-width: 220px;
+  background: white;
+  padding: 8px;
+  border: 1px solid white;
+  color: black;
+  padding-left: 5px;
+  padding: 10px;
+}
+
+.thread-subject-text{
+  padding-top:20px;
+  padding-bottom:20px;
+  background: #91a596;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 10px;
+}
+
+.thread-form-username{
+  background: #91a596;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 10px;
+  padding-top:20px;
+  padding-bottom: 20px;
+}
+
+.thread-text-title{
+  background: #91a596;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 10px;
+}
+
+.thread-form-username-text{
+  background: #91a596;
+  padding: 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white
+}
+
+.ck-editor-container{
+  padding:10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+.thread-form-button-container{
+  display:flex;
+  justify-content: center;
+}
+
+.buttonContainer{
+  display:flex;
+  gap:40px;
+}
+
+.submitButton{
+  width:120px;
+  height:30px;
+  background: #3f3f3f;
+  color: #efefef;
+  font-weight: bold;
+}
+
+.form-errors{
+  color:rgb(255, 255, 255)
+}
