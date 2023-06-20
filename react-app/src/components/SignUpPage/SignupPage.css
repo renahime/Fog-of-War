@@ -1,0 +1,91 @@
+.login-table{
+  border-collapse: separate;
+  box-sizing: border-box;
+  text-indent: initial;
+  border: 0;
+  background: #a9baab;
+  width: 100%;
+  border: 1px solid #647b6a;
+  padding: 3px;
+  width:92%;
+  margin: auto;
+}
+
+.login-title{
+  background: #647b6a;
+  color: #fff;
+  border-bottom: 1px solid #252525;
+  padding: 13px;
+}
+
+
+
+.login-row-1{
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding:20px;
+}
+.sign-up-link{
+  text-align: center;
+  color:white;
+  position:relative;
+  left:750px;
+}
+
+.login-button{
+  position: relative;
+  left:875px;
+  display: inline-block;
+  margin: 1em;
+  padding: 1em 2em;
+  border: 0;
+  border-radius: 30px;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+
+.login-row-2{
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding:20px
+}
+
+.space-between{
+  height:30px;
+}
+.space-between-small{
+  height:15px;
+}
+
+.signup-text-input{
+  border-radius: 20px;
+  background: #647b6a;
+  border: 1px solid white;
+  color: white;
+  width: 250px;
+  height: 30px;
+  position:relative;
+  padding-left: 10px;
+  left:85px
+}
+
+.email-error{
+  color: rgb(214, 39, 223);
+  position:relative;
+  left:750px
+}
+
+.password-error{
+  color: rgb(214, 39, 223);
+  position:relative;
+  left:750px
+}
+
+.back-end-error{
+  color: rgb(214, 39, 223);
+  position:relative;
+  left:750px
+}

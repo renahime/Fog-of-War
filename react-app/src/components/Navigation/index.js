@@ -24,7 +24,6 @@ function Navigation({ isLoaded }) {
 				<img src={logo}></img>
 			</div>
 			<div className='banner-separator'></div>
-
 			<div className='header-login'>
 				{user ?
 					<div className='logged-in-user-container'>
@@ -52,7 +51,7 @@ function Navigation({ isLoaded }) {
 			</div>
 			{user ?
 				<div className='dropdown-container'>
-					<div className='buttons'>
+					<div className='font-buttons'>
 						<i class="fa-solid fa-bars"></i>
 						<i class="fa-solid fa-heart"></i>
 					</div>

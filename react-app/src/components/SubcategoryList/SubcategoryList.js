@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 function SubcategoryList() {
   const sessionUser = useSelector(state => state.session.user);
   let location = useLocation()
+  const state = useSelector(state => state.category.categories);
   const subcategories = location.state.subcategories;
   const subcategoriesArr = Object.values(subcategories);
   const category = location.state.category;

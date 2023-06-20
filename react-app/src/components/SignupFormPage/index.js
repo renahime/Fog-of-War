@@ -18,17 +18,78 @@ function SignupFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-        const data = await dispatch(signUp(username, email, password));
-        if (data) {
-          setErrors(data)
-        }
+      const data = await dispatch(signUp(username, email, password));
+      if (data) {
+        setErrors(data)
+      }
     } else {
-        setErrors(['Confirm Password field must be the same as the Password field']);
+      setErrors(['Confirm Password field must be the same as the Password field']);
     }
   };
 
   return (
     <>
+      <div className='main-body'>
+        <form className='login-form' onSubmit={handleSubmit}>
+          <table className='login-table'>
+            <tbody>
+              {email && (!email.includes('@') || !email.includes('.')) ? <p className='email-error'>Oops! You must type a valid email!</p> : null}
+              {errors && errors.length ? errors.map((error) => (
+                <p className='back-end-error'>{error}</p>
+              )) : null}
+              {errors && errors.email ? <p className='email-error'>{errors.email}</p> : null}
+              <tr>
+                <td className='login-title' colSpan={2}>
+                  <strong>Log-In</strong>
+                </td>
+              </tr>
+              <div className='space-between-small'> </div>
+              <tr >
+                <td className='login-row-1'>
+                  <strong>Email:</strong>
+                </td>
+                <td className='login-row-1'>
+                  <input
+                    className='login-text-input'
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </td>
+              </tr>
+              <div className='space-between'>
+              </div>
+              <tr >
+                <td className='login-row-2'>
+                  <strong>Password</strong>
+                </td>
+                <td className='login-row-2'>
+                  <input
+                    className='login-text-input'
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </td>
+              </tr>
+              <div className='space-between'>
+              </div>
+              <tr className='sign-up' colSpan={2}>
+                <Link to='/signup' className="sign-up-link">Don't have an account? Sign up!</Link>
+              </tr>
+              <div className='space-between-small'>
+              </div>
+            </tbody>
+          </table>
+          <div className='space-between-small'>
+          </div>
+          <div>
+            <button className='login-button' type="submit">Log In</button>
+          </div>
+        </form>
+      </div>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <ul>

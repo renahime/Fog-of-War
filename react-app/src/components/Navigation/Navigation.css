@@ -7,6 +7,10 @@
 }
 
 
+.banner-separator{
+  height:30px;
+}
+
 .header-login{
   background:#171717;
   display:flex;
@@ -17,7 +21,7 @@
   padding: 8px 20px;
 	clear: both;
 	background: #647b6a;
-	color: #fff;
+	color: white;
 	border-top: 1px solid #bbbbbb;
 	border-bottom: 1px solid #bbbbbb;
 	border-top-right-radius: 3px;
@@ -101,7 +105,7 @@
 
 .dropdown-container{
   background: #91a596;
-	color: #717171;
+	color: white;
 	max-height: 20px;
 	border-top: 1px solid #bbbbbb;
 	padding: 5px 20px;
@@ -114,7 +118,7 @@
 }
 
 body{
-  color:#c7c7c7;
+  color:white;
   background: #869B8B
 }
 
@@ -122,10 +126,16 @@ a{
   text-decoration: none;
   color:#c7c7c7;
 }
-a:visited { text-decoration: none; color:#c7c7c7; }
-a:hover { text-decoration: none; color:#c7c7c7; }
-a:focus { text-decoration: none; color:#c7c7c7; }
+a:visited { text-decoration: none; color:white; }
+a:hover { text-decoration: none; color:white; }
+a:focus { text-decoration: none; color:white; }
 a:hover, a:active { text-decoration: none; color:black }
 .fa-right-from-bracket:hover {
   color:pink
+}
+
+.font-buttons{
+  display:flex;
+  flex-direction: row;
+  gap:20px
 }

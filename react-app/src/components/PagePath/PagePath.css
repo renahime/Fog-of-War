@@ -18,6 +18,7 @@
   margin-right: auto;
 }
 
+
 .main-path-body{
   font-size:  14px;
 	line-height: 1.4;
@@ -25,4 +26,28 @@
 	margin: 0;
 	font-family: Verdana, Arial, Sans-Serif;
 	min-width: 320px;
+}
+
+.separate{
+  height:30px;
+}
+.separate-image{
+  height:10px;
+}
+
+.separate-2{
+  height:15px
+}
+
+.fa-chevron-right{
+	color:white;
+	position:relative;
+	bottom:19px;
+	left:30px
+}
+
+.category-name-path{
+	position:relative;
+	bottom:56.25px;
+	left:60px;
 }
