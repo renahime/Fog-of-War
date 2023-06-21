@@ -15,10 +15,10 @@ class Thread(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    categories = db.relationship('Category', secondary= thread_categories, back_populates='threads', passive_deletes=True, ondelete='CASCADE')
+    categories = db.relationship('Category', secondary= thread_categories, back_populates='threads', passive_deletes=True)
     user = db.relationship('User', back_populates='threads')
     posts = db.relationship('Post', back_populates='thread', cascade='all, delete-orphan')
-    subcategories = db.relationship('SubCategory', secondary=thread_sub_categories, back_populates='threads',  passive_deletes=True, ondelete='CASCADE')
+    subcategories = db.relationship('SubCategory', secondary=thread_sub_categories, back_populates='threads',  passive_deletes=True)
     image = db.relationship('ThreadImage', back_populates='thread', cascade='all, delete-orphan')
 
 
