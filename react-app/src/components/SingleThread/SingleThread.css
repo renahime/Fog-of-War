@@ -12,18 +12,13 @@
 }
 
 .profile-dropdown-create {
-  padding: 8px 5px;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
+  padding-top:30px;
 }
 
-.profile-dropdown-create:hover {
-  background-color: #E9E9E9;
-  /* border: 3px solid #7FC1FF; */
-  border-radius: 10px;
-}
 
 .single-thread-subject-title-text{
   background: #647b6a;
@@ -253,7 +248,7 @@
 
 .quick-reply-buttons-container{
   display:flex;
-  gap:20px;
+  gap:5px;
   justify-content: center;
 }
 
@@ -287,4 +282,25 @@
   padding-right: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.delete-modal{
+  width:120px;
+  height:30px;
+  background: #3f3f3f;
+  color: #efefef;
+  font-weight: bold;
+}
+
+.edit-button{
+  position:relative;
+  background: #3f3f3f;
+  color: #efefef;
+  width:120px;
+  height:30px;
+  font-weight: bold;
+}
+
+.lil-space{
+  height:7px;
 }

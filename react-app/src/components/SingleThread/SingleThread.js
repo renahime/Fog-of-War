@@ -116,7 +116,7 @@ function SingleThread() {
                           categoryId: location.state.categoryId,
                           subcategoryId: location.state.subcategoryId,
                         }
-                      }}> <div className="profile-dropdown-create">Edit</div> </NavLink>
+                      }}> <div className="profile-dropdown-create"><button className='edit-button'>Edit</button></div> </NavLink>
                       <div className="profile-dropdown-create" onClick={showMenu}>
                         <div>
                           <OpenModalButton
@@ -243,7 +243,7 @@ function SingleThread() {
                               <i class="fa-sharp fa-solid fa-message"></i>
                             </div>
                             {user && post.user.id == user.id ?
-                              <i onClick={showPostMenu} style={{ float: 'right' }} class="post-ownerfa-cog fas fa-cog"> </i> : null}
+                              <i onClick={showPostMenu} style={{ float: 'right' }} key={post.id} class="post-ownerfa-cog fas fa-cog"> </i> : null}
                             {openPostMenu && post.user.id === user.id ? <div className={menuClassName}>
                               <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'right', color: 'black' }} to={{
                                 pathname: `/${category}/${subcategory}/threads/${thread.id}/edit`,
@@ -256,14 +256,13 @@ function SingleThread() {
                                   categoryId: location.state.categoryId,
                                   subcategoryId: location.state.subcategoryId
                                 }
-                              }}> <div className="profile-dropdown-create">Edit</div> </NavLink>
-                              <div className="profile-dropdown-create" onClick={showMenu}>
-                                <div className='delete-modal' style={{ float: 'right' }}>
-                                  <OpenModalButton style={{ width: "100%", textAlign: 'right', color: 'white' }}
-                                    buttonText="Delete"
-                                    modalComponent={<DeletePostModal category={category} postId={post.id} threadId={thread.id} subcategory={subcategory} categoryId={location.state.categoryId} subcategoryId={location.state.subcategoryId} />} >
-                                  </OpenModalButton>
-                                </div>
+                              }}> <div className="profile-dropdown-create"> <button className='edit-button'>Edit</button> </div> </NavLink>
+                              <div className='lil-space'></div>
+                              <div className='delete-modal' style={{ float: 'right' }}>
+                                <OpenModalButton style={{ width: "100%", textAlign: 'right', color: 'white' }}
+                                  buttonText="Delete"
+                                  modalComponent={<DeletePostModal category={category} postId={post.id} threadId={thread.id} subcategory={subcategory} categoryId={location.state.categoryId} subcategoryId={location.state.subcategoryId} />} >
+                                </OpenModalButton>
                               </div>
                             </div> : null}
                           </div>

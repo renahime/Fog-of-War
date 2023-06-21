@@ -24,7 +24,7 @@ function DeletePostModal({ postId, category, threadId, subcategory, subcategoryI
       <h1>Are you sure?</h1>
       <h6>Once you delete a Post, you can't undo it!</h6>
       <div className="buttons">
-        <button onClick={handleDelete}>Delete</button>
+        <button className="delete-button" onClick={handleDelete}>Delete</button>
       </div>
     </div>
   )
