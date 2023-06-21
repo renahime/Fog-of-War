@@ -5,28 +5,28 @@ from datetime import datetime, timedelta
 thread_categories = db.Table(
     "thread_categories",
     db.Column(
-        "thread_id",
-        db.Integer,
-        db.ForeignKey(add_prefix_for_prod('threads.id'), ondelete='CASCADE'),
-    ),
-    db.Column(
         "category_id",
         db.Integer,
         db.ForeignKey(add_prefix_for_prod('categories.id')),
+    ),
+    db.Column(
+        "thread_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('threads.id'), ondelete='CASCADE'),
     )
 )
 
 thread_sub_categories = db.Table(
     "thread_sub_categories",
+     db.Column(
+        "sub_category_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('subcategories.id')),
+    ),
     db.Column(
         "thread_id",
         db.Integer,
         db.ForeignKey(add_prefix_for_prod('threads.id'), ondelete='CASCADE'),
-    ),
-    db.Column(
-        "sub_category_id",
-        db.Integer,
-        db.ForeignKey(add_prefix_for_prod('subcategories.id')),
     )
 )
 

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f9252c44c39b
+Revision ID: f59b8e0a5ce7
 Revises:
-Create Date: 2023-06-18 17:01:33.359300
+Create Date: 2023-06-21 09:15:10.796920
 
 """
 from alembic import op
@@ -12,8 +12,9 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = 'f9252c44c39b'
+revision = 'f59b8e0a5ce7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,9 +27,9 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE categories SET SCHEMA {SCHEMA};")
-
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
@@ -43,7 +44,6 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-
     op.create_table('subcategories',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('categoryId', sa.Integer(), nullable=False),
@@ -51,10 +51,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['categoryId'], ['categories.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE subcategories SET SCHEMA {SCHEMA};")
-
     op.create_table('threads',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=255), nullable=False),
@@ -68,8 +66,6 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE threads SET SCHEMA {SCHEMA};")
-
-
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=255), nullable=False),
@@ -85,10 +81,10 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
     op.create_table('thread_categories',
-    sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.Column('category_id', sa.Integer(), nullable=True),
+    sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
-    sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], )
+    sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], ondelete='CASCADE')
     )
     if environment == "production":
         op.execute(f"ALTER TABLE thread_categories SET SCHEMA {SCHEMA};")
@@ -102,10 +98,10 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE thread_images SET SCHEMA {SCHEMA};")
     op.create_table('thread_sub_categories',
-    sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.Column('sub_category_id', sa.Integer(), nullable=True),
+    sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['sub_category_id'], ['subcategories.id'], ),
-    sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], )
+    sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], ondelete='CASCADE')
     )
     if environment == "production":
         op.execute(f"ALTER TABLE thread_sub_categories SET SCHEMA {SCHEMA};")
