@@ -133,42 +133,44 @@ function SingleThread() {
                 <td className='op-post-and-replies-cotainer'>
                   <div className='op-post-and-replies'>
                     <div className='op-post-and-info'>
-                      <div className='single-thread-op-info-container'>
-                        <div className='single-thread-op'>
-                          <div className='profile-picture'>
-                            <img className='profile-picture' src={thread.user.profile_image ? thread.user.profile_image : 'https://cdn.pixabay.com/photo/2013/07/13/10/04/detective-156465_1280.png'}>
-                            </img>
-                          </div>
-                          <div className='thread-owner-username'>
-                            <strong>{thread.user.username}</strong>
-                          </div>
-                          <div className='op-statistics'>
-                            <div className='op-statistic-wrapper'>
-                              <div className='op-statistic-posts-row'>
-                                <div className='op-posts-text'>
-                                  <strong>
-                                    Posts
-                                  </strong>
+                      <center>
+                        <div className='single-thread-op-info-container'>
+                          <div className='single-thread-op'>
+                            <div className='profile-picture'>
+                              <img className='profile-picture' src={thread.user.profile_image ? thread.user.profile_image : 'https://cdn.pixabay.com/photo/2013/07/13/10/04/detective-156465_1280.png'}>
+                              </img>
+                            </div>
+                            <div className='thread-owner-username'>
+                              <strong>{thread.user.username}</strong>
+                            </div>
+                            <div className='op-statistics'>
+                              <div className='op-statistic-wrapper'>
+                                <div className='op-statistic-posts-row'>
+                                  <div className='op-posts-text'>
+                                    <strong>
+                                      Posts
+                                    </strong>
+                                  </div>
+                                  <div className='op-posts-number'>
+                                    <strong> {thread.user.post_count}</strong>
+                                  </div>
                                 </div>
-                                <div className='op-posts-number'>
-                                  <strong> {thread.user.post_count}</strong>
-                                </div>
-                              </div>
-                              <div className='op-statistic-thread-row'>
-                                <div className='op-thread-text'>
-                                  <strong>
-                                    Threads</strong>
-                                </div>
-                                <div className='op-thread-number'>
-                                  <strong>
-                                    {thread.user.thread_count}
-                                  </strong>
+                                <div className='op-statistic-thread-row'>
+                                  <div className='op-thread-text'>
+                                    <strong>
+                                      Threads</strong>
+                                  </div>
+                                  <div className='op-thread-number'>
+                                    <strong>
+                                      {thread.user.thread_count}
+                                    </strong>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </center>
                       <div className='single-thread-op-post-content'>
                         <div className='op-post-head-date'>
                           {thread.created_at}
@@ -188,45 +190,47 @@ function SingleThread() {
                     {postsArr.map((post) => (
                       <div className='post-user-info'>
                         <div className='post-wrapper'>
-                          <div className='post-owner-info'>
-                            <div className='post-owner-info-container'>
-                              <div className='post-owner-profile-picture'>
-                                <img className='profile-picture' src={thread.user.profile_image ? thread.user.profile_image : 'https://cdn.pixabay.com/photo/2013/07/13/10/04/detective-156465_1280.png'}>
-                                </img>
-                              </div>
-                            </div>
-                            <div className='post-owner-username'>
-                              <strong>{post.user.username}</strong>
-                            </div>
-                            <div className='post-owner-statistics'>
-                              <div className='post-owner-statistic-wrapper'>
-                                <div className='post-owner-statistic-row'>
-                                  <div className='post-owner-posts-text'>
-                                    <strong>
-                                      Posts
-                                    </strong>
-                                  </div>
-                                  <div className='post-owner-posts-number'>
-                                    <strong>
-                                      {post.user.post_count}
-                                    </strong>
-                                  </div>
-                                </div>
-                                <div className='post-owner-statistic-row'>
-                                  <div className='post-owner-thread-text'>
-                                    <strong>
-                                      Threads
-                                    </strong>
-                                  </div>
-                                  <div className='post-owner-thread-number'>
-                                    <strong>
-                                      {post.user.thread_count}
-                                    </strong>
-                                  </div>
+                          <center>
+                            <div className='post-owner-info'>
+                              <div className='post-owner-info-container'>
+                                <div className='post-owner-profile-picture'>
+                                  <img className='profile-picture' src={thread.user.profile_image ? thread.user.profile_image : 'https://cdn.pixabay.com/photo/2013/07/13/10/04/detective-156465_1280.png'}>
+                                  </img>
                                 </div>
                               </div>
+                              <div className='post-owner-username'>
+                                <strong>{post.user.username}</strong>
+                              </div>
+                              <div className='post-owner-statistics'>
+                                <div className='post-owner-statistic-wrapper'>
+                                  <div className='post-owner-statistic-row'>
+                                    <div className='post-owner-posts-text'>
+                                      <strong>
+                                        Posts
+                                      </strong>
+                                    </div>
+                                    <div className='post-owner-posts-number'>
+                                      <strong>
+                                        {post.user.post_count}
+                                      </strong>
+                                    </div>
+                                  </div>
+                                  <div className='post-owner-statistic-row'>
+                                    <div className='post-owner-thread-text'>
+                                      <strong>
+                                        Threads
+                                      </strong>
+                                    </div>
+                                    <div className='post-owner-thread-number'>
+                                      <strong>
+                                        {post.user.thread_count}
+                                      </strong>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          </center>
                           <div className='post-body-content'>
                             <div className='post-body-header'>
                               {post.created_at}
