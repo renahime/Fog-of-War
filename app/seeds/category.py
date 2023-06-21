@@ -10,7 +10,7 @@ def seed_category():
     literature = Category(
         name='Literature')
     anime_manga = Category(
-        name='Anime Manga and Visual Novels')
+        name='Anime Manga and VNs')
     videogames = Category(
         name='Video Games')
     tv_shows = Category(

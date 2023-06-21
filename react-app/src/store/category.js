@@ -124,7 +124,6 @@ export const createThreadThunk = (thread, category, categoryId, subcategoryId) =
 }
 
 export const createPostThunk = (post, threadId, categoryId, subcategoryId) => async (dispatch) => {
-  console.log(post);
   const response = await fetch(`/api/post/thread/${threadId}`, {
     method: 'POST',
     credentials: 'same-origin',

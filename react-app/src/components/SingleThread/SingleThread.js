@@ -42,7 +42,6 @@ function SingleThread() {
 
   let showPostMenu = (event) => {
     setPostIdClass(event.target.className.split(' ')[0])
-    console.log(postIdClass)
     setOpenPostMenu(!openPostMenu)
   }
 

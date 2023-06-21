@@ -18,7 +18,6 @@ function ThreadList() {
   let threadsArr;
   if (threads)
     threadsArr = Object.values(threads)
-  console.log(location)
 
   useEffect(() => {
     if (threadsArr.length) {
