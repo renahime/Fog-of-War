@@ -7,6 +7,7 @@ import { createPostThunk } from '../../store/category';
 import { editPostThunk } from '../../store/category';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import SignUpPage from '../SignUpPage/SignUpPage';
 import CkEditor from '../ckEditor';
 
 function PostForm({ post, formType, threadId, threadSubject, category, subcategory, subcategoryId, categoryId, thread }) {
@@ -17,11 +18,34 @@ function PostForm({ post, formType, threadId, threadSubject, category, subcatego
   const [text, setText] = useState(post?.text)
   const [subject, setSubject] = useState(post?.subject || 'RE: ' + threadSubject)
   const [errors, setErrors] = useState({})
-  console.log(post, formType, threadSubject, category, subcategory, subcategoryId, categoryId, threadId)
+
+  if (!user) {
+    alert("You must be signed up to post!")
+    return <SignUpPage></SignUpPage>
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    let validationErrors = {}
+
+    if (text.length > 10000) {
+      validationErrors.text = "Oops! Your post is too long!"
+    } else if (!text.length) {
+      validationErrors.text = "Oops! You didn't enter anything in your post"
+    }
+
+    if (subject.length > 225) {
+      validationErrors.subject = "Oops! Your subject is too long"
+    } else if (!subject.length) {
+      validationErrors.subject = "Oops! You didn't enter a subject"
+    }
+
+    if (Object.values(validationErrors).length) {
+      setErrors(validationErrors)
+      return
+    }
+
     post = { ...post, subject, text };
     if (formType == "Create Post") {
       const newPost = dispatch(createPostThunk(post, threadId, categoryId, subcategoryId))

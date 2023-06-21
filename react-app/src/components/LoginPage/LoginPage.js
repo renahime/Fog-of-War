@@ -33,6 +33,14 @@ function LoginPage() {
     }
   };
 
+  const handleDemoLogin = async (e) => {
+
+    const data = await dispatch(login("demo@aa.io", "password"));
+    if (data) {
+      setErrors(data);
+    }
+  };
+
 
   return (
     <div className='main-body'>
@@ -92,8 +100,9 @@ function LoginPage() {
         <div className='space-between-small'>
         </div>
         <div>
-          <button className='login-button' type="submit">Log In</button>
         </div>
+        <button className='login-page-button' type="submit">Log In</button>
+        <button className='login-page-button' onClick={handleDemoLogin}>Log In As Demo User</button>
       </form>
     </div>
   );

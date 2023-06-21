@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { NavLink, useHistory, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { useLocation } from 'react-router-dom'
 import { useState, useEffect, createElement } from 'react';
 import { getThreadThunk } from '../../store/threads';
@@ -11,6 +11,7 @@ import DeletePostModal from './DeletePostModal';
 import { createPostThunk } from '../../store/category';
 import sanitizeHtml from 'sanitize-html';
 import { addThreadViewThunk } from '../../store/category'
+import SignUpPage from '../SignUpPage/SignUpPage';
 
 function SingleThread() {
   const user = useSelector(state => state.session.user);
@@ -53,12 +54,33 @@ function SingleThread() {
   }
 
   const handleSubmit = async (e) => {
+    if (!user) {
+      alert("You must be signed up to post!");
+    }
     e.preventDefault();
-    setErrors({});
+    let validationErrors = {}
+
+    if (text.length > 10000) {
+      validationErrors.text = "Oops! Your post is too long!"
+    } else if (!text.length) {
+      validationErrors.text = "Oops! You didn't enter anything in your post"
+    }
+
+    if (subject.length > 225) {
+      validationErrors.subject = "Oops! Your subject is too long"
+    } else if (!subject.length) {
+      validationErrors.subject = "Oops! You didn't enter a subject"
+    }
+
+    if (Object.values(validationErrors).length) {
+      setErrors(validationErrors)
+      return
+    }
     const post = { subject, text };
     console.log(post);
     const newPost = dispatch(createPostThunk(post, id, categoryId, subcategoryId))
       .then(newPost => { history.push({ pathname: `/${category}/${subcategory}/threads/${id}`, state: { threadId: id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
+    setErrors({});
   }
 
   useEffect(() => {
@@ -305,6 +327,9 @@ function SingleThread() {
                   <div className='quick-reply-text-container'>
                     <strong>Message</strong>
                     <h5>Type your reply to this message here.</h5>
+                    <strong style={{ float: 'right' }} className='error-check'>{text && text.length < 10000 ? 10000 - text.length : null}</strong>
+                    {text && text.length > 10000 ? <strong className='form-errors' style={{ float: 'right' }}> Oops! Your post is too long!</strong> : null}
+                    {errors && errors.text ? <strong className='form-errors'>{errors.text}</strong> : null}
                   </div>
                 </td>
                 <td className='area-text-t-d'>

@@ -12,7 +12,7 @@ thread_categories = db.Table(
     db.Column(
         "thread_id",
         db.Integer,
-        db.ForeignKey(add_prefix_for_prod('threads.id'), ondelete='CASCADE'),
+        db.ForeignKey(add_prefix_for_prod('threads.id')),
     )
 )
 
@@ -26,7 +26,7 @@ thread_sub_categories = db.Table(
     db.Column(
         "thread_id",
         db.Integer,
-        db.ForeignKey(add_prefix_for_prod('threads.id'), ondelete='CASCADE'),
+        db.ForeignKey(add_prefix_for_prod('threads.id')),
     )
 )
 

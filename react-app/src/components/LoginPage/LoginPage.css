@@ -32,11 +32,11 @@
   left:750px;
 }
 
-.login-button{
+.login-page-button{
   position: relative;
-  left:875px;
   display: inline-block;
   margin: 1em;
+  left:805px;
   padding: 1em 2em;
   border: 0;
   border-radius: 30px;
@@ -44,7 +44,6 @@
   white-space: nowrap;
   cursor: pointer;
   font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
 }
 
 .login-row-2{
@@ -68,7 +67,6 @@
   width: 250px;
   height: 30px;
   padding-left: 10px;
-
 }
 
 .email-error{

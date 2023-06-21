@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { createThreadThunk } from '../../store/category';
 import { editThreadThunk } from '../../store/category';
+import SignUpPage from '../SignUpPage/SignUpPage';
 import CkEditor from '../ckEditor';
 import './ThreadForm.css'
 
@@ -15,6 +16,11 @@ function ThreadForm({ thread, formType, category, subcategory, subcategoryId, ca
   const [subject, setSubject] = useState(thread?.subject);
   const [text, setText] = useState(thread?.text);
   const [errors, setErrors] = useState();
+
+  if (!user) {
+    alert("You must be signed up to post!")
+    return <SignUpPage></SignUpPage>
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
