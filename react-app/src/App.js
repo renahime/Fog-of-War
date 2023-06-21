@@ -14,6 +14,7 @@ import EditThreadForm from "./components/ThreadForm/EditThread"
 import EditPostForm from "./components/PostForm/EditPost";
 import SubcategoryList from "./components/SubcategoryList/SubcategoryList";
 import PagePath from "./components/PagePath/PagePath";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer></Footer>
     </>
   );
 }
