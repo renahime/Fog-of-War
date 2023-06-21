@@ -22,6 +22,7 @@ function SingleThread() {
   const [openThreadMenu, setopenThreadMenu] = useState(false)
   const [openPostMenu, setOpenPostMenu] = useState(false)
   const [errors, setErrors] = useState({})
+  const [postIdClass, setPostIdClass] = useState("")
   let postsArr = [];
   let id = location.state.threadId;
   let category = location.state.category
@@ -30,7 +31,6 @@ function SingleThread() {
   let subcategoryId = location.state.subcategoryId
   const [subject, setSubject] = useState('RE: ' + thread?.subject)
   const [text, setText] = useState('')
-  console.log(thread);
 
   if (thread)
     postsArr = Object.values(thread.posts);
@@ -40,7 +40,9 @@ function SingleThread() {
     setopenThreadMenu(!openThreadMenu)
   }
 
-  let showPostMenu = () => {
+  let showPostMenu = (event) => {
+    setPostIdClass(event.target.className.split(' ')[0])
+    console.log(postIdClass)
     setOpenPostMenu(!openPostMenu)
   }
 
@@ -77,7 +79,6 @@ function SingleThread() {
       return
     }
     const post = { subject, text };
-    console.log(post);
     const newPost = dispatch(createPostThunk(post, id, categoryId, subcategoryId))
       .then(newPost => { history.push({ pathname: `/${category}/${subcategory}/threads/${id}`, state: { threadId: id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
     setErrors({});
@@ -91,7 +92,6 @@ function SingleThread() {
 
 
   let menuClassName = openThreadMenu || openPostMenu ? "profile-menu" : "hidden profile-menu"
-  console.log(thread);
 
   return (!thread || !Object.values(thread) ? <h1> loading </h1> :
     <div className='single-thread-main-body'>
@@ -247,8 +247,8 @@ function SingleThread() {
                               <i class="fa-sharp fa-solid fa-message"></i>
                             </div>
                             {user && post.user.id == user.id ?
-                              <i onClick={showPostMenu} style={{ float: 'right' }} key={post.id} class="post-ownerfa-cog fas fa-cog"> </i> : null}
-                            {openPostMenu && post.user.id === user.id ? <div className={menuClassName}>
+                              <i onClick={showPostMenu} style={{ float: 'right' }} key={post.id} className={`${post.id} post-ownerfa-cog fas fa-cog`}> </i> : null}
+                            {openPostMenu && post.user.id === user.id && postIdClass == post.id ? <div className={menuClassName}>
                               <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'right', color: 'black' }} to={{
                                 pathname: `/${category}/${subcategory}/threads/${thread.id}/edit`,
                                 state: {
