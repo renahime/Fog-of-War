@@ -10,7 +10,7 @@ const CkEditor = ({ setText, text }) => {
     <div className="App">
       <CKEditor
         editor={Editor}
-        data="<p>Hello from CKEditor 5!</p>"
+        data={text ? text : "Type your message here"}
         // config={{
         //   plugins: [SimpleUploadAdapter],
         //   simpleUpload: {
