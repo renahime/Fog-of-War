@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
 import OpenModalButton from '../OpenModalButton';
 import { deletePostThunk } from "../../store/category";
+import './SingleThread.css';
+
 
 function DeletePostModal({ postId, category, threadId, subcategory, subcategoryId, categoryId }) {
   const { closeModal } = useModal();

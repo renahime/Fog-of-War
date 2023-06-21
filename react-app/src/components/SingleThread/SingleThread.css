@@ -278,3 +278,13 @@
     background: #647b6a;
     color: #f7f7f7;
 }
+
+
+.delete-thread-container{
+  color:black;
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
