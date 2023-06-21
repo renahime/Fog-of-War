@@ -116,9 +116,10 @@ function SingleThread() {
                           categoryId: location.state.categoryId,
                           subcategoryId: location.state.subcategoryId,
                         }
-                      }}> <div className="profile-dropdown-create"><button className='edit-button'>Edit</button></div> </NavLink>
+                      }}> <div className="profile-dropdown-create"><button style={{ float: 'right' }} className='edit-button'>Edit</button></div> </NavLink>
                       <div className="profile-dropdown-create" onClick={showMenu}>
-                        <div>
+                        <div className='lil-space'></div>
+                        <div style={{ float: 'right' }}>
                           <OpenModalButton
                             buttonText="Delete"
                             modalComponent={<DeleteThreadModal category={category} threadId={thread.id} subcategory={subcategory} categoryId={location.state.categoryId} subcategoryId={location.state.subcategoryId} />} >
