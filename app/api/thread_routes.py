@@ -22,7 +22,7 @@ def validation_errors_to_error_messages(validation_errors):
 #Route to get all categories
 @thread_routes.route('/<category_name>', methods = ["GET"])
 def get_thread_by_category(category_name):
-    #query database
+    #Query database
     threads = Thread.query.all()
     all_threads = {}
 
