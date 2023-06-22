@@ -11,49 +11,41 @@ function PagePath() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const state = useSelector((state) => state.category.categories)
-  const [threadId, setThreadId] = useState("")
   const [subcategory, setSubcategory] = useState("")
   const [category, setCategory] = useState("")
-  const [threadSubject, setSubject] = useState("")
+  const [subcategoryId, setSubcategoryId] = useState("")
+  const [categoryId, setCategoryId] = useState("")
   const location = useLocation();
   let pathArray;
-  console.log(location);
-  console.log(state);
   useEffect(() => {
     pathArray = location.pathname.split('/')
-    if (pathArray.length == 5) {
-      setThreadId(pathArray[4]);
-      setSubcategory(pathArray[2]);
-      setCategory(pathArray[1]);
-      for (let key in state) {
-        if (state[key].name == category) {
-          for (let subKey in state[key].subcategories) {
-            if (state[key].subcategories[subKey].name == subcategory) {
-              for (let threadKey in state[key].subcategories[subKey].threads) {
-                if (threadKey == threadId) {
-                  setSubject(state[key].subcategories[subKey].threads[threadKey].subject)
-                }
-              }
-            }
-          }
-        }
-      }
-    }
 
     if (pathArray.length == 2) {
       setCategory(pathArray[1]);
-      setThreadId("")
+      for(let key in state){
+        if(state[key].name == category){
+          setCategoryId(key);
+        }
+      }
       setSubcategory("")
-      setSubject("")
+      setSubcategoryId("")
     }
 
     if (pathArray.length == 4) {
       setCategory(pathArray[1]);
       setSubcategory(pathArray[2]);
-      setThreadId("")
-      setSubject("")
+      for(let key in state){
+        if(state[key].name == category){
+          setCategoryId(key);
+          for(let subKey in state[key].subcategories){
+            if (state[key].subcategories[subKey].name == subcategory){
+              setSubcategoryId(subKey)
+            }
+          }
+        }
+      }
     }
-  }, [location.pathname, pathArray])
+  }, [location.pathname, pathArray, category, subcategory, categoryId, subcategoryId])
   return (
     <div>
       <div className='separate'></div>
@@ -66,16 +58,35 @@ function PagePath() {
               </NavLink>
             </div>
             {category ?
-              <div >
+              <div className='category-direct' >
+                <NavLink
+                className='category-direct'
+                to={{
+                  pathname:`/${category}`,
+                  state:{
+                    category:category,
+                    categoryId:categoryId
+                  }
+                }}>
                 <i class="fa-solid category-arrow fa-chevron-right"></i>
                 <h5 style={{ color: 'white' }} className='category-name-path'>{category}</h5>
-                {/* </NavLink> */}
-              </div> : null}
+                </NavLink>
+              </div> 
+              : null}
             {subcategory ?
-              <div>
+                <NavLink className='subcategory-direct' to={{
+                                      pathname: `/${category}/${subcategory}/threads`,
+                                      state: {
+                                        category: category,
+                                        categoryId: categoryId,
+                                        subcategory: subcategory,
+                                        subcategoryId: subcategoryId,
+                                      }
+                                    }}>
+              <div className='subcategory-direct'>
                 <i class={category.includes('Anime') ? "anime-arrow fa-solid subcategory-arrow fa-chevron-right" : "fa-solid subcategory-arrow fa-chevron-right"}></i>
                 <h5 style={{ color: 'white' }} className={category.includes('Anime') ? "anime sub-category-name-path" : 'sub-category-name-path'}>{subcategory}</h5>
-              </div> : null
+              </div> </NavLink> : null
             }
           </div>
         </div>

@@ -30,7 +30,6 @@ const CkEditor = ({ setText, text }) => {
         onChange={(event, editor) => {
           const data = editor.getData();
           setText(editor.getData());
-          console.log(text);
           console.log({ event, editor, data });
         }}
         onBlur={(event, editor) => {

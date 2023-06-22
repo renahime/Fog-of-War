@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { getThreadsListThunk } from '../../store/threads';
 import './ThreadList.css';
+import { grabHours } from '../HomePage/HomePage';
 
 function ThreadList() {
   const user = useSelector(state => state.session.user);
@@ -30,7 +31,7 @@ function ThreadList() {
   }, [threadsArr])
 
 
-
+  console.log(threadsArr)
   return (
     <div>
       <div className='pag-thread-container'>
@@ -112,8 +113,8 @@ function ThreadList() {
                     </td>
                     <td className='thread-last-post'>
                       <div className='last-post-thread-container'>
-                        <strong>(insert time here)</strong>
-                        <strong>{thread.latest_post.username}</strong>
+                        <strong>{grabHours(thread.latest_post.created_at)}</strong>
+                        <strong>By: {thread.latest_post.username? thread.latest_post.username : thread.latest_post.user.username}</strong>
                       </div>
                     </td>
                   </tr>

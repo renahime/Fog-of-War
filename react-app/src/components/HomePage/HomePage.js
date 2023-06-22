@@ -5,10 +5,24 @@ import { Link, NavLink } from "react-router-dom";
 import "./HomePage.css";
 
 export const grabHours = (stringDate) => {
+	
+	if (!stringDate)
+	return
+
 	const dateInput = stringDate.slice(4);
 	const stringDateObj = new Date(dateInput);
 	const getMiliseconds = Math.abs(new Date() - stringDateObj);
-	
+	const hours = Math.ceil(getMiliseconds / (1000 * 60 * 60))	
+
+	if(hours < 24 && hours > 1){
+		return `${hours} hours ago`
+	} else if (hours > 24) {
+		const days = Math.ceil(getMiliseconds / (1000 * 60 * 60 * 24))
+		return `${days} days ago`
+	} else if (hours < 1){
+		const minutes = Math.ceil(getMiliseconds / (1000 * 60))
+		return `${minutes} minutes agot`
+	}
 }
 
 function HomePage() {
@@ -27,7 +41,7 @@ function HomePage() {
 	if (categories && (Object.values(categories).length > 1)) {
 		categoryArr = Object.values(categories)
 	}
-
+	console.log(categories)
 	return (!loading && categoryArr.length < 1 ? <h1>Loading...</h1> :
 		<div className='main-body'>
 			<div className='main-topics-div'>
@@ -91,17 +105,30 @@ function HomePage() {
 											<strong>0</strong>
 										</td>
 										<td className='last-post-made-homepage'>
+												{category.youngest_post.category ? <NavLink
+												to={{
+													pathname: `/${category.youngest_post.category.name}/${category.youngest_post.subcategory.name}/threads/${category.youngest_post.thread_id}`,
+													state: {
+													  category: category.youngest_post.category.name,
+													  categoryId: category.youngest_post.category.id,
+													  subcategory: category.youngest_post.subcategory.name,
+													  subcategoryId: category.youngest_post.subcategory.id,
+													  threadId: category.youngest_post.thread_id
+													}
+												  }}>
 												<div style={{textAlign:'right', display:'flex', flexDirection:'column', gap:'9px', paddingRight:'7px', paddingTop:'7px', paddingBottom:'7px'}}>
 												<strong className='subject-title'>
-													{category.youngest_post.subject}
+													{category.youngest_post.thread_subject? category.youngest_post.thread_subject : category.youngest_post.subject}
 												</strong>
 												<strong className='time-of-post'>
-													Insert Time Here
+													{category.youngest_post ? grabHours(category.youngest_post.created_at) : null}
 												</strong>
 												<strong className='post-author'>
 												By: {category.youngest_post.user ? category.youngest_post.user.username : null}
 												</strong>
 												</div>
+												</NavLink>
+												: null}
 										</td>
 									</tr>
 									<div className='space-between-homepage'></div>

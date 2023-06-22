@@ -89,7 +89,6 @@ function SingleThread() {
       addView = dispatch(addThreadViewThunk(thread.id, categoryId, subcategoryId));
   }, [thread])
 
-
   let menuClassName = openThreadMenu || openPostMenu ? "profile-menu" : "hidden profile-menu"
 
   return (!thread || !Object.values(thread) ? <h1> loading </h1> :

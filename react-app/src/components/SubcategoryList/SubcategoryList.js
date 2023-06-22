@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { grabHours } from '../HomePage/HomePage';
 
 
 function SubcategoryList() {
@@ -13,7 +14,7 @@ function SubcategoryList() {
   const categoryId = location.state.categoryId;
   const subcategories = state[categoryId].subcategories
   const subcategoriesArr = Object.values(subcategories);
-
+  console.log(subcategoriesArr)
   return (
     <div>
       <div className='main-body'>
@@ -66,7 +67,30 @@ function SubcategoryList() {
                       <td className='last-post-made-homepage'>
                         <center>
                           <strong>
-                            (last post here)
+                          {subcategory.youngest_post.category ? <NavLink
+												to={{
+													pathname: `/${subcategory.youngest_post.category.name}/${subcategory.youngest_post.subcategory.name}/threads/${subcategory.youngest_post.thread_id}`,
+													state: {
+													  category: subcategory.youngest_post.category.name,
+													  categoryId: subcategory.youngest_post.category.id,
+													  subcategory: subcategory.youngest_post.subcategory.name,
+													  subcategoryId: subcategory.youngest_post.subcategory.id,
+													  threadId: subcategory.youngest_post.thread_id
+													}
+												  }}>
+												<div style={{textAlign:'right', display:'flex', flexDirection:'column', gap:'9px', paddingRight:'7px', paddingTop:'7px', paddingBottom:'7px'}}>
+												<strong className='subject-title'>
+													{subcategory.youngest_post.thread_subject? subcategory.youngest_post.thread_subject : subcategory.youngest_post.subject}
+												</strong>
+												<strong className='time-of-post'>
+													{subcategory.youngest_post ? grabHours(subcategory.youngest_post.created_at) : null}
+												</strong>
+												<strong className='post-author'>
+												By: {subcategory.youngest_post.user ? subcategory.youngest_post.user.username : null}
+												</strong>
+												</div>
+												</NavLink>
+												: null}
                           </strong>
                         </center>
                       </td>

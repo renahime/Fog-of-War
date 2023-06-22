@@ -74,3 +74,10 @@
 .anime-arrow{
 	left:225px
 }
+
+.category-direct:hover{
+	color:black
+}
+.subcategory-direct:hover{
+	color:black
+}
