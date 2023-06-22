@@ -48,13 +48,28 @@ class Post(db.Model):
         lazy='dynamic'
     )
 
+    def get_subcategory(self):
+        if(len(self.thread.subcategories) > 0):
+            return {"name":self.thread.subcategories[0].name, "id":self.thread.subcategories[0].id}
+        else:
+            return ""
+    
+    def get_category(self):
+        if(len(self.thread.categories) > 0):
+            return {"name":self.thread.categories[0].name, 'id': self.thread.categories[0].id}
+        
+
 
     def to_dict(self):
         return{
             'id': self.id,
             'subject': self.subject,
             'text': self.text,
+            'thread_subject': self.thread.subject,
+            'thread_id': self.thread_id,
             'user': self.user.to_dict(),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
+            'subcategory': self.get_subcategory(),
+            'category': self.get_category()
         }

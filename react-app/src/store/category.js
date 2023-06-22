@@ -246,12 +246,16 @@ export default function category(state = initialState, action) {
     case CREATE_THREAD: {
       let addThreadState = { ...state, categories: { ...state.categories } }
       addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].threads[action.thread.id] = action.thread;
+      addThreadState.categories[action.categoryId].youngest_post = action.thread;
+      addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].youngest_post = action.thread
       return addThreadState
     }
     case CREATE_POST: {
       let addPostState = { ...state, categories: { ...state.categories } }
       addPostState.categories[action.categoryId].subcategories[action.subcategoryId].threads[action.threadId].posts[action.post.id] = action.post
       addPostState.categories[action.categoryId].subcategories[action.subcategoryId].threads[action.threadId].latest_post = action.post
+      addPostState.categories[action.categoryId].youngest_post = action.post
+      addPostState.categories[action.categoryId].subcategories[action.subcategoryId].youngest_post = action.post
       return addPostState
     }
     case UPDATE_THREAD: {

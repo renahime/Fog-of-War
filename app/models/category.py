@@ -55,6 +55,18 @@ class Category(db.Model):
         for subcategory in self.subcategories:
                     all_subcategories[subcategory.id] = subcategory.to_dict()
         return all_subcategories
+    
+    def find_youngest_post(self):
+         post_list = []
+         for thread in self.threads:
+              for post in thread.posts:
+                   post_list.append(post)
+        
+         sorted_posts = sorted(post_list, key=lambda x: x.created_at, reverse=True)
+         if(len(sorted_posts) == 0):
+              return {}
+         else:
+              return sorted_posts[0].to_dict()
 
 
     def to_dict(self):
@@ -63,6 +75,7 @@ class Category(db.Model):
             'name':self.name,
             'subcategories': self.normalize_subcategory(),
             'thread_count': len([{thread.id} for thread in self.threads]),
+            'youngest_post': self.find_youngest_post()
         }
 
 class SubCategory(db.Model):
@@ -84,6 +97,18 @@ class SubCategory(db.Model):
                     all_threads[thread.id] = thread.to_dict()
         return all_threads
 
+    def find_youngest_post(self):
+         post_list = []
+         for thread in self.threads:
+              for post in thread.posts:
+                   post_list.append(post)
+        
+         sorted_posts = sorted(post_list, key=lambda x: x.created_at, reverse=True)
+         if(len(sorted_posts) == 0):
+              return {}
+         else:
+              return sorted_posts[0].to_dict()
+
 
     def to_dict(self):
         return{
@@ -91,4 +116,5 @@ class SubCategory(db.Model):
             'name':self.name,
             'threads': self.normalize_threads(),
             'thread_count': len([{thread.id} for thread in self.threads]),
+            'youngest_post': self.find_youngest_post()
         }

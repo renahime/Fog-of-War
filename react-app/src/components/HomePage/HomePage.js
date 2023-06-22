@@ -4,6 +4,13 @@ import { getAllCategoriesThunk } from '../../store/category';
 import { Link, NavLink } from "react-router-dom";
 import "./HomePage.css";
 
+export const grabHours = (stringDate) => {
+	const dateInput = stringDate.slice(4);
+	const stringDateObj = new Date(dateInput);
+	const getMiliseconds = Math.abs(new Date() - stringDateObj);
+	
+}
+
 function HomePage() {
 	let date = new Date()
 	const dispatch = useDispatch()
@@ -84,11 +91,17 @@ function HomePage() {
 											<strong>0</strong>
 										</td>
 										<td className='last-post-made-homepage'>
-											<center>
-												<strong>
-													(last post here)
+												<div style={{textAlign:'right', display:'flex', flexDirection:'column', gap:'9px', paddingRight:'7px', paddingTop:'7px', paddingBottom:'7px'}}>
+												<strong className='subject-title'>
+													{category.youngest_post.subject}
 												</strong>
-											</center>
+												<strong className='time-of-post'>
+													Insert Time Here
+												</strong>
+												<strong className='post-author'>
+												By: {category.youngest_post.user ? category.youngest_post.user.username : null}
+												</strong>
+												</div>
 										</td>
 									</tr>
 									<div className='space-between-homepage'></div>
