@@ -247,7 +247,9 @@ export default function category(state = initialState, action) {
       let addThreadState = { ...state, categories: { ...state.categories } }
       addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].threads[action.thread.id] = action.thread;
       addThreadState.categories[action.categoryId].youngest_post = action.thread;
+      console.log("CATEGORY", addThreadState.categories[action.categoryId].youngest_post)
       addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].youngest_post = action.thread
+      console.log("SUBCATEGORY", addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].youngest_post)
       addThreadState.categories[action.categoryId].thread_count = addThreadState.categories[action.categoryId].thread_count + 1
       addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].thread_count = addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].thread_count + 1
       return addThreadState

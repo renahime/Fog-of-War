@@ -10,7 +10,10 @@ export const grabHours = (stringDate) => {
 	return
 
 	const dateInput = stringDate.slice(4);
+	console.log("string", dateInput)
 	const stringDateObj = new Date(dateInput);
+	console.log("String Date Obj", stringDateObj)
+	console.log("new date", new Date())
 	const getMiliseconds = Math.abs(new Date() - stringDateObj);
 	const hours = Math.ceil(getMiliseconds / (1000 * 60 * 60))	
 

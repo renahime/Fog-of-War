@@ -58,16 +58,33 @@ class Category(db.Model):
     
     def find_youngest_post(self):
          post_list = []
+         thread_list = []
          for thread in self.threads:
               for post in thread.posts:
                    post_list.append(post)
         
          sorted_posts = sorted(post_list, key=lambda x: x.created_at, reverse=True)
          if(len(sorted_posts) == 0):
-              return {}
+            for thread in self.threads:
+                thread_list.append(thread)
+            sorted_thread = sorted(thread_list,key=lambda x: x.created_at, reverse=True)
+            if(len(sorted_thread) == 0):
+                return {}
+            else:
+                 return sorted_thread[0].to_dict()  
          else:
               return sorted_posts[0].to_dict()
+    
+    def grab_post_count(self):
+        count = 0
+        if not self.threads:
+             return 0
+        
+        for thread in self.threads:
+             for post in thread.posts:
+                  count = count + 1
 
+        return count
 
     def to_dict(self):
         return{
@@ -75,7 +92,8 @@ class Category(db.Model):
             'name':self.name,
             'subcategories': self.normalize_subcategory(),
             'thread_count': len([{thread.id} for thread in self.threads]),
-            'youngest_post': self.find_youngest_post()
+            'youngest_post': self.find_youngest_post(),
+            'post_count': self.grab_post_count()
         }
 
 class SubCategory(db.Model):
@@ -99,22 +117,40 @@ class SubCategory(db.Model):
 
     def find_youngest_post(self):
          post_list = []
+         thread_list = []
          for thread in self.threads:
               for post in thread.posts:
                    post_list.append(post)
         
          sorted_posts = sorted(post_list, key=lambda x: x.created_at, reverse=True)
          if(len(sorted_posts) == 0):
-              return {}
+            for thread in self.threads:
+                thread_list.append(thread)
+            sorted_thread = sorted(thread_list,key=lambda x: x.created_at, reverse=True)
+            if(len(sorted_thread) == 0):
+                return {}
+            else:
+                 return sorted_thread[0].to_dict()  
          else:
               return sorted_posts[0].to_dict()
 
+    def grab_post_count(self):
+        count = 0
+        if not self.threads:
+             return 0
+        
+        for thread in self.threads:
+             for post in thread.posts:
+                  count = count + 1
 
+        return count
+    
     def to_dict(self):
         return{
             'id': self.id,
             'name':self.name,
             'threads': self.normalize_threads(),
             'thread_count': len([{thread.id} for thread in self.threads]),
-            'youngest_post': self.find_youngest_post()
+            'youngest_post': self.find_youngest_post(),
+            'post_count': self.grab_post_count(),
         }

@@ -44,7 +44,20 @@ class Thread(db.Model):
                     all_posts[post.id] = post.to_dict()
         return all_posts
 
-
+    
+    
+    def get_subcategory(self):
+        if(len(self.subcategories) > 0):
+            return {"name":self.subcategories[0].name, "id":self.subcategories[0].id}
+        else:
+            return ""
+    
+    def get_category(self):
+        if(len(self.categories) > 0):
+            return {"name":self.categories[0].name, 'id': self.categories[0].id}
+        else:
+             return ""
+        
 
     def to_dict_with_txt(self):
         return{
@@ -72,4 +85,6 @@ class Thread(db.Model):
             "latest_post": self.find_youngest_post(),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
+            'subcategory': self.get_subcategory(),
+            'category': self.get_category()
         }
