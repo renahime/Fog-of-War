@@ -62,7 +62,7 @@ function SubcategoryList() {
                         <strong >{subcategory.thread_count}</strong>
                       </td>
                       <td className='post-count-homepage'>
-                        <strong>0</strong>
+                        <strong>{subcategory.post_count}</strong>
                       </td>
                       <td className='last-post-made-homepage'>
                         <center>

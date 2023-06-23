@@ -102,7 +102,7 @@ function HomePage() {
 											<strong >{category.thread_count}</strong>
 										</td>
 										<td className='post-count-homepage'>
-											<strong>0</strong>
+											<strong>{category.post_count}</strong>
 										</td>
 										<td className='last-post-made-homepage'>
 												{category.youngest_post.category ? <NavLink

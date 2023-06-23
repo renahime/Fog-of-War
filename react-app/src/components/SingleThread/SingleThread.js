@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { useLocation } from 'react-router-dom'
 import { useState, useEffect, createElement } from 'react';
-import { getThreadThunk } from '../../store/threads';
 import './SingleThread.css';
 import OpenModalButton from "../OpenModalButton"
 import DeleteThreadModal from './DeleteThreadModal';
@@ -11,7 +10,6 @@ import DeletePostModal from './DeletePostModal';
 import { createPostThunk } from '../../store/category';
 import sanitizeHtml from 'sanitize-html';
 import { addThreadViewThunk } from '../../store/category'
-import SignUpPage from '../SignUpPage/SignUpPage';
 
 function SingleThread() {
   const user = useSelector(state => state.session.user);

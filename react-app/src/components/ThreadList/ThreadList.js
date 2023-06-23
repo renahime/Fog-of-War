@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { getThreadsListThunk } from '../../store/threads';
 import './ThreadList.css';
 import { grabHours } from '../HomePage/HomePage';
 

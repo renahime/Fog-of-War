@@ -248,6 +248,8 @@ export default function category(state = initialState, action) {
       addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].threads[action.thread.id] = action.thread;
       addThreadState.categories[action.categoryId].youngest_post = action.thread;
       addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].youngest_post = action.thread
+      addThreadState.categories[action.categoryId].thread_count = addThreadState.categories[action.categoryId].thread_count + 1
+      addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].thread_count = addThreadState.categories[action.categoryId].subcategories[action.subcategoryId].thread_count + 1
       return addThreadState
     }
     case CREATE_POST: {
@@ -256,6 +258,8 @@ export default function category(state = initialState, action) {
       addPostState.categories[action.categoryId].subcategories[action.subcategoryId].threads[action.threadId].latest_post = action.post
       addPostState.categories[action.categoryId].youngest_post = action.post
       addPostState.categories[action.categoryId].subcategories[action.subcategoryId].youngest_post = action.post
+      addPostState.categories[action.categoryId].post_count = addPostState.categories[action.categoryId].post_count + 1
+      addPostState.categories[action.categoryId].subcategories[action.subcategoryId].post_count = addPostState.categories[action.categoryId].subcategories[action.subcategoryId].post_count + 1
       return addPostState
     }
     case UPDATE_THREAD: {
