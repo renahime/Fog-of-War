@@ -104,7 +104,7 @@ function SingleThread() {
     }
     const post = { subject, text };
     const newPost = dispatch(createPostThunk(post, id, categoryId, subcategoryId))
-      .then(newPost => { history.push({ pathname: `/${category}/${subcategory}/threads/${id}`, state: { threadId: id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
+      .then(newPost => { history.go({ pathname: `/${category}/${subcategory}/threads/${id}`, state: { threadId: id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
     setErrors({});
   }
 
@@ -265,7 +265,7 @@ function SingleThread() {
                             <div className='post-body-header'>
                               {getLocalDate(post.created_at)}
                             </div>
-                            <div className='post-body-text'>
+                            <div className='post-body-text' style={{ wordWrap: "break-word", overflowWrap: 'break-word', display: 'inline-block' }}>
                               {renderHtml(post.text)}
                             </div>
                           </div>

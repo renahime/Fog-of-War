@@ -118,7 +118,14 @@ const CkEditor = ({ setText, text }) => {
         editor={Editor}
         data={text ? text : "Type your message here"}
         config={{
-          extraPlugins: [MyCustomUploadAdapterPlugin]
+          // extraPlugins: [MyCustomUploadAdapterPlugin],
+          removePlugins: ['MediaEmbed', 'ImageUpload', 'ImageInsert'],
+          contentsCss: `
+      .ck-editor__editable {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+    `
         }}
         onReady={editor => {
           console.log('Speak your mind...', editor);
