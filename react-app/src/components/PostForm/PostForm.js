@@ -106,10 +106,11 @@ function PostForm({ post, formType, threadId, threadSubject, category, subcatego
           <div className='thread-form-button-container'>
             {(formType == 'Create Post') ? (<div className='buttonContainer'>
               <button className='submitButton' type="submit" >Post Reply</button>
-              <button className='submitButton' type="submit" >Preview Text</button> </div>) : (<div className='buttonContainer'>
-                <button className='submitButton' type="submit" >Update Reply</button>
-                {/* <button className='submitButton' type="submit" >Preview Text</button>  */}
-              </div>)}
+              {/* <button className='submitButton' type="submit" >Preview Text</button>  */}
+            </div>) : (<div className='buttonContainer'>
+              <button className='submitButton' type="submit" >Update Reply</button>
+              {/* <button className='submitButton' type="submit" >Preview Text</button>  */}
+            </div>)}
           </div>
         </form>
       </center>

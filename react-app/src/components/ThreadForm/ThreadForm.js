@@ -101,9 +101,11 @@ function ThreadForm({ thread, formType, category, subcategory, subcategoryId, ca
           <div className='thread-form-button-container'>
             {(formType == 'Create Thread') ? (<div className='buttonContainer'>
               <button className='submitButton' type="submit" >Post Thread</button>
-              <button className='submitButton' type="submit" >Preview Text</button> </div>) : (<div className='buttonContainer'>
-                <button className='submitButton' type="submit" >Update Thread</button>
-                <button className='submitButton' type="submit" >Preview Text</button> </div>)}
+              {/* <button className='submitButton' type="submit" >Preview Text</button>  */}
+            </div>) : (<div className='buttonContainer'>
+              <button className='submitButton' type="submit" >Update Thread</button>
+              {/* <button className='submitButton' type="submit" >Preview Text</button>  */}
+            </div>)}
           </div>
         </form>
       </center>
