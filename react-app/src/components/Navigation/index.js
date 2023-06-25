@@ -27,11 +27,13 @@ function Navigation({ isLoaded }) {
 			<div className='header-login'>
 				{user ?
 					<div className='logged-in-user-container'>
-						<div className='user-info-container'>
-							<h5>Welcome back, {user.username}. You last visited: (insert date here) </h5>
-						</div>
-						<div className='user-logout-container'>
-							<i onClick={handleLogout} class="fa-solid fa-right-from-bracket"></i>
+						<div style={{ gap: '50px', display: 'flex', flexDirection: "row" }}>
+							<div className='user-logout-container'>
+								<i onClick={handleLogout} class="fa-solid fa-right-from-bracket"></i>
+							</div>
+							<div className='user-info-container'>
+								<h5>Welcome back, {user.username}. You last visited: (insert date here) </h5>
+							</div>
 						</div>
 						<div className='user-date-container'>
 							<h5 className='user-date'>{date.toString()}</h5>

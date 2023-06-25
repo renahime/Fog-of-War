@@ -12,7 +12,7 @@
 }
 
 .thread-table{
-  width:92%;
+  width:100%;
 }
 
 .thread-subcategory-title{
@@ -49,8 +49,7 @@
   background: #91a596;
   color: #fff;
   border-bottom: 1px solid white;
-  border-top: 1px solid white;
-  ;
+  border-top: 1px solid white;;
   padding:15px;
 }
 
@@ -60,13 +59,12 @@
   background: #91a596;
   color: #fff;
   border-bottom: 1px solid white;
-  border-top: 1px solid white;
-  ;
+  border-top: 1px solid white;;
   padding:15px;
 }
 
 .views-title{
-    color: #fff;
+  color: #fff;
   border: none;
   background: #91a596;
   color: #fff;
@@ -119,9 +117,7 @@
   border-top: 1px solid white;
   padding: 10px;
   text-align: right;
-
 }
-
 
 .fa-file-lines{
   position:relative;
@@ -147,7 +143,7 @@
   background: #3f3f3f;
   color: #efefef;
   position:relative;
-  left:815px;
+  /* left:815px; */
   width:120px;
   height:30px;
 }

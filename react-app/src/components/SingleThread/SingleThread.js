@@ -10,29 +10,56 @@ import DeletePostModal from './DeletePostModal';
 import { createPostThunk } from '../../store/category';
 import sanitizeHtml from 'sanitize-html';
 import { addThreadViewThunk } from '../../store/category'
+import { getAllCategoriesThunk } from '../../store/category';
+
 
 function SingleThread() {
   const user = useSelector(state => state.session.user);
   let location = useLocation()
   const history = useHistory()
   let dispatch = useDispatch()
-  const thread = useSelector(state => state.category.categories[location.state.categoryId].subcategories[location.state.subcategoryId].threads[location.state.threadId])
+  // const thread = useSelector(state => state.category.categories[location.state.categoryId].subcategories[location.state.subcategoryId].threads[location.state.threadId])
   const [openThreadMenu, setopenThreadMenu] = useState(false)
   const [openPostMenu, setOpenPostMenu] = useState(false)
   const [errors, setErrors] = useState({})
   const [postIdClass, setPostIdClass] = useState("")
-  let postsArr = [];
+  // let postsArr = [];
   let id = location.state.threadId;
   let category = location.state.category
   let subcategory = location.state.subcategory
   let categoryId = location.state.categoryId
   let subcategoryId = location.state.subcategoryId
+
+  let [thread, setThread] = useState();
+  let [postsArr, setPostsArr] = useState([]);
+
   const [subject, setSubject] = useState('RE: ' + thread?.subject)
   const [text, setText] = useState('')
 
-  if (thread)
-    postsArr = Object.values(thread.posts);
 
+  let categoriesState = useSelector(state => state.category.categories);
+
+
+  useEffect(() => {
+    console.log(categoriesState);
+    if (!categoriesState) {
+      dispatch(getAllCategoriesThunk());
+      console.log('a');
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (categoriesState) {
+      console.log('b')
+      setThread(categoriesState[categoryId].subcategories[location.state.subcategoryId].threads[location.state.threadId]);
+    }
+  }, [categoriesState]);
+
+  useEffect(() => {
+    console.log(thread)
+    if (thread)
+      setPostsArr(Object.values(thread.posts));
+  }, [thread])
 
   let showMenu = () => {
     setopenThreadMenu(!openThreadMenu)
@@ -87,9 +114,15 @@ function SingleThread() {
       addView = dispatch(addThreadViewThunk(thread.id, categoryId, subcategoryId));
   }, [thread])
 
+  const getLocalDate = (dateString) => {
+    let localDate = new Date(dateString);
+    return localDate.toString();
+  }
+
   let menuClassName = openThreadMenu || openPostMenu ? "profile-menu" : "hidden profile-menu"
 
-  return (!thread || !Object.values(thread) ? <h1> loading </h1> :
+  console.log(thread);
+  return (!thread || !Object.values(thread).length ? <h1> loading </h1> :
     <div className='single-thread-main-body'>
       <article>
         <center>
@@ -170,7 +203,7 @@ function SingleThread() {
                       </center>
                       <div className='single-thread-op-post-content'>
                         <div className='op-post-head-date'>
-                          {thread.created_at}
+                          {getLocalDate(thread.created_at)}
                         </div>
                         <div className='op-post-thread-body'>
                           {renderHtml(thread.text)}
@@ -230,7 +263,7 @@ function SingleThread() {
                           </center>
                           <div className='post-body-content'>
                             <div className='post-body-header'>
-                              {post.created_at}
+                              {getLocalDate(post.created_at)}
                             </div>
                             <div className='post-body-text'>
                               {renderHtml(post.text)}
@@ -278,9 +311,9 @@ function SingleThread() {
               <tr>
                 <td className='thread-moving'>
                   <div className='thread-footer-container'>
-                    <i class="fa-solid fa-circle-chevron-left"></i>
+                    {/* <i class="fa-solid fa-circle-chevron-left"></i>
                     <strong>Next Oldest | Next Newest</strong>
-                    <i class="fa-solid fa-circle-chevron-right"></i>
+                    <i class="fa-solid fa-circle-chevron-right"></i> */}
                   </div>
                 </td>
               </tr>
@@ -290,7 +323,7 @@ function SingleThread() {
       </article>
       <div className='pagination'></div>
       <div className='space-between'></div>
-      <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <NavLink to={{
           pathname: `/${category}/${subcategory}/threads/${thread.id}/new`,
           state: {
@@ -311,46 +344,45 @@ function SingleThread() {
         </NavLink>
       </div>
       <div className='space-between'></div>
-      <center>
-        <form onSubmit={handleSubmit} className='quick-reply-form'>
-          <table className='quick-reply-table'>
-            <thead >
-              <tr>
-                <td className='quick-reply-title' colSpan={2}>
-                  <strong className='quick-reply-title-text'>Quick Reply</strong>
-                </td>
-              </tr>
-            </thead>
-            <tbody className='quick-reply-body'>
-              <tr>
-                <td className='message-title-text'>
-                  <div className='quick-reply-text-container'>
-                    <strong>Message</strong>
-                    <h5>Type your reply to this message here.</h5>
-                    <strong style={{ float: 'right' }} className='error-check'>{text && text.length < 10000 ? 10000 - text.length : null}</strong>
-                    {text && text.length > 10000 ? <strong className='form-errors' style={{ float: 'right' }}> Oops! Your post is too long!</strong> : null}
-                    {errors && errors.text ? <strong className='form-errors'>{errors.text}</strong> : null}
+      <form onSubmit={handleSubmit} className='quick-reply-form' style={{ width: "100%" }}>
+        <table className='quick-reply-table'>
+          <thead >
+            <tr>
+              <td className='quick-reply-title' colSpan={2}>
+                <strong className='quick-reply-title-text'>Quick Reply</strong>
+              </td>
+            </tr>
+          </thead>
+          <tbody className='quick-reply-body'>
+            <tr>
+              <td className='message-title-text'>
+                <div className='quick-reply-text-container'>
+                  <strong>Message</strong>
+                  <h5>Type your reply to this message here.</h5>
+                  <strong style={{ float: 'right' }} className='error-check'>{text && text.length < 10000 ? 10000 - text.length : null}</strong>
+                  {text && text.length > 10000 ? <strong className='form-errors' style={{ float: 'right' }}> Oops! Your post is too long!</strong> : null}
+                  {errors && errors.text ? <strong className='form-errors'>{errors.text}</strong> : null}
+                </div>
+              </td>
+              <td className='area-text-t-d'>
+                <div className='text-box-container'>
+                  <textarea className='quick-reply-textarea-input' onChange={(e) => setText(e.target.value)} placeholder='Speak your mind....'></textarea>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan={2} className='quick-reply-buttons'>
+                <center>
+                  <div className='quick-reply-buttons-container'>
+                    <button className='quick-reply-submit-button' type='submit'>Post Reply</button>
+                    {/* <button className='quick-reply-preview-button'>Preview Post</button> */}
                   </div>
-                </td>
-                <td className='area-text-t-d'>
-                  <div className='text-box-container'>
-                    <textarea className='quick-reply-textarea-input' onChange={(e) => setText(e.target.value)} placeholder='Speak your mind....'></textarea>                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colSpan={2} className='quick-reply-buttons'>
-                  <center>
-                    <div className='quick-reply-buttons-container'>
-                      <button className='quick-reply-submit-button' type='submit'>Post Reply</button>
-                      <button className='quick-reply-preview-button'>Preview Post</button>
-                    </div>
-                  </center>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      </center>
+                </center>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
     </div >
   );
 }

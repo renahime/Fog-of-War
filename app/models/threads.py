@@ -12,8 +12,8 @@ class Thread(db.Model):
     text = db.Column(db.Text, nullable=False)
     views = db.Column(db.Integer, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     categories = db.relationship('Category', secondary= thread_categories, back_populates='threads', passive_deletes=True)
     user = db.relationship('User', back_populates='threads')
@@ -44,20 +44,20 @@ class Thread(db.Model):
                     all_posts[post.id] = post.to_dict()
         return all_posts
 
-    
-    
+
+
     def get_subcategory(self):
         if(len(self.subcategories) > 0):
             return {"name":self.subcategories[0].name, "id":self.subcategories[0].id}
         else:
             return ""
-    
+
     def get_category(self):
         if(len(self.categories) > 0):
             return {"name":self.categories[0].name, 'id': self.categories[0].id}
         else:
              return ""
-        
+
 
     def to_dict_with_txt(self):
         return{

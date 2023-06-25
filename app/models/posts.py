@@ -33,8 +33,8 @@ class Post(db.Model):
     text = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     user = db.relationship('User', back_populates='posts')
     thread = db.relationship('Thread', back_populates='posts')
@@ -53,11 +53,11 @@ class Post(db.Model):
             return {"name":self.thread.subcategories[0].name, "id":self.thread.subcategories[0].id}
         else:
             return ""
-    
+
     def get_category(self):
         if(len(self.thread.categories) > 0):
             return {"name":self.thread.categories[0].name, 'id': self.thread.categories[0].id}
-        
+
 
 
     def to_dict(self):

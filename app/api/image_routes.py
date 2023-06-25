@@ -8,7 +8,7 @@ from .AWS_helpers import get_unique_filename, upload_file_to_s3
 
 image_routes = Blueprint('image', __name__)
 
-@image_routes.route("/post", methods=["GET", "POST"])
+@image_routes.route("/post/upload", methods=["GET", "POST"])
 # @login_required
 def create_post_image(id):
     form = ImageForm()
@@ -40,7 +40,7 @@ def create_post_image(id):
     # if the form has issues send the error messages back to the user
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
-@image_routes.route("/thread", methods=["GET", "POST"])
+@image_routes.route("/thread/upload", methods=["GET", "POST"])
 # @login_required
 def create_thread_image(id):
     form = ImageForm()
