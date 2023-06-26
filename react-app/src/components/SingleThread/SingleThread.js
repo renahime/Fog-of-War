@@ -342,7 +342,7 @@ function SingleThread() {
                   <center>
                     <div className='quick-reply-buttons-container'>
                       <button className='quick-reply-submit-button' type='submit'>Post Reply</button>
-                      <button className='quick-reply-preview-button'>Preview Post</button>
+                      {/* <button className='quick-reply-preview-button'>Preview Post</button> */}
                     </div>
                   </center>
                 </td>
