@@ -96,7 +96,7 @@ function PostForm({ post, formType, threadId, threadSubject, category, subcatego
                   {text && text.length > 10000 ? <strong className='form-errors' style={{ float: 'right' }}> Oops! Your post is too long!</strong> : null}
                   {errors && errors.text ? <strong className='form-errors'>{errors.text}</strong> : null}
                 </td>
-                <td className='ck-editor-container'>
+                <td className='ck-editor-container' style={{ wordWrap: "break-word" }}>
                   <CkEditor className='ck-editor-thread-form' setText={setText} text={text}></CkEditor>
                 </td>
               </tr>

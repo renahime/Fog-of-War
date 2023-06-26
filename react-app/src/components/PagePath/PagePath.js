@@ -17,13 +17,14 @@ function PagePath() {
   const [categoryId, setCategoryId] = useState("")
   const location = useLocation();
   let pathArray;
+
   useEffect(() => {
     pathArray = location.pathname.split('/')
 
     if (pathArray.length == 2) {
       setCategory(pathArray[1]);
-      for(let key in state){
-        if(state[key].name == category){
+      for (let key in state) {
+        if (state[key].name == category) {
           setCategoryId(key);
         }
       }
@@ -31,21 +32,22 @@ function PagePath() {
       setSubcategoryId("")
     }
 
-    if (pathArray.length == 4) {
+    if (pathArray.length == 4 || pathArray.length == 5) {
       setCategory(pathArray[1]);
       setSubcategory(pathArray[2]);
-      for(let key in state){
-        if(state[key].name == category){
+      for (let key in state) {
+        if (state[key].name == category) {
           setCategoryId(key);
-          for(let subKey in state[key].subcategories){
-            if (state[key].subcategories[subKey].name == subcategory){
+          for (let subKey in state[key].subcategories) {
+            if (state[key].subcategories[subKey].name == subcategory) {
               setSubcategoryId(subKey)
             }
           }
         }
       }
     }
-  }, [location.pathname, pathArray, category, subcategory, categoryId, subcategoryId])
+  })
+
   return (
     <div>
       <div className='separate'></div>
@@ -60,33 +62,33 @@ function PagePath() {
             {category ?
               <div className='category-direct' >
                 <NavLink
-                className='category-direct'
-                to={{
-                  pathname:`/${category}`,
-                  state:{
-                    category:category,
-                    categoryId:categoryId
-                  }
-                }}>
-                <i class="fa-solid category-arrow fa-chevron-right"></i>
-                <h5 style={{ color: 'white' }} className='category-name-path'>{category}</h5>
+                  className='category-direct'
+                  to={{
+                    pathname: `/${category}`,
+                    state: {
+                      category: category,
+                      categoryId: categoryId
+                    }
+                  }}>
+                  <i class="fa-solid category-arrow fa-chevron-right"></i>
+                  <h5 style={{ color: 'white' }} className='category-name-path'>{category}</h5>
                 </NavLink>
-              </div> 
+              </div>
               : null}
             {subcategory ?
-                <NavLink className='subcategory-direct' to={{
-                                      pathname: `/${category}/${subcategory}/threads`,
-                                      state: {
-                                        category: category,
-                                        categoryId: categoryId,
-                                        subcategory: subcategory,
-                                        subcategoryId: subcategoryId,
-                                      }
-                                    }}>
-              <div className='subcategory-direct'>
-                <i class={category.includes('Anime') ? "anime-arrow fa-solid subcategory-arrow fa-chevron-right" : "fa-solid subcategory-arrow fa-chevron-right"}></i>
-                <h5 style={{ color: 'white' }} className={category.includes('Anime') ? "anime sub-category-name-path" : 'sub-category-name-path'}>{subcategory}</h5>
-              </div> </NavLink> : null
+              <NavLink className='subcategory-direct' to={{
+                pathname: `/${category}/${subcategory}/threads`,
+                state: {
+                  category: category,
+                  categoryId: categoryId,
+                  subcategory: subcategory,
+                  subcategoryId: subcategoryId,
+                }
+              }}>
+                <div className='subcategory-direct'>
+                  <i class={category.includes('Anime') ? "anime-arrow fa-solid subcategory-arrow fa-chevron-right" : "fa-solid subcategory-arrow fa-chevron-right"}></i>
+                  <h5 style={{ color: 'white' }} className={category.includes('Anime') ? "anime sub-category-name-path" : 'sub-category-name-path'}>{subcategory}</h5>
+                </div> </NavLink> : null
             }
           </div>
         </div>

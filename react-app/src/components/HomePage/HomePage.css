@@ -27,7 +27,7 @@
 }
 
 .main-page-table{
-  width:92%;
+  width:100%;
 }
 
 .forum-title{
@@ -59,10 +59,8 @@
   border: none;
   background: #647b6a;
   color: #fff;
-  border-top: 1px solid #3f3f3f
-  ;
-  border-bottom: 1px solid #3f3f3f
-  ;
+  border-top: 1px solid #3f3f3f;
+  border-bottom: 1px solid #3f3f3f;
   text-align: center;
 }
 
@@ -71,10 +69,8 @@
   border: none;
   background: #647b6a;
   color: #fff;
-  border-top: 1px solid #3f3f3f
-  ;
-  border-bottom: 1px solid #3f3f3f
-  ;
+  border-top: 1px solid #3f3f3f;
+  border-bottom: 1px solid #3f3f3f;
   padding:15px;
 }
 
@@ -115,7 +111,10 @@
 }
 
 .font-awesome-space{
-  width:20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .font-awesome-placement{
@@ -123,61 +122,6 @@
   border-bottom: 1px solid white;
 }
 
-
-.fa-film{
-  position:relative;
-  top:140px;
-  left:103px;
-}
-
-.fa-book{
-  position:relative;
-  top:206px;
-  left:73px;
-}
-
-.fa-wand-magic-sparkles{
-  position:relative;
-  top:273px;
-  left:43px
-}
-
-.fa-gamepad{
-  position:relative;
-  top:335px;
-  left:3px;
-}
-
-.fa-tv{
-  position:relative;
-  top:397px;
-  left:-36px;
-}
-
-.fa-clock{
-  position:relative;
-  top:463px;
-  left:-73px;
-}
-
-.fa-comment{
-  position:relative;
-  top:525px;
-  left:-103px;
-}
-
-.fa-bowl-food{
-  position:relative;
-  top:590px;
-  left:-137px;
-}
-
-.fa-cat{
-  position:relative;
-  top:655px;
-  left:-173px;
-}
-
 .fa-2xl:hover{
-  color:black
+  color:black;
 }

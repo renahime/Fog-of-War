@@ -19,7 +19,6 @@
   padding-top:30px;
 }
 
-
 .single-thread-subject-title-text{
   background: #647b6a;
   color: #fff;
@@ -28,7 +27,7 @@
 }
 
 .single-thread{
-  width:92%
+  width:100%
 }
 
 .single-thread-op-info-container{
@@ -172,10 +171,9 @@
 }
 
 .post-reply-button{
-  position:relative;
+  position: relative;
   background: #3f3f3f;
   color: #efefef;
-  right:-1690px;
   width:120px;
   height:30px;
 }
@@ -207,7 +205,7 @@
 }
 
 .quick-reply-table{
-  width:92%
+  width:100%
 }
 
 .quick-reply-text-container{

@@ -13,17 +13,18 @@ function Footer() {
       <div className='space-between'></div>
       <center>
         <img src={rena}></img>
-        <div className='space-between'></div>
-        <div className='upper-contents'>
-          <div className='upper-container'>
-            <p>
-              <i class="fa-brands fa-github fa-2xl fa-pad"></i>
-              <i class="fa-brands fa-linkedin fa-2xl fa-pad"></i>
-              <i class="fa-brands fa-python fa-2xl fa-pad"></i>
-              <i class="fa-brands fa-js fa-2xl fa-pad"></i>
-              <i class="fa-brands fa-react fa-2xl fa-pad"></i>
-            </p>
-            {/* <i class="fa-solid fa-flask fa-2xl"></i>
+      </center>
+      <div className='space-between'></div>
+      <div className='upper-contents'>
+        <div className='upper-container'>
+          <p>
+            <i class="fa-brands fa-github fa-2xl fa-pad"></i>
+            <i class="fa-brands fa-linkedin fa-2xl fa-pad"></i>
+            <i class="fa-brands fa-python fa-2xl fa-pad"></i>
+            <i class="fa-brands fa-js fa-2xl fa-pad"></i>
+            <i class="fa-brands fa-react fa-2xl fa-pad"></i>
+          </p>
+          {/* <i class="fa-solid fa-flask fa-2xl"></i>
             <ul className='footer-tags'>
               <li className='footer-list'><i class="fa-brands fa-github fa-2xl"></i></li>
               <li className='footer-list'><i class="fa-brands fa-linkedin fa-2xl"></i></li>
@@ -32,9 +33,8 @@ function Footer() {
               <li className='footer-list'><i class="fa-brands fa-react fa-2xl"></i></li>
               <li className='footer-list'> <i class="fa-solid fa-flask fa-2xl"></i></li>
             </ul> */}
-          </div>
         </div>
-      </center>
+      </div>
     </div>
   )
 }
