@@ -4,6 +4,8 @@ from app.models import db, Thread,User, Category, SubCategory
 from app.forms import ThreadForm, EditThreadForm
 from .auth_routes import validation_errors_to_error_messages
 
+from ..models.category import thread_categories
+
 
 
 thread_routes = Blueprint('thread', __name__)
@@ -106,6 +108,11 @@ def delete_thread(id):
     thread = Thread.query.get(id)
     if not thread:
         return {'errors': "could not find thread"}
+
+    db.session.execute(
+            thread_categories.delete()
+            .where(thread_categories.c.thread_id == id)
+        )
 
     db.session.delete(thread)
     db.session.commit()
