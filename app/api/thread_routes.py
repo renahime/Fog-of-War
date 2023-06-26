@@ -4,7 +4,7 @@ from app.models import db, Thread,User, Category, SubCategory
 from app.forms import ThreadForm, EditThreadForm
 from .auth_routes import validation_errors_to_error_messages
 
-from ..models.category import thread_categories
+from ..models.category import thread_categories, thread_sub_categories
 
 
 
@@ -113,6 +113,11 @@ def delete_thread(id):
             thread_categories.delete()
             .where(thread_categories.c.thread_id == id)
         )
+
+    db.session.execute(
+            thread_sub_categories.delete()
+            .where(thread_sub_categories.c.thread_id == id)
+    )
 
     db.session.delete(thread)
     db.session.commit()
