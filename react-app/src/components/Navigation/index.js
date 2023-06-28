@@ -32,7 +32,7 @@ function Navigation({ isLoaded }) {
 								<i onClick={handleLogout} class="fa-solid fa-right-from-bracket"></i>
 							</div>
 							<div className='user-info-container'>
-								<h5>Welcome back, {user.username}. You last visited: (insert date here) </h5>
+								<h5>Welcome back, {user.username}. You last visited: {user.last_login.slice(0, 16)} </h5>
 							</div>
 						</div>
 						<div className='user-date-container'>

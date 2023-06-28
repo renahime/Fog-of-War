@@ -36,7 +36,9 @@ function ThreadList() {
 
   useEffect(() => {
     if (threads) {
-      setThreadsArr(Object.values(threads));
+      setThreadsArr(Object.values(threads).sort((a, b) => {
+        return new Date(b.latest_post.created_at) - new Date(a.latest_post.created_at)
+      }));
     }
   }, [threads])
 

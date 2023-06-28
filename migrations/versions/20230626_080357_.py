@@ -36,6 +36,7 @@ def upgrade():
     sa.Column('about', sa.String(length=500), nullable=True),
     sa.Column('signature', sa.Text(), nullable=True),
     sa.Column('profile_image', sa.String(length=255), nullable=True),
+    sa.Column('last_login', sa.DateTime(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')

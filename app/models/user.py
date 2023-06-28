@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime, timedelta
 
 
 class User(db.Model, UserMixin):
@@ -16,6 +17,7 @@ class User(db.Model, UserMixin):
     about = db.Column(db.String(500))
     signature = db.Column(db.Text)
     profile_image = db.Column(db.String(255))
+    last_login = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     threads = db.relationship('Thread', back_populates='user', cascade="delete-orphan,all")  #added cascade delete
     posts = db.relationship('Post', back_populates='user', cascade="delete-orphan,all")  #added cascade delete
@@ -37,5 +39,6 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'profile_image': self.profile_image,
             'thread_count': len([thread for thread in self.threads]),
-            'post_count' : len([post for post in self.posts])
+            'post_count' : len([post for post in self.posts]),
+            'last_login': self.last_login
         }
