@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
 
     threads = db.relationship('Thread', back_populates='user', cascade="delete-orphan,all")  #added cascade delete
     posts = db.relationship('Post', back_populates='user', cascade="delete-orphan,all")  #added cascade delete
+    followed_threads = db.relationship('Thread', back_populates='threads_followed', null=True)
     @property
     def password(self):
         return self.hashed_password

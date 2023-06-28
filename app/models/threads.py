@@ -20,6 +20,7 @@ class Thread(db.Model):
     posts = db.relationship('Post', back_populates='thread', cascade='all, delete-orphan')
     subcategories = db.relationship('SubCategory', secondary=thread_sub_categories, back_populates='threads',  passive_deletes=True)
     image = db.relationship('ThreadImage', back_populates='thread', cascade='all, delete-orphan')
+    threads_followed = db.relationship('User', back_populates='followed_threads')
 
 
 

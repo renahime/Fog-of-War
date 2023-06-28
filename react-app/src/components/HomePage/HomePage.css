@@ -125,3 +125,22 @@
 .fa-2xl:hover{
   color:black;
 }
+
+.non-seed:hover{
+  cursor: pointer;
+  color:black
+}
+
+a:visited{
+  text-decoration: none;
+}
+
+a:hover{
+  cursor: pointer;
+  color:black;
+}
+
+a:link{
+  color:white;
+  text-decoration: none;
+}

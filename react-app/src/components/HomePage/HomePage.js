@@ -34,6 +34,10 @@ function HomePage() {
 	let [loading, setLoading] = useState(false)
 	let categoryArr = []
 
+	const handleAlert = (e) => {
+		alert("More seeds comning soon!")
+	}
+
 	const getIconForCategory = (categoryName) => {
 		if (categoryName == "Movies")
 			return <i class="fa-solid fa-film fa-2xl"></i>
@@ -97,7 +101,7 @@ function HomePage() {
 									</div>
 								</td>
 								<td className='category-name-homepage'>
-									<NavLink
+									{category.name !== "Anime Manga and VNs" && category.name !== "Video Games" && category.name !== "Literature" ? <strong className='non-seed' onClick={handleAlert}>{category.name}</strong> : <NavLink
 										to={{
 											pathname: `/${category.name}`,
 											state: {
@@ -107,7 +111,7 @@ function HomePage() {
 										}
 										}>
 										<strong>{category.name}</strong>
-									</NavLink>
+									</NavLink>}
 								</td>
 								<td className='thread-count-homepage' >
 									<strong >{category.thread_count}</strong>
