@@ -110,6 +110,52 @@ function MyCustomUploadAdapterPlugin(editor) {
   };
 }
 
+let config = {
+  toolbar: {
+    items: [
+      'heading',
+      '|',
+      'bold',
+      'italic',
+      'underline',
+      'link',
+      'fontColor',
+      'fontFamily',
+      'fontSize',
+      'bulletedList',
+      'numberedList',
+      '|',
+      'outdent',
+      'indent',
+      'indentBlock',
+      '|',
+      'imageUpload',
+      'linkImage',
+      'blockQuote',
+      'insertTable',
+      'mediaEmbed',
+      'undo',
+      'redo',
+    ]
+  },
+  language: 'en',
+  image: {
+    toolbar: [
+      'imageTextAlternative',
+      'toggleImageCaption',
+      'imageStyle:inline',
+      'imageStyle:block',
+      'imageStyle:side',
+    ]
+  },
+  table: {
+    contentToolbar: [
+      'tableColumn',
+      'tableRow',
+      'mergeTableCells'
+    ]
+  }
+}
 // const CkEditor = ({ setText, text, postOrThread, id }) => {
 const CkEditor = ({ setText, text }) => {
   return (
@@ -117,16 +163,7 @@ const CkEditor = ({ setText, text }) => {
       <CKEditor
         editor={Editor}
         data={text ? text : "Type your message here"}
-        config={{
-          // extraPlugins: [MyCustomUploadAdapterPlugin],
-          removePlugins: ['MediaEmbed', 'ImageUpload', 'ImageInsert'],
-          contentsCss: `
-      .ck-editor__editable {
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-      }
-    `
-        }}
+        config={config}
         onReady={editor => {
           console.log('Speak your mind...', editor);
         }}

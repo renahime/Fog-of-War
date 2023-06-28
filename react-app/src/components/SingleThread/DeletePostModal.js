@@ -16,7 +16,7 @@ function DeletePostModal({ postId, category, threadId, subcategory, subcategoryI
     e.preventDefault();
     const deletePost = await dispatch(deletePostThunk(postId, threadId, categoryId, subcategoryId)).then(closeModal())
     if (deletePost) {
-      history.push({ pathname: `/${category}/${subcategory}/threads/${threadId}`, state: { category: category, threadId: threadId, subcategory: subcategory, subcategoryId: subcategoryId, categoryId: categoryId } })
+      history.go({ pathname: `/${category}/${subcategory}/threads/${threadId}`, state: { category: category, threadId: threadId, subcategory: subcategory, subcategoryId: subcategoryId, categoryId: categoryId } })
     }
   }
   return (
