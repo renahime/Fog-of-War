@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import { logout } from "../../store/session";
 import './Navigation.css';
-import logo from '../../imgs/banner.jpg'
+import logo from '../../imgs/banner.png'
 import { useDispatch } from 'react-redux';
 
 
