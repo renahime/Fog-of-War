@@ -13,7 +13,7 @@ def seed_lit_posts():
     thread5 = Thread.query.get(10)
 
     post1= Post(
-        subject="RE: A first time reader's thoughts on the metaphysics of House of Leaves",
+        subject="Speculating at the end of the Question Arcs",
         text="""<p>Nice read, but the whole "it's just a work of fiction" argument falls short, as MZD makes himself part of his own fiction. All his books are part of a met-universe. E.G. VEM is present in all of his works. But to take your approach of "So you make the descent, again" to the next level: HoL explecitely mentiones Douglas Hofstadter in a fake interview, who is the auther of "I am a strange loop". His main idea is that self-consciousness arises from self-reference. HoL contains itself and it refers to itself HoL is a labyrinth without a minotaur - until you start reading. The reader becomes the Minotaur as he starts to inhabit the house HoL gains consciousness in the moment where a reader starts to inhabit it - your mind is the "software" on which it's self-referntiality can play out HoL is a kind of mental parasite that keeps you engaged with it and makes you to pass it on And that's why it's so scary.</p><p>&nbsp;</p><p><br>&nbsp;</p>
               """,
         user=user2,

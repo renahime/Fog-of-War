@@ -72,7 +72,7 @@ function SingleThread() {
 
   const renderHtml = (dirtyHtmlContent) => {
     const clean = sanitizeHtml(dirtyHtmlContent, {
-      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'span'])
     });
     return createElement('div', {
       dangerouslySetInnerHTML: { __html: clean },

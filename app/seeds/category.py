@@ -5,34 +5,16 @@ from app.models import SubCategory
 
 # Adds a demo user, you can add other users here if you want
 def seed_category():
-    movies = Category(
-        name='Movies')
     literature = Category(
         name='Literature')
     anime_manga = Category(
         name='Anime Manga and VNs')
     videogames = Category(
         name='Video Games')
-    tv_shows = Category(
-        name='TV Shows')
-    history = Category(
-        name='History')
-    religion_philosophy = Category(
-        name='Religion and Philosophy')
-    food = Category(
-        name='Food')
-    pet = Category(
-        name='Pets')
 
-    db.session.add(movies)
     db.session.add(literature)
     db.session.add(anime_manga)
     db.session.add(videogames)
-    db.session.add(tv_shows)
-    db.session.add(history)
-    db.session.add(religion_philosophy)
-    db.session.add(food)
-    db.session.add(pet)
 
     book1 = SubCategory(
         name='House of Leaves',
@@ -89,7 +71,7 @@ def seed_category():
         categories=anime_manga
     )
     anime3 = SubCategory(
-        name='Billy Bat',
+        name='Monster',
         categories=anime_manga
     )
     anime4 = SubCategory(
