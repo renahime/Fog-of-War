@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-ckbox": "^38.0.1",
-    "@ckeditor/ckeditor5-dev-utils": "^38.1.0",
-    "@ckeditor/ckeditor5-dev-webpack-plugin": "^31.1.13",
     "@ckeditor/ckeditor5-image": "^38.0.1",
     "@ckeditor/ckeditor5-react": "^6.1.0",
     "@ckeditor/ckeditor5-upload": "^38.0.1",
@@ -22,7 +20,15 @@
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "sanitize-html": "^2.10.0"
+    "sanitize-html": "^2.10.0",
+    "css-loader": "^5.2.7",
+    "postcss": "^8.4.24",
+    "postcss-loader": "^4.3.0",
+    "raw-loader": "^4.0.2",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^4.2.3",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
