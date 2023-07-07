@@ -18,6 +18,10 @@ function Navigation({ isLoaded }) {
 		dispatch(logout());
 	};
 
+	const handleAlert = (e) => {
+		alert("Feature coming soon!")
+	}
+
 	return (
 		<div className='main-nav-body'>
 			<div className='banner'>
@@ -57,7 +61,7 @@ function Navigation({ isLoaded }) {
 						<NavLink to={`/profile/${user.username}`}>
 							<i class="fa-solid fa-user"></i>
 						</NavLink>
-						<i class="fa-solid fa-heart"></i>
+						<i onClick={handleAlert} class="fa-solid fa-heart"></i>
 					</div>
 				</div>
 				:

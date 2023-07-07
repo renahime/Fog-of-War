@@ -142,3 +142,8 @@ a:hover, a:active { text-decoration: none; color:black }
   flex-direction: row;
   gap:20px
 }
+
+.fa-heart:hover{
+  color:black;
+  cursor: pointer;
+}
