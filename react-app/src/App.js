@@ -15,6 +15,7 @@ import EditPostForm from "./components/PostForm/EditPost";
 import SubcategoryList from "./components/SubcategoryList/SubcategoryList";
 import PagePath from "./components/PagePath/PagePath";
 import Footer from "./components/Footer/Footer";
+import UserProfile from "./components/userProfile/userProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <HomePage></HomePage>
+          </Route>
+          <Route exact path="/profile/:username">
+            <UserProfile></UserProfile>
           </Route>
           <Route exact path='/:category'>
             <SubcategoryList></SubcategoryList>

@@ -67,7 +67,6 @@ function HomePage() {
 	if (categories && (Object.values(categories).length > 1)) {
 		categoryArr = Object.values(categories)
 	}
-	console.log(categories)
 	return (!loading || categoryArr.length < 1 ? <h1>Loading...</h1> :
 		<div className='main-body'>
 			<table className='main-page-table'>

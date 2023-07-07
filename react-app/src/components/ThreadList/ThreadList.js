@@ -15,7 +15,6 @@ function ThreadList() {
   let subcategory = location.state.subcategory;
   let categoryId = location.state.categoryId;
   let subcategoryId = location.state.subcategoryId
-  // let threads = useSelector(state => state.category.categories[categoryId].subcategories[subcategoryId].threads)
 
   let categoriesState = useSelector(state => state.category.categories)
 

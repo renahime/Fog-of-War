@@ -1,6 +1,14 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const FOLLOW_THREAD = "session/FOLLOW_THREAD";
+const UNFOLLOW_THREAD = "session/UNFOLLOW_THREAD"
+const GET_USER = "session/GET_USER"
+
+const getUser = (username) => ({
+	type: GET_USER,
+	username
+})
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -10,6 +18,16 @@ const setUser = (user) => ({
 const removeUser = () => ({
 	type: REMOVE_USER,
 });
+
+const followThread = (threadId) => ({
+	type: FOLLOW_THREAD,
+	payload: threadId
+})
+
+const unfollowThread = (threadId) => ({
+	type: UNFOLLOW_THREAD,
+	payload: threadId
+})
 
 const initialState = { user: null };
 

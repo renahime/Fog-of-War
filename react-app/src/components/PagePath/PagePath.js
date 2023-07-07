@@ -15,12 +15,15 @@ function PagePath() {
   const [category, setCategory] = useState("")
   const [subcategoryId, setSubcategoryId] = useState("")
   const [categoryId, setCategoryId] = useState("")
+  const [username, setUsername] = useState("")
   const location = useLocation();
   let pathArray;
 
   useEffect(() => {
     pathArray = location.pathname.split('/')
-
+    setUsername("")
+    setCategory("")
+    setSubcategory("")
     if (pathArray.length == 2) {
       setCategory(pathArray[1]);
       for (let key in state) {
@@ -30,6 +33,10 @@ function PagePath() {
       }
       setSubcategory("")
       setSubcategoryId("")
+    }
+
+    if (pathArray.length == 3) {
+      setUsername(pathArray[2])
     }
 
     if (pathArray.length == 4 || pathArray.length == 5) {
@@ -89,6 +96,12 @@ function PagePath() {
                   <i class={category.includes('Anime') ? "anime-arrow fa-solid subcategory-arrow fa-chevron-right" : "fa-solid subcategory-arrow fa-chevron-right"}></i>
                   <h5 style={{ color: 'white' }} className={category.includes('Anime') ? "anime sub-category-name-path" : 'sub-category-name-path'}>{subcategory}</h5>
                 </div> </NavLink> : null
+            }
+            {username ?
+              <div>
+                <i class="fa-solid category-arrow fa-chevron-right"></i>
+                <h5 style={{ color: 'white' }} className='category-name-path'>{username}</h5>
+              </div> : null
             }
           </div>
         </div>

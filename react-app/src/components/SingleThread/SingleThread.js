@@ -18,12 +18,10 @@ function SingleThread() {
   let location = useLocation()
   const history = useHistory()
   let dispatch = useDispatch()
-  // const thread = useSelector(state => state.category.categories[location.state.categoryId].subcategories[location.state.subcategoryId].threads[location.state.threadId])
   const [openThreadMenu, setopenThreadMenu] = useState(false)
   const [openPostMenu, setOpenPostMenu] = useState(false)
   const [errors, setErrors] = useState({})
   const [postIdClass, setPostIdClass] = useState("")
-  // let postsArr = [];
   let id = location.state.threadId;
   let category = location.state.category
   let subcategory = location.state.subcategory
@@ -41,22 +39,18 @@ function SingleThread() {
 
 
   useEffect(() => {
-    console.log(categoriesState);
     if (!categoriesState) {
       dispatch(getAllCategoriesThunk());
-      console.log('a');
     }
   }, [dispatch]);
 
   useEffect(() => {
     if (categoriesState) {
-      console.log('b')
       setThread(categoriesState[categoryId].subcategories[location.state.subcategoryId].threads[location.state.threadId]);
     }
   }, [categoriesState]);
 
   useEffect(() => {
-    console.log(thread)
     if (thread)
       setPostsArr(Object.values(thread.posts));
   }, [thread])
@@ -121,7 +115,6 @@ function SingleThread() {
 
   let menuClassName = openThreadMenu || openPostMenu ? "profile-menu" : "hidden profile-menu"
 
-  console.log(thread);
   return (!thread || !Object.values(thread).length ? <h1> loading </h1> :
     <div className='single-thread-main-body'>
       <article>

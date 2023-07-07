@@ -54,7 +54,9 @@ function Navigation({ isLoaded }) {
 			{user ?
 				<div className='dropdown-container'>
 					<div className='font-buttons'>
-						<i class="fa-solid fa-bars"></i>
+						<NavLink to={`/profile/${user.username}`}>
+							<i class="fa-solid fa-user"></i>
+						</NavLink>
 						<i class="fa-solid fa-heart"></i>
 					</div>
 				</div>
