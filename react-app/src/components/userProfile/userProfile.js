@@ -25,6 +25,9 @@ function UserProfile() {
     let tagDone = ">"
     let tagFlag = false
     for (let i = 0; i < 150; i++) {
+      if (i > string.length - 1) {
+        break
+      }
       if (string[i] == tagDone) {
         tagFlag = false;
         continue
@@ -34,7 +37,11 @@ function UserProfile() {
       }
       returnString = returnString + string[i]
     }
-    return returnString + "..."
+    if (string.length > 150) {
+      return returnString + "..."
+    } else {
+      return returnString
+    }
   }
 
 
@@ -86,31 +93,42 @@ function UserProfile() {
         {viewActivity ? grabProfile.all_activity.map((post) =>
           threadCheck(post) ? <div className='activity-list'>
             <ul className='unordered-listing'>
-              <NavLink
-                to={{
-                  pathname: `/test`,
-                  // state: {
-                  // ${category}/${subcategory}/threads/${thread.id}
-                  //   threadId: thread.id,
-                  //   category: post.category,
-                  //   subcategory: post.subcategory,
-                  //   categoryId: post.category.categoryId,
-                  //   subcategoryId: location.state.subcategoryId,
-                  // }
-                }}>
-                <li className='listing-info'>
+              <li className='listing-info'>
+                <NavLink
+                  to={{
+                    pathname: `/${post.category.name}/${post.subcategory.name}/threads/${post.thread_id}`,
+                    state: {
+                      threadId: post.thread_id,
+                      category: post.category.name,
+                      subcategory: post.subcategory.name,
+                      categoryId: post.category.id,
+                      subcategoryId: post.subcategory.id,
+                    }
+                  }}>
                   <div className='posting-title'><h4>{grabProfile.username} replied to the thread {post.thread_subject}</h4></div>
                   <div className='content-text'><h4>{setPreview(post.text)}</h4></div>
                   <div className='content-time'><h4>{grabHours(post.created_at)}</h4></div>
-                </li>
-              </NavLink>
+                </NavLink>
+              </li>
             </ul>
           </div> : <div className='activity-list'>
             <ul className='unordered-listing'>
               <li className='listing-info'>
-                <div className='posting-title'><h4>{grabProfile.username} created a thread {post.subject}</h4></div>
-                <div className='content-text'><h4>{setPreview(post.text)}</h4></div>
-                <div className='content-time'><h4>{grabHours(post.created_at)}</h4></div>
+                <NavLink
+                  to={{
+                    pathname: `/${post.category.name}/${post.subcategory.name}/threads/${post.id}`,
+                    state: {
+                      threadId: post.id,
+                      category: post.category.name,
+                      subcategory: post.subcategory.name,
+                      categoryId: post.category.id,
+                      subcategoryId: post.subcategory.id,
+                    }
+                  }}>
+                  <div className='content-text'><h4>{grabProfile.username} created a thread {post.subject}</h4></div>
+                  <div className='posting-title'><h4>{setPreview(post.text)}</h4></div>
+                  <div className='content-time'><h4>{grabHours(post.created_at)}</h4></div>
+                </NavLink>
               </li>
             </ul></div>
         ) : null}

@@ -118,7 +118,12 @@ function ThreadList() {
                           <strong>{thread.subject}</strong>
                         </div>
                       </NavLink>
-                      <strong>{thread.user.username}</strong>
+                      <NavLink
+                        to={{
+                          pathname: `/profile/${thread.user.username}`
+                        }}>
+                        <strong>{thread.user.username}</strong>
+                      </NavLink>
                     </div>
                   </td>
                   <td className='thread-replies'>
@@ -130,7 +135,18 @@ function ThreadList() {
                   <td className='thread-last-post'>
                     <div className='last-post-thread-container'>
                       <strong>{grabHours(thread.latest_post.created_at)}</strong>
-                      <strong>By: {thread.latest_post.username ? thread.latest_post.username : thread.latest_post.user.username}</strong>
+                      <strong>By: {thread.latest_post.username ?
+                        <NavLink
+                          to={{
+                            pathname: `/profile/${thread.latest_post.username}`
+                          }}>
+                          {thread.latest_post.username}
+                        </NavLink> : <NavLink
+                          to={{
+                            pathname: `/profile/${thread.latest_post.user.username}`
+                          }}>
+                          {thread.latest_post.user.username}
+                        </NavLink>}</strong>
                     </div>
                   </td>
                 </tr>

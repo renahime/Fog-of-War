@@ -162,7 +162,7 @@ const CkEditor = ({ setText, text }) => {
     <div className="App">
       <CKEditor
         editor={Editor}
-        data={text ? text : "Type your message here"}
+        data={text ? text : null}
         config={config}
         onReady={editor => {
           console.log('Speak your mind...', editor);

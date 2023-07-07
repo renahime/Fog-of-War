@@ -164,7 +164,12 @@ function SingleThread() {
                               </img>
                             </div>
                             <div className='thread-owner-username'>
-                              <strong>{thread.user.username}</strong>
+                              <NavLink
+                                to={{
+                                  pathname: `/profile/${thread.user.username}`
+                                }}>
+                                <strong>{thread.user.username}</strong>
+                              </NavLink>
                             </div>
                             <div className='op-statistics'>
                               <div className='op-statistic-wrapper'>
@@ -222,7 +227,12 @@ function SingleThread() {
                                 </div>
                               </div>
                               <div className='post-owner-username'>
-                                <strong>{post.user.username}</strong>
+                                <NavLink
+                                  to={{
+                                    pathname: `/profile/${post.user.username}`
+                                  }}>
+                                  <strong>{post.user.username}</strong>
+                                </NavLink>
                               </div>
                               <div className='post-owner-statistics'>
                                 <div className='post-owner-statistic-wrapper'>

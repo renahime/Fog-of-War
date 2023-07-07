@@ -101,7 +101,6 @@
 
 .content-text{
   font-size: 1.3rem;
-  font-style: italic;
   margin: 0.25em 0;
 }
 
@@ -132,4 +131,8 @@
   padding: 16px 16px;
   border-bottom: 2px solid transparent;
   font-size: 40px;
+}
+
+a:hover{
+  color:black
 }

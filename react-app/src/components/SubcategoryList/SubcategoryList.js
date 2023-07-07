@@ -88,29 +88,35 @@ function SubcategoryList() {
                   <td className='last-post-made-homepage'>
                     <center>
                       <strong>
-                        {subcategory.youngest_post.category ? <NavLink
-                          to={{
-                            pathname: `/${subcategory.youngest_post.category.name}/${subcategory.youngest_post.subcategory.name}/threads/${subcategory.youngest_post.thread_id}`,
-                            state: {
-                              category: subcategory.youngest_post.category.name,
-                              categoryId: subcategory.youngest_post.category.id,
-                              subcategory: subcategory.youngest_post.subcategory.name,
-                              subcategoryId: subcategory.youngest_post.subcategory.id,
-                              threadId: subcategory.youngest_post.thread_id
-                            }
-                          }}>
+                        {subcategory.youngest_post.category ?
                           <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '9px', paddingRight: '7px', paddingTop: '7px', paddingBottom: '7px' }}>
-                            <strong className='subject-title'>
-                              {subcategory.youngest_post.thread_subject ? subcategory.youngest_post.thread_subject : subcategory.youngest_post.subject}
-                            </strong>
-                            <strong className='time-of-post'>
-                              {subcategory.youngest_post ? grabHours(subcategory.youngest_post.created_at) : null}
-                            </strong>
-                            <strong className='post-author'>
-                              By: {subcategory.youngest_post.user ? subcategory.youngest_post.user.username : null}
-                            </strong>
+                            <NavLink
+                              to={{
+                                pathname: `/${subcategory.youngest_post.category.name}/${subcategory.youngest_post.subcategory.name}/threads/${subcategory.youngest_post.thread_id}`,
+                                state: {
+                                  category: subcategory.youngest_post.category.name,
+                                  categoryId: subcategory.youngest_post.category.id,
+                                  subcategory: subcategory.youngest_post.subcategory.name,
+                                  subcategoryId: subcategory.youngest_post.subcategory.id,
+                                  threadId: subcategory.youngest_post.thread_id
+                                }
+                              }}>
+                              <strong className='subject-title'>
+                                {subcategory.youngest_post.thread_subject ? subcategory.youngest_post.thread_subject : subcategory.youngest_post.subject}
+                              </strong>
+                              <strong className='time-of-post'>
+                                {subcategory.youngest_post ? grabHours(subcategory.youngest_post.created_at) : null}
+                              </strong>
+                            </NavLink>
+                            <NavLink
+                              to={{
+                                pathname: `/profile/${subcategory.youngest_post.user.username}`
+                              }}>
+                              <strong className='post-author'>
+                                By: {subcategory.youngest_post.user ? subcategory.youngest_post.user.username : null}
+                              </strong>
+                            </NavLink>
                           </div>
-                        </NavLink>
                           : null}
                       </strong>
                     </center>
