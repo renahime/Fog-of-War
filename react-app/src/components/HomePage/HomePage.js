@@ -100,7 +100,7 @@ function HomePage() {
 									</div>
 								</td>
 								<td className='category-name-homepage'>
-									{category.name !== "Anime Manga and VNs" && category.name !== "Video Games" && category.name !== "Literature" ? <strong className='non-seed' onClick={handleAlert}>{category.name}</strong> : <NavLink
+									{category.name !== "Anime Manga and VNs" ? <strong className='non-seed' onClick={handleAlert}>{category.name}</strong> : <NavLink
 										to={{
 											pathname: `/${category.name}`,
 											state: {
