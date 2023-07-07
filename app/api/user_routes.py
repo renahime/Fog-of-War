@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
 from app.models import User, Thread
+from app.models.threads import following_threads
 from app.models import db
 
 user_routes = Blueprint('users', __name__)
@@ -26,6 +27,16 @@ def user(id):
 
     return user.to_dict()
 
+@user_routes.route('/<username>')
+def grab_user_by_username(username):
+    user = User.query.filter(User.username == username).one_or_none()
+    print(user)
+
+    if not user:
+         return {"errors": "User couldn't be found"}, 404
+
+    return user.to_dict()
+
 @user_routes.route('/<int:id>/followed_threads')
 @login_required
 def get_followed_threads(id):
@@ -43,6 +54,8 @@ def follow_thread(id, thread_id):
     if not thread:
         return {'error':'could not find thread'}
     else:
+        if thread in user.followed_threads:
+            return {'error':'you already follow this thread'}
         user.followed_threads.append(thread)
         db.session.commit()
         return thread.to_dict()
@@ -52,8 +65,13 @@ def follow_thread(id, thread_id):
 @login_required
 def unfollow_thread(id, thread_id):
     user = User.query.get(id)
-    for thread in user.followed_threads:
-        if thread.id == thread_id:
-            user.followed_threads.remove(thread)
-            db.session.commit()
-            return {'success':'thread has been removed'}
+    db.session.execute(
+            following_threads.delete()
+            .where(following_threads.c.user_id == id)
+                )
+    db.session.execute(
+            following_threads.delete()
+            .where(following_threads.c.user_id == id)
+            )
+    db.session.commit()
+    return {'success':'thread has been removed'}

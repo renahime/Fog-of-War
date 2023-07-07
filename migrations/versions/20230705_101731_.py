@@ -1,16 +1,18 @@
 """empty message
 
-Revision ID: 7eab91755a0c
-Revises: 
-Create Date: 2023-06-28 16:20:22.895497
+Revision ID: 1bd4cf553958
+Revises:
+Create Date: 2023-07-05 10:17:31.338599
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '7eab91755a0c'
+revision = '1bd4cf553958'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,6 +25,8 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE categories SET SCHEMA {SCHEMA};")
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
@@ -32,10 +36,13 @@ def upgrade():
     sa.Column('signature', sa.Text(), nullable=True),
     sa.Column('profile_image', sa.String(length=255), nullable=True),
     sa.Column('last_login', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     op.create_table('subcategories',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('categoryId', sa.Integer(), nullable=False),
@@ -43,6 +50,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['categoryId'], ['categories.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE subcategories SET SCHEMA {SCHEMA};")
     op.create_table('threads',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=255), nullable=False),
@@ -54,6 +63,17 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE threads SET SCHEMA {SCHEMA};")
+    op.create_table('liked_threads',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('thread_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'thread_id')
+    )
+    if environment == "production":
+        op.execute(f"ALTER TABLE liked_threads SET SCHEMA {SCHEMA};")
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=255), nullable=False),
@@ -66,12 +86,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
     op.create_table('thread_categories',
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], )
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE thread_categories SET SCHEMA {SCHEMA};")
     op.create_table('thread_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('threadId', sa.Integer(), nullable=True),
@@ -79,12 +103,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['threadId'], ['threads.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE thread_images SET SCHEMA {SCHEMA};")
     op.create_table('thread_sub_categories',
     sa.Column('sub_category_id', sa.Integer(), nullable=True),
     sa.Column('thread_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['sub_category_id'], ['subcategories.id'], ),
     sa.ForeignKeyConstraint(['thread_id'], ['threads.id'], )
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE thread_sub_categories SET SCHEMA {SCHEMA};")
     op.create_table('post_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('postId', sa.Integer(), nullable=True),
@@ -92,6 +120,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE post_images SET SCHEMA {SCHEMA};")
     op.create_table('reply',
     sa.Column('replyer', sa.Integer(), nullable=False),
     sa.Column('replied', sa.Integer(), nullable=False),
@@ -99,6 +129,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['replyer'], ['posts.id'], ),
     sa.PrimaryKeyConstraint('replyer', 'replied')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE reply SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
@@ -110,6 +142,7 @@ def downgrade():
     op.drop_table('thread_images')
     op.drop_table('thread_categories')
     op.drop_table('posts')
+    op.drop_table('liked_threads')
     op.drop_table('threads')
     op.drop_table('subcategories')
     op.drop_table('users')

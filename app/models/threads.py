@@ -2,7 +2,15 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime, timedelta
 from .category import thread_categories, thread_sub_categories
 
+following_threads = db.Table(
+    'liked_threads',
+    db.Model.metadata,
+    db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
+    db.Column("thread_id", db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), primary_key=True)
+)
 
+if environment == "production":
+    following_threads.schema = SCHEMA
 class Thread(db.Model):
     __tablename__ = 'threads'
     if environment == "production":
@@ -20,7 +28,7 @@ class Thread(db.Model):
     posts = db.relationship('Post', back_populates='thread', cascade='all, delete-orphan')
     subcategories = db.relationship('SubCategory', secondary=thread_sub_categories, back_populates='threads',  passive_deletes=True)
     image = db.relationship('ThreadImage', back_populates='thread', cascade='all, delete-orphan')
-    threads_followed = db.relationship('User', back_populates='followed_threads')
+    threads_followed = db.relationship('User', secondary=following_threads, back_populates='followed_threads')
 
 
 

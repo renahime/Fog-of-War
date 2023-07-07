@@ -11,6 +11,8 @@ from .monster_threads import seed_monster_threads, undo_monster_thread
 from .monster_posts import seed_monster_posts, undo_monster_posts
 from .boys_threads import seed_boys_threads
 from .boys_posts import seed_boys_posts
+from .uzumaki_threads import seed_uzumaki_threads
+from .uzumaki_posts import seed_uzumaki_posts
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -45,6 +47,8 @@ def seed():
     seed_monster_posts()
     seed_boys_threads()
     seed_boys_posts()
+    seed_uzumaki_threads()
+    seed_uzumaki_posts()
     # Add other seed functions here
 
 
