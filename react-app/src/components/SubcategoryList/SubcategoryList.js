@@ -104,10 +104,10 @@ function SubcategoryList() {
                               <strong className='subject-title'>
                                 {subcategory.youngest_post.thread_subject ? subcategory.youngest_post.thread_subject : subcategory.youngest_post.subject}
                               </strong>
-                              <strong className='time-of-post'>
-                                {subcategory.youngest_post ? grabHours(subcategory.youngest_post.created_at) : null}
-                              </strong>
                             </NavLink>
+                            <strong className='time-of-post'>
+                              {subcategory.youngest_post ? grabHours(subcategory.youngest_post.created_at) : null}
+                            </strong>
                             <NavLink
                               to={{
                                 pathname: `/profile/${subcategory.youngest_post.user.username}`

@@ -135,10 +135,10 @@ function HomePage() {
 												<strong className='subject-title'>
 													{category.youngest_post.thread_subject ? category.youngest_post.thread_subject : category.youngest_post.subject}
 												</strong>
-												<strong className='time-of-post'>
-													{category.youngest_post ? grabHours(category.youngest_post.created_at) : null}
-												</strong>
 											</NavLink>
+											<strong className='time-of-post'>
+												{category.youngest_post ? grabHours(category.youngest_post.created_at) : null}
+											</strong>
 											<NavLink
 												to={{
 													pathname: `/profile/${category.youngest_post.user.username}`
