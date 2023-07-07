@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-ckbox": "^38.0.1",
+    "@ckeditor/ckeditor5-dev-utils": "^38.1.0",
+    "@ckeditor/ckeditor5-dev-webpack-plugin": "^31.1.13",
     "@ckeditor/ckeditor5-image": "^38.0.1",
     "@ckeditor/ckeditor5-react": "^6.1.0",
     "@ckeditor/ckeditor5-upload": "^38.0.1",
