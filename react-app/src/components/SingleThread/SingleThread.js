@@ -73,6 +73,10 @@ function SingleThread() {
     });
   }
 
+  const handleFollow = async (e) => {
+    console.log("test")
+  }
+
   const handleSubmit = async (e) => {
     if (!user) {
       alert("You must be signed up to post!");
@@ -127,7 +131,7 @@ function SingleThread() {
                     <strong>{thread.subject}
                     </strong>
                     {thread.user.id && user && thread.user.id == user.id ?
-                      <i onClick={showMenu} style={{ float: 'right' }} class="fas fa-cog"></i> : null}
+                      <i onClick={showMenu} style={{ float: 'right' }} class="fas fa-cog"></i> : <i style={{ float: 'right' }} onClick={handleFollow} class="fa-solid fa-heart"></i>}
                     {openThreadMenu && <div className={menuClassName}>
                       <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'left', color: 'black' }} to={{
                         pathname: `/${category}/${subcategory}/threads/edit`,
