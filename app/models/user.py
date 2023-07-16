@@ -34,6 +34,16 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    def normalize_followed_threads(self):
+        all_threads = {}
+        if not len(self.followed_threads):
+            return {}
+        else:
+            for thread in self.followed_threads:
+                all_threads[thread.id] = thread.to_dict()
+        return all_threads
+
+
 
     def sort_activity(self):
          all_activity = []
@@ -68,7 +78,7 @@ class User(db.Model, UserMixin):
             'profile_image': self.profile_image,
             'thread_count': len([thread for thread in self.threads]),
             'post_count' : len([post for post in self.posts]),
-            'followed_threads': [thread.to_dict() for thread in self.followed_threads],
+            'followed_threads': self.normalize_followed_threads(),
             'all_activity': self.sort_activity(),
             'created_at': self.created_at,
             'last_login': self.last_login

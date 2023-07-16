@@ -11,10 +11,8 @@ import { grabHours } from '../HomePage/HomePage';
 
 function UserProfile() {
   const user = useSelector(state => state.session.user);
-  const grabProfile = useSelector(state => state.user.profile)
+  const grabProfile = useSelector(state => state.profile.user)
   const [loading, setLoading] = useState(false)
-  const [allActivity, setAllActivity] = useState([])
-  const [filteredPosts, setFilteredPosts] = useState([])
   const [viewActivity, setViewActivity] = useState(true)
   const { username } = useParams()
   const dispatch = useDispatch()
@@ -51,7 +49,7 @@ function UserProfile() {
 
     return false
   }
-
+  console.log(grabProfile)
   useEffect(() => {
     dispatch(getUserByUsername(username)).then(() => setLoading(true))
   }, [dispatch])

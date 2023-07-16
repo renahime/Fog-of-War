@@ -58,7 +58,13 @@ class Post(db.Model):
         if(len(self.thread.categories) > 0):
             return {"name":self.thread.categories[0].name, 'id': self.thread.categories[0].id}
 
-
+    def user_to_dict(self):
+         return {
+              'id': self.user.id,
+              'username': self.user.username,
+              'thread_count': len([thread for thread in self.user.threads]),
+              'post_count' : len([post for post in self.user.posts]),
+         }
 
     def to_dict(self):
         return{
@@ -67,7 +73,7 @@ class Post(db.Model):
             'text': self.text,
             'thread_subject': self.thread.subject,
             'thread_id': self.thread_id,
-            'user': self.user.to_dict(),
+            'user': self.user_to_dict(),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'subcategory': self.get_subcategory(),

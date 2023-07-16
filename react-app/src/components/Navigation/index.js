@@ -61,7 +61,9 @@ function Navigation({ isLoaded }) {
 						<NavLink to={`/profile/${user.username}`}>
 							<i class="fa-solid fa-user"></i>
 						</NavLink>
-						<i onClick={handleAlert} class="fa-solid fa-heart"></i>
+						<NavLink to={`/following/${user.username}`}>
+							<i class="fa-solid fa-heart"></i>
+						</NavLink>
 					</div>
 				</div>
 				:

@@ -42,9 +42,9 @@ def grab_user_by_username(username):
 def get_followed_threads(id):
     user = User.query.get(id)
     if len(user.followed_threads) == 0:
-        return []
+        return {}
     else:
-        return [thread.to_dict() for thread in user.followed_threads]
+        return {thread.id : thread.to_dict() for thread in user.followed_threads}
 
 @user_routes.route('/<int:id>/follow_thread/<int:thread_id>', methods=['POST'])
 @login_required

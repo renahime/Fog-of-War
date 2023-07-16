@@ -15,8 +15,8 @@ import EditPostForm from "./components/PostForm/EditPost";
 import SubcategoryList from "./components/SubcategoryList/SubcategoryList";
 import PagePath from "./components/PagePath/PagePath";
 import Footer from "./components/Footer/Footer";
-import UserProfile from "./components/userProfile/userProfile";
-
+import UserProfile from "./components/UserProfile/UserProfile";
+import FollowPage from "./components/FollowPage/FollowPage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -40,6 +40,9 @@ function App() {
           </Route>
           <Route exact path="/profile/:username">
             <UserProfile></UserProfile>
+          </Route>
+          <Route exact path="/following/:username">
+            <FollowPage></FollowPage>
           </Route>
           <Route exact path='/:category'>
             <SubcategoryList></SubcategoryList>

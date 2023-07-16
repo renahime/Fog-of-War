@@ -73,13 +73,21 @@ class Thread(db.Model):
             'id': self.id,
             'subject': self.subject,
             'views': self.views,
-            'user': self.user.to_dict(),
+            'user': self.user_to_dict(),
             "post_count":len([post.id for post in self.posts]),
             'posts': self.normalize_posts(),
             "latest_post": self.find_youngest_post(),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }
+
+    def user_to_dict(self):
+         return {
+              'id': self.user.id,
+              'username': self.user.username,
+              'thread_count': len([thread for thread in self.user.threads]),
+              'post_count' : len([post for post in self.user.posts]),
+         }
 
 
     def to_dict(self):
@@ -88,7 +96,7 @@ class Thread(db.Model):
             'subject': self.subject,
             'views': self.views,
             'text': self.text,
-            'user': self.user.to_dict(),
+            'user': self.user_to_dict(),
             "post_count":len([post.id for post in self.posts]),
             'posts': self.normalize_posts(),
             "latest_post": self.find_youngest_post(),

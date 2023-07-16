@@ -11,7 +11,8 @@ import { createPostThunk } from '../../store/category';
 import sanitizeHtml from 'sanitize-html';
 import { addThreadViewThunk } from '../../store/category'
 import { getAllCategoriesThunk } from '../../store/category';
-
+import { followThreadProfile } from '../../store/user';
+import { followThreadThunk } from '../../store/session';
 
 function SingleThread() {
   const user = useSelector(state => state.session.user);
@@ -22,6 +23,8 @@ function SingleThread() {
   const [openPostMenu, setOpenPostMenu] = useState(false)
   const [errors, setErrors] = useState({})
   const [postIdClass, setPostIdClass] = useState("")
+  const [following, setFollowing] = useState(false)
+  const [notifyFollow, setNotify] = useState(false)
   let id = location.state.threadId;
   let category = location.state.category
   let subcategory = location.state.subcategory
@@ -47,6 +50,11 @@ function SingleThread() {
   useEffect(() => {
     if (categoriesState) {
       setThread(categoriesState[categoryId].subcategories[location.state.subcategoryId].threads[location.state.threadId]);
+      // if (user) {
+      //   if (thread.id in user.followed_threads) {
+      //     setFollowing(true)
+      //   }
+      // }
     }
   }, [categoriesState]);
 
@@ -74,7 +82,8 @@ function SingleThread() {
   }
 
   const handleFollow = async (e) => {
-    console.log("test")
+    const follow = dispatch(followThreadThunk(user.id, thread.id))
+    setNotify(true)
   }
 
   const handleSubmit = async (e) => {
@@ -131,7 +140,7 @@ function SingleThread() {
                     <strong>{thread.subject}
                     </strong>
                     {thread.user.id && user && thread.user.id == user.id ?
-                      <i onClick={showMenu} style={{ float: 'right' }} class="fas fa-cog"></i> : <i style={{ float: 'right' }} onClick={handleFollow} class="fa-solid fa-heart"></i>}
+                      <i onClick={showMenu} style={{ float: 'right' }} class="fas fa-cog"></i> : user ? <i style={{ float: 'right' }} onClick={handleFollow} class="fa-solid fa-heart"></i> : null}
                     {openThreadMenu && <div className={menuClassName}>
                       <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'left', color: 'black' }} to={{
                         pathname: `/${category}/${subcategory}/threads/edit`,
