@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
 from app.models import User, Thread
+from sqlalchemy import and_
 from app.models.threads import following_threads
 from app.models import db
 
@@ -66,12 +67,8 @@ def follow_thread(id, thread_id):
 def unfollow_thread(id, thread_id):
     user = User.query.get(id)
     db.session.execute(
-            following_threads.delete()
-            .where(following_threads.c.user_id == id)
-                )
-    db.session.execute(
-            following_threads.delete()
-            .where(following_threads.c.user_id == id)
-            )
+        following_threads.delete()
+        .where(and_(following_threads.c.user_id == id, following_threads.c.thread_id == thread_id))
+        )
     db.session.commit()
-    return {'success':'thread has been removed'}
+    return {"success" :thread_id}

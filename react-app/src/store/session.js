@@ -155,7 +155,6 @@ export default function reducer(state = initialState, action) {
 			return followState
 		case UNFOLLOW_THREAD:
 			const unfollowState = { ...state, user: { ...state.user } }
-			console.log(unfollowState)
 			delete unfollowState.user.followed_threads[action.threadId]
 			return unfollowState
 		default:

@@ -8,7 +8,6 @@ import { getAllCategoriesThunk } from '../../store/category';
 
 
 function SubcategoryList() {
-  console.log("hi")
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   let location = useLocation();

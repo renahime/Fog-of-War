@@ -21,7 +21,6 @@ function PagePath() {
 
   useEffect(() => {
     pathArray = location.pathname.split('/')
-    console.log(pathArray)
     setUsername("")
     setCategory("")
     setSubcategory("")

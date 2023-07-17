@@ -4,7 +4,6 @@ import './NotFound.css';
 
 
 function NotFound() {
-  console.log(trail);
   return <div className='not-found-container'>
     <div className='space-between'></div>
     <div className='container-trail'>

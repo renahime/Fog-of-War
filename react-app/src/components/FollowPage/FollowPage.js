@@ -12,18 +12,18 @@ function FollowPage() {
   const user = useSelector(state => state.session.user);
   const [threadsArr, setThreadsArr] = useState([])
   const dispatch = useDispatch()
+  const [unfollow, setUnfollow] = useState(false)
   useEffect(() => {
     if (Object.values(user.followed_threads).length) {
-      console.log("hi")
       setThreadsArr(Object.values(user.followed_threads).sort((a, b) => {
         return new Date(b.latest_post.created_at) - new Date(a.latest_post.created_at)
       }))
     }
-  }, [user.followed_threads])
+  }, [user.followed_threads, unfollow])
   const handleUnfollow = async (e) => {
-    const unfollow = dispatch(unfollowThreadThunk(user.id, e.target.id))
-    if (unfollow) {
-      return
+    const response = await dispatch(unfollowThreadThunk(user.id, e.target.id))
+    if (response) {
+      setUnfollow(!unfollow)
     }
   }
   return (!Object.values(user.followed_threads).length ? <h1>You aren't following any threads... :c</h1> : <div>
