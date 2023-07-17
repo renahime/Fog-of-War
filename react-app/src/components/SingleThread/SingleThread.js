@@ -111,7 +111,7 @@ function SingleThread() {
     }
     const post = { subject, text };
     const newPost = dispatch(createPostThunk(post, id, categoryId, subcategoryId))
-      .then(newPost => { history.go({ pathname: `/${category}/${subcategory}/threads/${id}`, state: { threadId: id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
+      .then(newPost => { history.go({ pathname: `/category/${category}/${subcategory}/threads/${id}`, state: { threadId: id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
     setErrors({});
   }
 
@@ -143,7 +143,7 @@ function SingleThread() {
                       <i onClick={showMenu} style={{ float: 'right' }} class="fas fa-cog"></i> : user ? <i style={{ float: 'right' }} onClick={handleFollow} class="fa-solid fa-heart"></i> : null}
                     {openThreadMenu && <div className={menuClassName}>
                       <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'left', color: 'black' }} to={{
-                        pathname: `/${category}/${subcategory}/threads/edit`,
+                        pathname: `/category/${category}/${subcategory}/threads/edit`,
                         state: {
                           thread: thread,
                           category: category,
@@ -296,7 +296,7 @@ function SingleThread() {
                               <i onClick={showPostMenu} style={{ float: 'right' }} key={post.id} className={`${post.id} post-ownerfa-cog fas fa-cog`}> </i> : null}
                             {openPostMenu && post.user.id === user.id && postIdClass == post.id ? <div className={menuClassName}>
                               <NavLink style={{ textDecoration: 'none', width: "100%", textAlign: 'right', color: 'black' }} to={{
-                                pathname: `/${category}/${subcategory}/threads/${thread.id}/edit`,
+                                pathname: `/category/${category}/${subcategory}/threads/${thread.id}/edit`,
                                 state: {
                                   post: post,
                                   category: category,
@@ -341,7 +341,7 @@ function SingleThread() {
       <div className='space-between'></div>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <NavLink to={{
-          pathname: `/${category}/${subcategory}/threads/${thread.id}/new`,
+          pathname: `/category/${category}/${subcategory}/threads/${thread.id}/new`,
           state: {
             threadId: thread.id,
             subject: thread.subject,

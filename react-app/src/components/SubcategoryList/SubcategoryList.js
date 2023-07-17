@@ -8,6 +8,7 @@ import { getAllCategoriesThunk } from '../../store/category';
 
 
 function SubcategoryList() {
+  console.log("hi")
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   let location = useLocation();
@@ -68,7 +69,7 @@ function SubcategoryList() {
                 <tr className='home-page-table-row'>
                   <td className='category-name-homepage' colSpan={2}>
                     <NavLink to={{
-                      pathname: `/${category}/${subcategory.name}/threads`,
+                      pathname: `/category/${category}/${subcategory.name}/threads`,
                       state: {
                         category: category,
                         categoryId: location.state.categoryId,
@@ -92,7 +93,7 @@ function SubcategoryList() {
                           <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '9px', paddingRight: '7px', paddingTop: '7px', paddingBottom: '7px' }}>
                             <NavLink
                               to={{
-                                pathname: `/${subcategory.youngest_post.category.name}/${subcategory.youngest_post.subcategory.name}/threads/${subcategory.youngest_post.thread_id}`,
+                                pathname: `/category/${subcategory.youngest_post.category.name}/${subcategory.youngest_post.subcategory.name}/threads/${subcategory.youngest_post.thread_id}`,
                                 state: {
                                   category: subcategory.youngest_post.category.name,
                                   categoryId: subcategory.youngest_post.category.id,

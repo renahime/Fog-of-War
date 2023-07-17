@@ -49,7 +49,6 @@ function UserProfile() {
 
     return false
   }
-  console.log(grabProfile)
   useEffect(() => {
     dispatch(getUserByUsername(username)).then(() => setLoading(true))
   }, [dispatch])
@@ -70,7 +69,7 @@ function UserProfile() {
                   <div className='posting-stats'>
                     <strong><dl><dt>Threads</dt><center><dd className='stat-num'>{grabProfile.thread_count}</dd></center></dl></strong>
                     <strong> <dl><dt>Posts</dt><center><dd className='stat-num'>{grabProfile.post_count}</dd></center></dl></strong>
-                    <strong> <dl><dt>Following</dt><center><dd className='stat-num'>{grabProfile.followed_threads.length}</dd></center></dl></strong>
+                    <strong> <dl><dt>Following</dt><center><dd className='stat-num'>{Object.values(grabProfile.followed_threads).length}</dd></center></dl></strong>
                   </div>
                   <div className='join-stats'>
                     <h2 className='user-info-join'>Joined: {grabProfile.created_at.slice(0, 16)}</h2>
@@ -84,7 +83,6 @@ function UserProfile() {
       </div>
       <div className='space-between'></div>
       <div className='navigation-buttons'>
-        <button className='activity-button'>Latest Activity</button>
       </div>
       <div className='space-between'></div>
       <div className='activity-container'>
@@ -94,7 +92,7 @@ function UserProfile() {
               <li className='listing-info'>
                 <NavLink
                   to={{
-                    pathname: `/${post.category.name}/${post.subcategory.name}/threads/${post.thread_id}`,
+                    pathname: `/category/${post.category.name}/${post.subcategory.name}/threads/${post.thread_id}`,
                     state: {
                       threadId: post.thread_id,
                       category: post.category.name,
@@ -114,7 +112,7 @@ function UserProfile() {
               <li className='listing-info'>
                 <NavLink
                   to={{
-                    pathname: `/${post.category.name}/${post.subcategory.name}/threads/${post.id}`,
+                    pathname: `/category/${post.category.name}/${post.subcategory.name}/threads/${post.id}`,
                     state: {
                       threadId: post.id,
                       category: post.category.name,

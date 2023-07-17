@@ -17,13 +17,13 @@ function SignupFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
+    if (password === confirmPassword && password.length > 6) {
       const data = await dispatch(signUp(username, email, password));
       if (data) {
         setErrors(data)
       }
     } else {
-      setErrors(['Confirm Password field must be the same as the Password field']);
+      password.length >= 6 ? setErrors(['Confirm Password field must be the same as the Password field']) : setErrors(['Please make your password at least 6 characters'])
     }
   };
 

@@ -46,7 +46,7 @@ function ThreadForm({ thread, formType, category, subcategory, subcategoryId, ca
     thread = { ...thread, subject, text };
     if (formType == "Create Thread") {
       const newThread = dispatch(createThreadThunk(thread, category, categoryId, subcategoryId))
-        .then(newThread => { history.push({ pathname: `/${category}/${subcategory}/threads/${newThread.id}`, state: { threadId: newThread.id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId, subcategoryId } }) })
+        .then(newThread => { history.push({ pathname: `/category/${category}/${subcategory}/threads/${newThread.id}`, state: { threadId: newThread.id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId, subcategoryId } }) })
     }
     else if (formType == 'Update Thread') {
       const editedThread = dispatch(editThreadThunk(thread, categoryId, subcategoryId)).then(editedThread => { history.push({ pathname: `/${category}/${subcategory}/threads/${editedThread.id}`, state: { threadId: editedThread.id, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId, subcategoryId } }) })

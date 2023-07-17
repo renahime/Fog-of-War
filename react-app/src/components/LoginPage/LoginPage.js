@@ -51,11 +51,15 @@ function LoginPage() {
                 <strong>Log-In</strong>
               </td>
             </tr>
-            {email && (!email.includes('@') || !email.includes('.')) ? <p className='email-error'>Oops! You must type a valid email!</p> : null}
-            {errors && errors.length ? errors.map((error) => (
-              <p className='back-end-error'>{error}</p>
-            )) : null}
-            {errors && errors.email ? <p className='email-error'>{errors.email}</p> : null}
+            <tr>
+              <td colSpan={2} style={{ "textAlign": "center" }}>
+                {email && (!email.includes('@') || !email.includes('.')) ? <p className='email-error'>Oops! You must type a valid email!</p> : null}
+                {errors && errors.length ? errors.map((error) => (
+                  <p className='back-end-error'>{error}</p>
+                )) : null}
+                {errors && errors.email ? <p className='email-error'>{errors.email}</p> : null}
+              </td>
+            </tr>
             <div className='space-between-small'> </div>
             <tr >
               <td className='login-row-1'>

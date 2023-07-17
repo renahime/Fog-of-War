@@ -23,8 +23,13 @@ function SignUpPage() {
       validationErrors.email = "Oops! You must include a valid email."
     }
 
+
     if (password !== confirmPassword) {
       validationErrors.password = "Oops! Your passwords must match!"
+    }
+
+    if (password.length <= 6) {
+      validationErrors.password = "Please enter a password longer than 6 characters"
     }
 
     if (Object.values(validationErrors).length) {
@@ -53,13 +58,18 @@ function SignUpPage() {
                   <strong>Register</strong>
                 </td>
               </tr>
-              {email && (!email.includes('@') || !email.includes('.')) ? <p className='email-error'>Oops! You must type a valid email!</p> : null}
-              {(password && confirmPassword) && (password !== confirmPassword) ? <p className="password-error">Oops! You must have matching passwords</p> : null}
-              {errors && errors.length ? errors.map((error) => (
-                <p className='back-end-error'>{error}</p>
-              )) : null}
-              {errors && errors.email ? <p className='email-error'>{errors.email}</p> : null}
-              {errors && errors.password ? <p className="password-error">{errors.password}</p> : null}
+              <tr>
+                <td colSpan={2} style={{ "textAlign": "center" }}>
+                  {email && (!email.includes('@') || !email.includes('.')) ? <p className='email-error'>Oops! You must type a valid email!</p> : null}
+                  {(password && confirmPassword) && (password !== confirmPassword) ? <p className="password-error">Oops! You must have matching passwords</p> : null}
+                  {(password && password.length <= 6) ? <p className="password-error">Please make your password at least 6 characters</p> : null}
+                  {errors && errors.length ? errors.map((error) => (
+                    <p className='back-end-error'>{error}</p>
+                  )) : null}
+                  {errors && errors.email ? <p className='email-error'>{errors.email}</p> : null}
+                  {errors && errors.password ? <p className="password-error">{errors.password}</p> : null}
+                </td>
+              </tr>
               <div className='space-between-small'> </div>
               <tr >
                 <td className='login-row-1'>
@@ -132,7 +142,7 @@ function SignUpPage() {
           <div className='space-between-small'>
           </div>
           <div>
-            <button className='login-button' type="submit">Sign Up!</button>
+            <button className='signup-button' type="submit">Sign Up!</button>
           </div>
         </form>
       </div>

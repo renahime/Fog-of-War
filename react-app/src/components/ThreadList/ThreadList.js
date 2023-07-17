@@ -55,7 +55,7 @@ function ThreadList() {
         <div className='pagination'>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <NavLink to={{
-              pathname: `/${category}/${subcategory}/threads/new`,
+              pathname: `/category/${category}/${subcategory}/threads/new`,
               state: {
                 category: category,
                 subcategory: subcategory,
@@ -104,7 +104,7 @@ function ThreadList() {
                     <div className='thread-title-user-container'>
                       <NavLink
                         to={{
-                          pathname: `/${category}/${subcategory}/threads/${thread.id}`,
+                          pathname: `/category/${category}/${subcategory}/threads/${thread.id}`,
                           state: {
                             threadId: thread.id,
                             category: category,

@@ -49,11 +49,11 @@ function PostForm({ post, formType, threadId, threadSubject, category, subcatego
     post = { ...post, subject, text };
     if (formType == "Create Post") {
       const newPost = dispatch(createPostThunk(post, threadId, categoryId, subcategoryId))
-        .then(newPost => { history.push({ pathname: `/${category}/${subcategory}/threads/${threadId}`, state: { threadId: threadId, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
+        .then(newPost => { history.push({ pathname: `/category/${category}/${subcategory}/threads/${threadId}`, state: { threadId: threadId, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
     }
     else if (formType == 'Update Post') {
       const editedPost = dispatch(editPostThunk(post, threadId, categoryId, subcategoryId))
-        .then(editedPost => { history.push({ pathname: `/${category}/${subcategory}/threads/${threadId}`, state: { threadId: threadId, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
+        .then(editedPost => { history.push({ pathname: `/category/${category}/${subcategory}/threads/${threadId}`, state: { threadId: threadId, category: category, subcategory: subcategory, categoryId: categoryId, subcategoryId: subcategoryId } }) })
       post = editedPost
     }
   }

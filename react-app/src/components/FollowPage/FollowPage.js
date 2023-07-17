@@ -26,7 +26,7 @@ function FollowPage() {
       return
     }
   }
-  return (!Object.values(user.followed_threads).length ? <h1>You aren't following any threads...</h1> : <div>
+  return (!Object.values(user.followed_threads).length ? <h1>You aren't following any threads... :c</h1> : <div>
     <div className='pag-thread-container'>
       <div className='pagination'>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -58,13 +58,15 @@ function FollowPage() {
             {threadsArr.map((thread) => (
               <tr className='thread-row'>
                 <td className='font-awesome-thread'>
-                  <button id={`${thread.id}`} className={`unfollow-button`} onClick={handleUnfollow}>Unfollow</button>
+                  <center>
+                    <button id={`${thread.id}`} className={`unfollow-button`} onClick={handleUnfollow}>Unfollow</button>
+                  </center>
                 </td>
                 <td colSpan={2} className='thread-title-and-user'>
                   <div className='thread-title-user-container'>
                     <NavLink
                       to={{
-                        pathname: `/${thread.category.name}/${thread.subcategory.name}/threads/${thread.id}`,
+                        pathname: `/category/${thread.category.name}/${thread.subcategory.name}/threads/${thread.id}`,
                         state: {
                           threadId: thread.id,
                           category: thread.category.name,

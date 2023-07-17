@@ -17,6 +17,7 @@ import PagePath from "./components/PagePath/PagePath";
 import Footer from "./components/Footer/Footer";
 import UserProfile from "./components/UserProfile/UserProfile";
 import FollowPage from "./components/FollowPage/FollowPage";
+import NotFound from "./components/NotFound/NotFound";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,14 +30,14 @@ function App() {
       <PagePath></PagePath>
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <HomePage></HomePage>
+          </Route>
           <Route exact path="/login" >
             <LoginPage />
           </Route>
           <Route exact path="/signup">
             <SignUpPage />
-          </Route>
-          <Route exact path="/">
-            <HomePage></HomePage>
           </Route>
           <Route exact path="/profile/:username">
             <UserProfile></UserProfile>
@@ -44,26 +45,29 @@ function App() {
           <Route exact path="/following/:username">
             <FollowPage></FollowPage>
           </Route>
-          <Route exact path='/:category'>
+          <Route exact path='/category/:category'>
             <SubcategoryList></SubcategoryList>
           </Route>
-          <Route exact path='/:category/:subcategory/threads'>
+          <Route exact path='/category/:category/:subcategory/threads'>
             <ThreadList></ThreadList>
           </Route>
-          <Route exact path='/:category/:subcategory/threads/new'>
+          <Route exact path='/category/:category/:subcategory/threads/new'>
             <CreateThreadForm></CreateThreadForm>
           </Route>
-          <Route exact path='/:category/:subcategory/threads/edit'>
+          <Route exact path='/category/:category/:subcategory/threads/edit'>
             <EditThreadForm></EditThreadForm>
           </Route>
-          <Route exact path='/:category/:subcategory/threads/:threadId'>
+          <Route exact path='/category/:category/:subcategory/threads/:threadId'>
             <SingleThread></SingleThread>
           </Route>
-          <Route exact path='/:category/:subcategory/threads/:threadId/new'>
+          <Route exact path='/category/:category/:subcategory/threads/:threadId/new'>
             <CreatePostForm></CreatePostForm>
           </Route>
-          <Route exact path='/:category/:subcategory/threads/:threadId/edit'>
+          <Route exact path='/category/:category/:subcategory/threads/:threadId/edit'>
             <EditPostForm></EditPostForm>
+          </Route>
+          <Route>
+            <NotFound></NotFound>
           </Route>
         </Switch>
       )}

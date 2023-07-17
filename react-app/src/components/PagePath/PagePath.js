@@ -21,16 +21,12 @@ function PagePath() {
 
   useEffect(() => {
     pathArray = location.pathname.split('/')
+    console.log(pathArray)
     setUsername("")
     setCategory("")
     setSubcategory("")
     if (pathArray.length == 2) {
-      setCategory(pathArray[1]);
-      for (let key in state) {
-        if (state[key].name == category) {
-          setCategoryId(key);
-        }
-      }
+      pathArray[1] ? setCategory("404 :(") : setCategory("")
       setSubcategory("")
       setSubcategoryId("")
     }
@@ -39,9 +35,9 @@ function PagePath() {
       setUsername(pathArray[2])
     }
 
-    if (pathArray.length == 4 || pathArray.length == 5) {
-      setCategory(pathArray[1]);
-      setSubcategory(pathArray[2]);
+    if (pathArray.length == 5 || pathArray.length == 6) {
+      setCategory(pathArray[2]);
+      setSubcategory(pathArray[3]);
       for (let key in state) {
         if (state[key].name == category) {
           setCategoryId(key);
@@ -66,12 +62,12 @@ function PagePath() {
                 <i class="fa-solid fa-house"></i>
               </NavLink>
             </div>
-            {category ?
+            {category && !category.includes("404") ?
               <div className='category-direct' >
                 <NavLink
                   className='category-direct'
                   to={{
-                    pathname: `/${category}`,
+                    pathname: `/category/${category}`,
                     state: {
                       category: category,
                       categoryId: categoryId
@@ -81,10 +77,19 @@ function PagePath() {
                   <h5 style={{ color: 'white' }} className='category-name-path'>{category}</h5>
                 </NavLink>
               </div>
-              : null}
+              : category && category.includes("404") ? <div className='category-direct' >
+                <NavLink
+                  className='category-direct'
+                  to={{
+                    pathname: `/`,
+                  }}>
+                  <i class="fa-solid category-arrow fa-chevron-right"></i>
+                  <h5 style={{ color: 'white' }} className='category-name-path'>{category}</h5>
+                </NavLink>
+              </div> : null}
             {subcategory ?
               <NavLink className='subcategory-direct' to={{
-                pathname: `/${category}/${subcategory}/threads`,
+                pathname: `/category/${category}/${subcategory}/threads`,
                 state: {
                   category: category,
                   categoryId: categoryId,

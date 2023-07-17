@@ -102,7 +102,7 @@ function HomePage() {
 								<td className='category-name-homepage'>
 									{category.name !== "Anime Manga and VNs" ? <strong className='non-seed' onClick={handleAlert}>{category.name}</strong> : <NavLink
 										to={{
-											pathname: `/${category.name}`,
+											pathname: `/category/${category.name}`,
 											state: {
 												category: category.name,
 												categoryId: category.id,
@@ -123,7 +123,7 @@ function HomePage() {
 										<div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '9px', paddingRight: '7px', paddingTop: '7px', paddingBottom: '7px' }}>
 											<NavLink
 												to={{
-													pathname: `/${category.youngest_post.category.name}/${category.youngest_post.subcategory.name}/threads/${category.youngest_post.thread_id}`,
+													pathname: `/category/${category.youngest_post.category.name}/${category.youngest_post.subcategory.name}/threads/${category.youngest_post.thread_id}`,
 													state: {
 														category: category.youngest_post.category.name,
 														categoryId: category.youngest_post.category.id,

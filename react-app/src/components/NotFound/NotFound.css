@@ -1,0 +1,15 @@
+.container-trail{
+  display:flex;
+  flex-direction: row;
+}
+
+.trail-image{
+  width:50%;
+  height:10%;
+}
+
+.trail-image-invert{
+  width:50%;
+  height:10%;
+  transform: scaleX(-1);
+}
