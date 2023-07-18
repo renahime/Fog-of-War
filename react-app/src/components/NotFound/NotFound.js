@@ -13,7 +13,7 @@ function NotFound() {
       </center>
     </div>
     <div className='space-between'></div>
-    <h2 style={{ textAlign: 'center' }}>Looks like this path leads to nowhere...</h2>
+    <h2 style={{ textAlign: 'center' }}>Looks like this trail leads to nowhere...</h2>
     <div className='space-between'></div>
   </div>
 }
