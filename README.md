@@ -1,6 +1,25 @@
-# Flask React Project
+# Fog of War
 
-This is the starter for the Flask React project.
+Fog of War is a forum dedicated to the mystery genre and sharing ideas/theories regarding the mediaform. This platform allows users to discover, save, and share content and ideas through threads.
+
+Check out [Fog of War](https://put-forum-name-here.onrender.com/)
+
+## Index
+[MVP Feature List](https://github.com/renahime/Capstone/wiki/MVP-Feature-List) | [Database Schema](https://github.com/renahime/Capstone/wiki/Database-Schema) | [User Stories](https://github.com/renahime/Capstone/wiki/User-Stories) | [Wire Frames](https://github.com/renahime/Capstone/wiki/WireFrames)
+
+## Technologies Used
+Python | Flask | React | Redux | AWS S3 bucket | SQL Alchemy | HTML | CSS
+
+# Splash Page
+https://github.com/renahime/Capstone/assets/107164890/1abbfa3a-fe02-4f73-8c12-a491c732fa16
+
+# CK Editor
+https://github.com/renahime/Capstone/assets/107164890/5531df16-0d3c-488c-a8b0-2d4aa88e4eaa
+
+
+# Follow Threads 
+https://github.com/renahime/Capstone/assets/107164890/534195c0-fd2f-4960-960e-71e752dfebf6
+
 
 ## Getting started
 1. Clone this repository (only this branch)
@@ -146,3 +165,29 @@ your site just below the name of the Web Service at the top of the page.
 
 [Render.com]: https://render.com/
 [Dashboard]: https://dashboard.render.com/
+
+
+# Features
+## Threads
+* Users can read/view other Threads
+* Users can create a Thread
+* Users can edit a Thread
+* Users can delete a Thread
+
+## Posts
+* Users can reply to Threads with Posts
+* Users can create posts to respond to threads
+* Users can edit a post
+* Uses can delete a post
+
+## CkEditor
+Logged in Users can 
+* Organize their text with using a CK editor.
+* Before being sent to the backend the HTML is sanitized to ensure there are no XSS attacks.
+
+## Follow Threads
+* Logged in Users can follow and unfollow threads
+
+## User Profiles
+* Users can view other users profiles
+  
