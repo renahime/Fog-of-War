@@ -21,7 +21,9 @@ function ThreadForm({ thread, formType, category, subcategory, subcategoryId, ca
     alert("You must be signed up to post!")
     return <SignUpPage></SignUpPage>
   }
-
+  const handleBack = (e) => {
+    history.goBack()
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     let validationErrors = {}
@@ -101,10 +103,10 @@ function ThreadForm({ thread, formType, category, subcategory, subcategoryId, ca
           <div className='thread-form-button-container'>
             {(formType == 'Create Thread') ? (<div className='buttonContainer'>
               <button className='submitButton' type="submit" >Post Thread</button>
-              {/* <button className='submitButton' type="submit" >Preview Text</button>  */}
+              <button className='cancelButton' onClick={handleBack}>Go Back</button>
             </div>) : (<div className='buttonContainer'>
               <button className='submitButton' type="submit" >Update Thread</button>
-              {/* <button className='submitButton' type="submit" >Preview Text</button> */}
+              <button className='cancelButton' onClick={handleBack}>Go Back</button>
             </div>)}
           </div>
         </form>

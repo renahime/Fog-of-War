@@ -100,6 +100,15 @@
   font-weight: bold;
 }
 
+
+.cancelButton{
+  width:120px;
+  height:30px;
+  background: #3f3f3f;
+  color: #efefef;
+  font-weight: bold;
+}
+
 .form-errors{
   color:rgb(255, 255, 255)
 }

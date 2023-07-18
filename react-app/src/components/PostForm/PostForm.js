@@ -24,6 +24,10 @@ function PostForm({ post, formType, threadId, threadSubject, category, subcatego
     return <SignUpPage></SignUpPage>
   }
 
+  const handleBack = (e) => {
+    history.goBack()
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -106,11 +110,11 @@ function PostForm({ post, formType, threadId, threadSubject, category, subcatego
           <div className='thread-form-button-container'>
             {(formType == 'Create Post') ? (<div className='buttonContainer'>
               <button className='submitButton' type="submit" >Post Reply</button>
-              {/* <button className='submitButton' type="submit" >Preview Text</button>  */}
+              <button className='cancelButton' onClick={handleBack}>Go Back</button>
             </div>)
               : (<div className='buttonContainer'>
                 <button className='submitButton' type="submit" >Update Reply</button>
-                {/* <button className='submitButton' type="submit" >Preview Text</button> */}
+                <button className='cancelButton' onClick={handleBack}>Go Back</button>
               </div>)}
           </div>
         </form>
